@@ -199,6 +199,7 @@
 .hero .wall { width: 100%; max-width: 620px; margin-inline: auto; }
 .girl-art { width: 34vw; max-width: 220px; aspect-ratio: 1; flex: none; }
 .come { font-size: var(--fs-h1); }
+@media (max-width: 899px) { .come { display: none; } } /* on a phone you simply scroll on to the projects */
 .works { padding-top: 6vh; padding-bottom: 10vh; }
 .works-list { display: flex; flex-direction: column; gap: 12vh; margin-top: 8vh; }
 .interlude { height: 44vh; }
