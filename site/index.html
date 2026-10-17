@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bhoomie · Product designer</title>
+  <meta name="description" content="Bhoomi Mahajan (Bhoomie) is a product designer working across research, systems and visual craft. Selected projects: MTHD, Kheyt, Intact, Morphea, Kalaghar.">
+  <meta name="theme-color" content="#f7f7f7">
+  <meta property="og:title" content="Bhoomie · Product designer">
+  <meta property="og:description" content="Research · Systems · Visual Craft. Before I knew what design was, I was already doing it.">
+  <link rel="icon" href="assets/art/flower-mark.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,200..500,0..100;1,9..144,200..500,0..100&family=Kalam:wght@300;400&display=swap">
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700&display=swap">
+  <link rel="stylesheet" href="css/base.css?v=14">
+  <link rel="stylesheet" href="css/home.css?v=14">
+  <script>
+    (function (d) {
+      try { if (localStorage.getItem('bh-theme') === 'blue') { d.dataset.theme = 'blue'; var tc = document.querySelector('meta[name="theme-color"]'); if (tc) tc.content = getComputedStyle(d).getPropertyValue('--paper').trim(); } } catch (e) {}
+      d.classList.add('js');
+      try { if (localStorage.getItem('bh-still') === '1') d.classList.add('still'); } catch (e) {}
+      var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches, seen = null;
+      try { seen = sessionStorage.getItem('bh-intro'); } catch (e) {}
+      if (!reduce && !seen && !location.hash) { d.classList.add('intro'); setTimeout(function () { d.classList.remove('intro'); }, 5000); }
+      // deep links (#works, #about) land where they point, not where you last were
+      if (location.hash && 'scrollRestoration' in history) history.scrollRestoration = 'manual';
+    })(document.documentElement);
+  </script>
+</head>
+<body class="home">
+  <a class="skip" href="#works" data-goto="works">Skip to selected projects</a>
+
+  <header class="nav">
+    <a class="nav-logo" href="index.html" aria-label="Bhoomie, back to start" data-goto="0">Be</a>
+    <div class="nav-right">
+      <nav class="nav-links" aria-label="Main">
+        <a href="index.html#works" data-nav="works" data-goto="works">Projects</a>
+        <a href="playground.html" data-nav="playground">Playground</a>
+        <a href="index.html#about" data-nav="about" data-goto="about">About</a>
+        <a href="https://drive.google.com/file/d/1g5Skpg5TXKtKcjUq0BcnrFDlEavzC_07/view?usp=sharing" target="_blank" rel="noopener">Resume</a>
+      </nav>
+      <div class="nav-tools">
+        <button class="tool" id="sound-toggle" type="button" aria-pressed="false" aria-label="Sound"><span data-doodle="speaker"></span></button>
+        <button class="tool" id="motion-toggle" type="button" aria-pressed="false" aria-label="Pause animations"><span data-doodle="motion"></span></button>
+      </div>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu-sheet">menu</button>
+    </div>
+  </header>
+  <button class="theme-switch" data-theme-toggle type="button" role="switch" aria-checked="true" aria-label="Paper theme"><span data-doodle="switch"></span></button>
+  <div class="menu-sheet" id="menu-sheet">
+    <nav aria-label="Menu">
+      <a href="index.html#works" data-goto="works">Projects <span aria-hidden="true">(05)</span></a>
+      <a href="playground.html">Playground</a>
+      <a href="index.html#about" data-goto="about">About</a>
+      <a href="https://drive.google.com/file/d/1g5Skpg5TXKtKcjUq0BcnrFDlEavzC_07/view?usp=sharing" target="_blank" rel="noopener">Resume <span aria-hidden="true">↗</span></a>
+    </nav>
+  </div>
+
+  <main id="hv">
+    <div id="track">
+      <svg id="thread" aria-hidden="true" focusable="false"><path class="thread-line"/><g class="nails"></g><g class="nib" data-doodle="wool"></g></svg>
+
+      <!-- ============================================================ HELLO -->
+      <section class="panel hero" id="hello" data-section="hello" data-label="hello" aria-label="Introduction">
+        <div class="hero-left">
+          <h1 class="hero-name serif" aria-label="Bhoomie">
+            <span class="ln" aria-hidden="true"><span class="ch">B</span><span class="ch">h</span><span class="ch">o</span><span class="ch">o</span><span class="ch">m</span><span class="ch i-wrap">ı<span class="tittle" data-doodle="wool"></span></span><span class="ch">e</span></span>
+          </h1>
+          <p class="hero-role">
+            <span class="role">I’m a product designer</span> 
+            <span class="pillars"><span class="pillar" data-p="0">Research</span><span class="sep">·</span><span class="pillar" data-p="1">Systems</span><span class="sep">·</span><span class="pillar" data-p="2">Visual Craft</span></span>
+          </p>
+        </div>
+
+        <div class="wall" aria-hidden="true"></div>
+
+        <div class="hero-girl">
+          <div class="girl-art" aria-hidden="true">
+            <img class="girl-anim paper" alt="" data-play="assets/media/girl-paper.webp" data-end="assets/media/girl-paper-end.webp">
+            <img class="girl-anim blue" alt="" data-play="assets/media/girl-blue.webp" data-end="assets/media/girl-blue-end.webp">
+          </div>
+          <p class="hand girl-cap"><span>Before I knew what design was,</span> <span>I was already doing it :)</span></p>
+        </div>
+
+        <a class="come" href="#works" data-goto="works">
+          <span class="come-txt">Come this way</span><span class="vh">, to my selected projects</span>
+          <span class="come-arrow" data-doodle="arrow" data-pre></span>
+        </a>
+        <div class="scroll-hint hand" aria-hidden="true"><span class="mouse" data-doodle="mouse"></span><span>scroll, or swipe sideways</span></div>
+
+        <!-- the red thread's route: anchors it passes through, loops it draws -->
+        <i class="anc" data-anchor="line" style="--ax:47vw;--ay:91vh"></i>
+        <span class="loop-mark" data-loop="5" style="--ax:86vw"></span>
+        <i class="anc" data-anchor="line" style="--ax:97vw;--ay:90vh"></i>
+      </section>
+
+      <!-- ============================================================ WORKS -->
+      <section class="panel works" id="works" data-section="works" data-label="works" aria-labelledby="works-h">
+        <i class="anc" data-anchor="line" style="--ax:8vw;--ay:13vh"></i>
+        <i class="anc" data-anchor="line" style="--ax:calc(100% - 2vw);--ay:16vh"></i>
+        <header class="works-head">
+          <h2 class="serif" id="works-h">My selected projects <sup>(05)</sup></h2>
+          <p class="works-note hand">open a frame to step inside ↘</p>
+          <p class="works-sub">Five problems I couldn’t stop thinking about, from rural supply chains to the memory of your skin.</p>
+        </header>
+        <div class="works-list"></div>
+      </section>
+
+      <!-- ============================================================ INTERLUDE -->
+      <section class="panel interlude" aria-hidden="true">
+        <i class="anc" data-anchor="seat" data-flat="70" style="--ax:15vw;--ay:66vh"></i>
+        <div class="cat"><span data-doodle="cat"></span></div>
+        <p class="cat-note hand">(a quick nap between projects)</p>
+      </section>
+
+      <!-- ============================================================ ABOUT -->
+      <section class="panel about" id="about" data-section="about" data-label="about" aria-labelledby="about-h">
+        <i class="anc" data-anchor="line" style="--ax:2vw;--ay:44vh"></i>
+        <span class="loop-mark" data-loop="4" style="--ax:20vw"></span>
+        <i class="anc" data-anchor="line" style="--ax:36vw;--ay:44vh"></i>
+        <i class="anc" data-anchor="line" style="--ax:47vw;--ay:14.5vh"></i>
+        <i class="anc" data-anchor="line" style="--ax:135vw;--ay:17vh"></i>
+        <i class="anc" data-anchor="line" style="--ax:189vw;--ay:88vh"></i>
+        <h2 class="about-title serif" id="about-h">Meet the lady <em>behind the pixels</em></h2>
+        <div class="about-hi">
+          <p class="hi serif">Hi, I’m Bhoomie!</p>
+          <p class="about-p" data-words></p>
+        </div>
+        <div class="polaroids"></div>
+        <div class="about-outside">
+          <span class="cam" data-doodle="camera" data-pre></span>
+          <p class="about-p" data-words></p>
+        </div>
+        <a class="resume-girl" data-reveal href="https://drive.google.com/file/d/1g5Skpg5TXKtKcjUq0BcnrFDlEavzC_07/view?usp=sharing" target="_blank" rel="noopener" data-cursor="view" data-cursor-label="Resume ↗" aria-label="psst… grab my resume (Google Drive)">
+          <span class="rg-art">
+            <span class="art" data-art="assets/art/resume-ink.png"></span>
+            <span class="art acc" data-art="assets/art/resume-red.png"></span>
+            <span class="rg-pupil art" data-pupil="0" data-art="assets/art/resume-pupil-l.png"></span>
+            <span class="rg-pupil art" data-pupil="1" data-art="assets/art/resume-pupil-r.png"></span>
+            <i class="anc" data-anchor="line" style="--ax:-10%;--ay:74.5%"></i><!-- the thread comes in at hand height, not across her face -->
+            <i class="anc" data-anchor="line" style="--ax:25%;--ay:74.5%"></i>
+            <i class="anc" data-anchor="line" style="--ax:54%;--ay:76%"></i>
+          </span>
+          <span class="rg-note hand">psst… grab my resume ↗</span>
+        </a>
+        <div class="notes"></div>
+        <i class="anc" data-anchor="line" style="--ax:calc(100% - 4vw);--ay:92vh"></i>
+      </section>
+
+      <!-- ============================================================ CONTACT -->
+      <section class="panel contact" id="contact" data-section="contact" data-label="say hi" aria-labelledby="contact-h">
+        <span class="loop-mark" data-loop="4.4" style="--ax:3.5vw"></span>
+        <div class="fire" aria-hidden="true">
+          <span class="art" data-art="assets/art/fire-ink.png"></span>
+          <span class="fire-flame"><span class="art acc boil fast" data-art="assets/art/fire-flame.png"></span></span>
+          <span class="fire-pupil art acc" data-pupil="0" data-art="assets/art/fire-pupil-l.png"></span>
+          <span class="fire-pupil art acc" data-pupil="1" data-art="assets/art/fire-pupil-r.png"></span>
+          <i class="anc fire-start" data-anchor="end"></i>
+        </div>
+        <div class="contact-copy">
+          <p class="kicker hand">say hi</p>
+          <h2 class="serif contact-h" id="contact-h">Got a spark?<span class="spark" data-doodle="spark" data-pre></span></h2>
+          <p class="serif contact-sub">Let’s turn it into <em>something wild.</em></p>
+          <p class="contact-mail"><a href="mailto:bhoomimahajan659@gmail.com">bhoomimahajan659@gmail.com</a></p>
+          <div class="contact-btns">
+            <button class="sbtn primary" type="button" data-copy="bhoomimahajan659@gmail.com"><span class="swap"><span>Copy email</span><span aria-hidden="true">Copied</span></span> <span class="arr swap"><span>✿</span><span>✓</span></span></button>
+            <a class="sbtn" href="https://www.linkedin.com/in/bhoomimahajan/" target="_blank" rel="noopener">LinkedIn <span class="arr">↗</span></a>
+            <a class="sbtn" href="https://drive.google.com/file/d/1g5Skpg5TXKtKcjUq0BcnrFDlEavzC_07/view?usp=sharing" target="_blank" rel="noopener">Resume <span class="arr">↗</span></a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================ FIN -->
+      <section class="panel end" id="fin" data-section="fin" data-label="fin" aria-label="The end">
+        <div class="vase" aria-hidden="true"></div>
+        <a class="again" href="#hello" data-goto="0">
+          <span class="again-loop" data-doodle="loop" data-pre></span>
+          <span class="again-txt"><span>Back to</span> <span>the beginning</span></span>
+        </a>
+        <footer class="foot end-foot">
+          <span>©&nbsp;<span class="yr">2026</span> Bhoomi Mahajan</span>
+          <a href="playground.html">Playground <span aria-hidden="true">→</span></a>
+        </footer>
+      </section>
+    </div>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="js/data.js?v=14"></script>
+  <script src="js/doodles.js?v=14"></script>
+  <script src="js/core.js?v=14"></script>
+  <script src="js/home.js?v=14"></script>
+</body>
+</html>

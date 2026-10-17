@@ -1,0 +1,19 @@
+# Only the site, its tools and the README live in the repo.
+# Originals and side projects stay on this machine.
+
+# full-size image/video originals (the site has optimised copies in site/assets/media)
+/media-src/
+# the reel video project and its node_modules
+/reel/
+# local editor/preview settings
+/.claude/
+# raw drawings and screenshots in the project root
+/*.png
+/*.jpg
+/*.jpeg
+
+__pycache__/
+*.pyc
+.vercel
+.DS_Store
+Thumbs.db

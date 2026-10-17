@@ -1,0 +1,76 @@
+/* =====================================================================
+   Playground: a pinboard on grid paper you can drag around.
+   ===================================================================== */
+.play { overscroll-behavior: none; }
+.play-head {
+  position: fixed; left: var(--gutter); top: calc(var(--nav-h) + 3vh); z-index: 30;
+  width: min(360px, 34vw); padding: 30px 28px 26px;
+  background: var(--card); color: var(--card-ink); box-shadow: var(--shadow); border: 1px solid transparent;
+  transform: rotate(-1.4deg);
+}
+.play-head .tape { left: 38%; top: -11px; transform: rotate(-3deg); }
+.play-head .kicker { color: var(--accent-text); font-size: var(--fs-ui); }
+.play-head { --accent: var(--card-accent); --accent-text: var(--card-accent-text); --on-accent: var(--card-on-accent); } /* white card: its own accents */
+.play-head h1 { font-weight: 200; font-size: var(--fs-h1); line-height: var(--lh-h1); letter-spacing: -.045em; margin: 4px 0 14px; }
+.play-intro { font-size: var(--fs-small); line-height: 1.5; color: var(--card-ink-2); }
+.play-hint { margin-top: 14px; font-size: var(--fs-caption); color: var(--card-muted); }
+.play-hint .touch { display: none; }
+.play-head .sbtn { margin-top: 18px; color: var(--card-ink); padding: 11px 18px 11px 20px; }
+.play-head .sbtn .sb-edge path { stroke: var(--card-ink); }
+.play-head .sbtn:focus-visible { color: var(--on-accent); } /* the label stays readable on the fill */
+@media (hover: hover) { .play-head .sbtn:hover { color: var(--on-accent); } }
+
+.viewport { position: fixed; inset: 0; overflow: hidden; cursor: grab; touch-action: none; }
+.viewport:focus-visible { outline: 2px dashed var(--accent); outline-offset: -10px; } /* full-screen, so draw the ring inside */
+.viewport.dragging { cursor: grabbing; }
+.has-cursor .viewport { cursor: none; }
+.board {
+  position: absolute; left: 0; top: 0; will-change: transform;
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 34px 34px;
+  background-position: -1px -1px;
+}
+.board::after { content: ""; position: absolute; inset: 0; pointer-events: none; box-shadow: inset 0 0 160px 40px var(--paper); }
+
+.pin-item { position: absolute; display: block; padding: 0; text-align: left; margin: 0; transform: rotate(var(--r, 0deg)); transition: transform .15s ease-out; z-index: 1; -webkit-tap-highlight-color: transparent; }
+.pin-item:focus-visible { z-index: 5; }
+@media (hover: hover) { .viewport:not(.dragging) .pin-item:hover { transform: rotate(calc(var(--r, 0deg) * .3)) translateY(-6px) scale(1.025); z-index: 5; } }
+.pin-item .pi-media { display: block; background: var(--card); padding: 8px; box-shadow: var(--shadow); border: 1px solid transparent; }
+.pin-item img, .pin-item video { display: block; width: 100%; height: auto; background: var(--paper-deep); pointer-events: none; -webkit-user-drag: none; user-select: none; outline: 1px solid var(--img-edge); outline-offset: -1px; }
+.pin-item .tape { left: 50%; top: -10px; transform: translateX(-50%) rotate(var(--tr, -3deg)); }
+.pin-item .pin { left: 50%; top: -6px; margin-left: -7px; }
+.pin-item .play-badge { position: absolute; right: 16px; bottom: 16px; font-family: var(--f-hand); font-size: var(--fs-caption); color: var(--on-scrim); background: var(--scrim); border-radius: 999px; padding: 2px 10px; pointer-events: none; }
+.board .deco { position: absolute; pointer-events: none; opacity: .9; }
+.board .deco .dd { width: 100%; height: 100%; }
+
+.vbox { position: fixed; inset: 0; z-index: 10003; display: grid; place-items: center; background: color-mix(in srgb, var(--paper) 92%, transparent); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); opacity: 0; transition: opacity .15s ease-out; }
+.vbox.show { opacity: 1; transition-duration: .3s; }
+.vbox video { max-width: 88vw; max-height: 84vh; border-radius: 6px; box-shadow: var(--shadow); outline: 1px solid var(--img-edge); outline-offset: -1px; }
+.vbox button { position: fixed; right: var(--gutter); top: 22px; font-family: var(--f-hand); font-size: var(--fs-ui); padding: 6px 12px; -webkit-tap-highlight-color: transparent; transition: transform .15s ease-out; }
+.vbox button:active { transform: scale(.96); }
+
+/* move the board without dragging (pointer, touch or keyboard) */
+.pan-pad { position: fixed; right: calc(var(--gutter) + 64px); bottom: 22px; /* left of the light switch */ z-index: 30; display: grid; grid-template-columns: repeat(3, 40px); grid-template-rows: repeat(2, 40px); gap: 4px; }
+.pan-pad button { width: 40px; height: 40px; border-radius: 50%; background: var(--card); color: var(--card-ink); box-shadow: var(--shadow); border: 1px solid transparent;
+  font-size: var(--fs-ui); line-height: 1; display: grid; place-items: center; -webkit-tap-highlight-color: transparent; transition: transform .15s ease-out, background-color .15s ease-out; }
+.pan-pad button:not(:disabled):active { transform: scale(.96); }
+@media (hover: hover) { .pan-pad button:hover { background: var(--paper-deep); } }
+.pan-pad .up { grid-column: 2; grid-row: 1; } .pan-pad .left { grid-column: 1; grid-row: 2; }
+.pan-pad .down { grid-column: 2; grid-row: 2; } .pan-pad .right { grid-column: 3; grid-row: 2; }
+
+/* touch / narrow: a plain scrolling pile */
+@media (max-width: 860px), (hover: none) {
+  .play-head { position: relative; left: auto; top: auto; width: auto; margin: calc(var(--nav-h) + 3vh) var(--gutter) 6vh; }
+  .play-hint .desk { display: none; } .play-hint .touch { display: inline; }
+  .viewport { position: relative; inset: auto; overflow: visible; touch-action: auto; cursor: auto; }
+  .board { position: relative; transform: none !important; width: auto !important; height: auto !important; padding: 0 var(--gutter) 12vh; columns: 2 160px; column-gap: 18px; }
+  .board::after { display: none; }
+  .pin-item { position: relative; left: auto !important; top: auto !important; width: 100% !important; break-inside: avoid; margin: 0 0 26px; }
+  .board .deco { display: none; }
+  .pan-pad { display: none; }
+}
+.play .nav::before { opacity: 1; }
+@supports (text-box: trim-both cap alphabetic) { .play-head .sbtn { padding-block: 16px; } }
