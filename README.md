@@ -61,7 +61,9 @@ In `site/index.html`, invisible markers decide where the thread goes: `data-anch
 
 `site/404.html` is the not-found page; Netlify, Vercel, Cloudflare Pages and GitHub Pages serve it automatically for missing paths. It resolves links from the site root with `<base href="/">`, so if you host the site in a subfolder (a GitHub Pages project site like `/portfolio/`), change that one line to `<base href="/portfolio/">`. A case-study link with an unknown or missing `?p=` shows its own "I can't find that case study" page listing all projects.
 
-It's a static site: upload the **`site/`** folder to Netlify (drag and drop), Vercel, Cloudflare Pages or GitHub Pages. No build step. When you change CSS/JS, bump the `?v=` number (currently `?v=14`) in the four HTML files (including `404.html`) so visitors get the new files.
+**Live:** https://folio-phi-eosin.vercel.app, the Vercel project `folio`, linked to https://github.com/bhoomime/folio. Every push to `main` deploys to production automatically; `vercel.json` tells Vercel to serve the `site/` folder as it is.
+
+It's a static site, so it would also work if you uploaded the **`site/`** folder to Netlify (drag and drop), Cloudflare Pages or GitHub Pages. No build step. When you change CSS/JS, bump the `?v=` number (currently `?v=14`) in the four HTML files (including `404.html`) so visitors get the new files.
 
 ## Notes
 
