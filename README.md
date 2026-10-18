@@ -17,7 +17,7 @@ Then open http://localhost:5173. Opening the HTML files directly also mostly wor
 | Page | What it does |
 |---|---|
 | `site/index.html` | Horizontal journey on screens at least 3:2 and tall enough for its text (vertical scroll and trackpad swipes both move it; ← → keys too). Phones, tablets, squarer monitors and short or zoomed windows get a normal vertical page instead, set in columns on wide screens. |
-| `site/project.html?p=<slug>` | Vertical case study, rendered from `js/data.js`: sticky chapter titles, scroll-lit text, framed images that unmask with parallax, a red reading thread with chapter ticks, click-to-zoom images, and a next-project card whose cover follows the cursor. |
+| `site/project.html?p=<slug>` | Vertical case study, rendered from `js/data.js`. It reads top to bottom: title and facts, the cover, a one-line summary, an overview (the problem and the solution side by side), three "what it does" cards, then numbered chapters, the reflection and the next project. On wide screens (1200px and up) a contents list sits beside the story, with the red thread filling in as you read and the current chapter marked; on smaller screens the contents fold into an "on this page" list. Every picture opens larger on click or Enter. |
 | `site/playground.html` | "The Archive": a grid-paper pinboard you drag around (with inertia), shuffle, and click to enlarge. On touch screens it is a scrolling pile. |
 
 ## Editing content
@@ -28,8 +28,25 @@ Everything textual lives in **`site/js/data.js`**: projects (order, copy, tags, 
 - To add or swap an image: save it as `media-src/<name>.png` (or `.jpg`), run `python tools/prepare_media.py`, and refer to it in `data.js` by name with its original size, e.g. `im('kheyt-cover', 2859, 1482, 'alt text')`. The site picks the right size for each screen. A path or full URL also works in place of a name.
 - **The girl in the hero** ("Before I knew what design was…") is your two-second film, one drawn on paper and one on the blue. `python tools/prepare_girl.py <paper film.mp4> <blue film.mp4>` turns them into transparent animated WebPs (`site/assets/media/girl-*.webp`), so her lines sit straight on the page with no background box, thickened a touch to match the other drawings. It plays once when the page opens, stops on her holding up the drawing, and replays when you point at her. With reduced motion or paused animations she shows that last frame. Only the current theme's file downloads.
 - The polaroids in *Meet the lady behind the pixels* swing when you grab them but don't open a preview.
-- Chapter layouts: `'wide'` (one big image), `'row'` (a justified row), `'phones'` (screens on a tinted table).
-- Intact's 68% figure uses `stat: { n, label }`; any chapter can have one.
+- **Case studies** are written in plain words, with the facts taken from the Figma file "Portfolio" (one page per project). Each project has `glance` (problem and solution), `features` (three cards) and `chapters`. A chapter has a short `nav` name for the contents list, a `title` that states the takeaway, and a list of `blocks`. The block types are listed at the top of `PROJECTS`:
+  - `p`: paragraphs.
+  - `list`: ticked or numbered.
+  - `stats`: big numbers that count up.
+  - `findings`: numbered cards, with or without pictures.
+  - `quotes`: speech bubbles.
+  - `persona`: a profile card, or several side by side.
+  - `question`: the "how might we", large and centred.
+  - `steps`: a numbered line, a storyboard grid, or a zig-zag with pictures (`layout: 'zig'`).
+  - `images`: `'wide'`, `'row'` or `'phones'`.
+  - `columns`: side-by-side lists.
+  - `palette`: type and colour swatches.
+  - `tree`: the app's structure.
+  - `changes`: what testing changed, as "what we heard → what we changed".
+  - `more`: detail folded away behind a toggle.
+  - `link`: a button link.
+- In case-study text, wrap the one phrase that carries a paragraph's point in `<mark>`. It gets a highlighter stroke on paper and turns yellow on the blue theme. Use `<b>` for names of things.
+- The storyboards, field photos, personas and dashboards came from the Figma file. Their full-size copies are in `media-src/` (captions printed on the illustrations were cropped off, because the page sets its own captions).
+- On phones, rows of photos become a swipeable strip, and picture cards with only a title sit two to a row.
 
 ## Drawings
 
@@ -63,7 +80,7 @@ In `site/index.html`, invisible markers decide where the thread goes: `data-anch
 
 **Live:** https://folio-phi-eosin.vercel.app, the Vercel project `folio`, linked to https://github.com/bhoomime/folio. Every push to `main` deploys to production automatically; `vercel.json` tells Vercel to serve the `site/` folder as it is.
 
-It's a static site, so it would also work if you uploaded the **`site/`** folder to Netlify (drag and drop), Cloudflare Pages or GitHub Pages. No build step. When you change CSS/JS, bump the `?v=` number (currently `?v=15`) in the four HTML files (including `404.html`) so visitors get the new files.
+It's a static site, so it would also work if you uploaded the **`site/`** folder to Netlify (drag and drop), Cloudflare Pages or GitHub Pages. No build step. When you change CSS/JS, bump the `?v=` number (currently `?v=16`) in the four HTML files (including `404.html`) so visitors get the new files.
 
 ## Notes
 
