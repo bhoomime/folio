@@ -142,7 +142,7 @@
 
   /* contents: the overview, every chapter, the reflection */
   const toc = [{ id: 'overview', nav: 'Overview' }, ...P.chapters.map((c, i) => ({ id: `ch-${i + 1}`, nav: c.nav })), { id: 'reflection', nav: 'Reflection' }];
-  const tocList = (cls) => `<ol class="${cls}">${toc.map((t, i) => `<li><a href="#${t.id}" data-i="${i}"><span class="tn hand" aria-hidden="true">${i ? pad(i) : '··'}</span><span class="tt">${t.nav}</span></a></li>`).join('')}</ol>`;
+  const tocList = (cls) => `<ol class="${cls}">${toc.map((t, i) => `<li><a href="#${t.id}" data-i="${i}">${t.nav}</a></li>`).join('')}</ol>`;
   const G = P.glance;
 
   $('#case').innerHTML = `<div class="wrap">
@@ -163,7 +163,7 @@
     <div class="cs-body">
       <nav class="toc" aria-label="On this page">
         <p class="toc-h hand">on this page</p>
-        <div class="toc-in"><svg class="toc-svg" aria-hidden="true"><path class="toc-bg"/><path class="toc-line"/><circle class="toc-nib" r="5"/></svg>${tocList('toc-list')}</div>
+        <div class="toc-in"><span class="toc-mark" aria-hidden="true"></span>${tocList('toc-list')}</div>
       </nav>
       <div class="cs-main">
         <section class="cs-glance" id="overview" aria-labelledby="ov-h">
@@ -235,24 +235,19 @@
   onEnter([$('.learn')], (el) => drawIn($('.dd', el), .2), { margin: '0px 0px -20% 0px' });
   if (RM) $$('.dd.pre').forEach((d) => d.classList.remove('pre'));
 
-  /* ---------------------------------------------------------------- contents + reading thread */
-  const tocEl = $('.toc'), tsvg = $('.toc-svg'), tline = $('.toc-line'), tbg = $('.toc-bg'), tnib = $('.toc-nib');
+  /* ---------------------------------------------------------------- contents: a short red mark slides to where you are */
+  const mark = $('.toc-mark');
   const links = $$('.toc-list a');
   const secs = toc.map((t) => document.getElementById(t.id));
-  let TL = 0, ys = [], docH = 1, vh = innerHeight, cur = -1;
+  let docH = 1, vh = innerHeight, cur = -1;
+  const placeMark = () => {
+    const a = links[cur];
+    mark.classList.toggle('on', !!a);
+    if (a) { mark.style.transform = `translateY(${a.offsetTop + 6}px)`; mark.style.height = `${a.offsetHeight - 12}px`; }
+  };
   function layoutToc() {
     vh = innerHeight; docH = Math.max(1, document.documentElement.scrollHeight - vh);
-    if (!tocEl.offsetParent) { TL = 0; return; } // hidden below 1200px
-    const box = $('.toc-in').getBoundingClientRect();
-    // each link's dot sits on its first line (see .toc-list a::before)
-    ys = links.map((a) => a.getBoundingClientRect().top - box.top + 7 + parseFloat(getComputedStyle(a).fontSize) * .65);
-    const h = box.height;
-    tsvg.setAttribute('viewBox', `0 0 16 ${h}`);
-    let d = `M8 ${ys[0].toFixed(1)}`;
-    for (let y = ys[0] + 6; y <= ys[ys.length - 1]; y += 6) d += `L${(8 + Math.sin(y * .05) * 1.6 + Math.sin(y * .013 + 1) * 1.4).toFixed(2)} ${y.toFixed(1)}`;
-    tline.setAttribute('d', d); tbg.setAttribute('d', d);
-    TL = tline.getTotalLength();
-    tline.style.strokeDasharray = `${TL} ${TL}`;
+    placeMark();
   }
   links.concat($$('.toc-m-list a')).forEach((a) => a.addEventListener('click', (e) => {
     const el = secs[+a.dataset.i];
@@ -294,24 +289,12 @@
     root.style.setProperty('--p', p.toFixed(4));
     // where you are: the last section whose top has passed the reading line, and how far through it
     const line = vh * .32;
-    let i = -1, f = 0;
+    let i = -1;
     secs.forEach((s, k) => { if (s && s.getBoundingClientRect().top <= line) i = k; });
-    if (i >= 0) {
-      const r = secs[i].getBoundingClientRect(), nxt = secs[i + 1];
-      const end = nxt ? nxt.getBoundingClientRect().top : r.bottom;
-      f = clamp((line - r.top) / Math.max(1, end - r.top), 0, 1);
-    }
     if (i !== cur) {
       cur = i;
-      links.forEach((a, k) => { a.classList.toggle('past', k < i); a.classList.toggle('cur', k === i); if (k === i) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current'); });
-    }
-    if (TL && ys.length) {
-      const y0 = ys[0], yN = ys[ys.length - 1];
-      const y = i < 0 ? y0 : i >= ys.length - 1 ? lerp(ys[ys.length - 1], yN, f) : lerp(ys[i], ys[i + 1], f);
-      const len = TL * clamp((y - y0) / Math.max(1, yN - y0), 0, 1);
-      tline.style.strokeDashoffset = (TL - len).toFixed(1);
-      const pt = tline.getPointAtLength(len);
-      tnib.setAttribute('cx', pt.x.toFixed(1)); tnib.setAttribute('cy', pt.y.toFixed(1));
+      links.forEach((a, k) => { a.classList.toggle('cur', k === i); if (k === i) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current'); });
+      placeMark();
     }
     lit.forEach((l) => {
       if (RM) return;

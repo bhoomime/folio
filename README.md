@@ -17,7 +17,7 @@ Then open http://localhost:5173. Opening the HTML files directly also mostly wor
 | Page | What it does |
 |---|---|
 | `site/index.html` | Horizontal journey on screens at least 3:2 and tall enough for its text (vertical scroll and trackpad swipes both move it; ← → keys too). Phones, tablets, squarer monitors and short or zoomed windows get a normal vertical page instead, set in columns on wide screens. |
-| `site/project.html?p=<slug>` | Vertical case study, rendered from `js/data.js`. It reads top to bottom: title and facts, the cover, a one-line summary, an overview (the problem and the solution side by side), three "what it does" cards, then numbered chapters, the reflection and the next project. On wide screens (1200px and up) a contents list sits beside the story, with the red thread filling in as you read and the current chapter marked; on smaller screens the contents fold into an "on this page" list. Every picture opens larger on click or Enter. |
+| `site/project.html?p=<slug>` | Vertical case study, rendered from `js/data.js`. It reads top to bottom: title and facts, the cover, a one-line summary, an overview (the problem and the solution side by side), three "what it does" cards, then numbered chapters, the reflection and the next project. On wide screens (1200px and up) a short contents list sits beside the story, with a small red mark beside the chapter you are reading; on smaller screens the contents fold into an "on this page" list. Every picture opens larger on click or Enter. |
 | `site/playground.html` | "The Archive": a grid-paper pinboard you drag around (with inertia), shuffle, and click to enlarge. On touch screens it is a scrolling pile. |
 
 ## Editing content
@@ -80,7 +80,7 @@ In `site/index.html`, invisible markers decide where the thread goes: `data-anch
 
 **Live:** https://folio-phi-eosin.vercel.app, the Vercel project `folio`, linked to https://github.com/bhoomime/folio. Every push to `main` deploys to production automatically; `vercel.json` tells Vercel to serve the `site/` folder as it is.
 
-It's a static site, so it would also work if you uploaded the **`site/`** folder to Netlify (drag and drop), Cloudflare Pages or GitHub Pages. No build step. When you change CSS/JS, bump the `?v=` number (currently `?v=16`) in the four HTML files (including `404.html`) so visitors get the new files.
+It's a static site, so it would also work if you uploaded the **`site/`** folder to Netlify (drag and drop), Cloudflare Pages or GitHub Pages. No build step. When you change CSS/JS, bump the `?v=` number (currently `?v=17`) in the four HTML files (including `404.html`) so visitors get the new files.
 
 ## Notes
 
