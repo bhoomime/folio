@@ -5,8 +5,9 @@
 /media-src/
 # the reel video project and its node_modules
 /reel/
-# local editor/preview settings
-/.claude/
+# local editor/preview settings (project skills are tracked)
+/.claude/*
+!/.claude/skills/
 # raw drawings and screenshots in the project root
 /*.png
 /*.jpg
