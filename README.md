@@ -44,6 +44,10 @@ Everything textual lives in **`site/js/data.js`**: projects (order, copy, tags, 
   - `changes`: what testing changed, as "what we heard → what we changed".
   - `more`: detail folded away behind a toggle.
   - `link`: a button link.
+  - `soon`: dashed "coming soon" slots for screens that aren't ready yet.
+- **Placeholders:** any picture can be a placeholder. Write `{ ph: 'what will go here', w: 16, h: 10 }` in place of `im(...)`, and add `k: 'being white-labelled'` to change the small label. When the real image is ready, swap the placeholder for `im(...)`.
+- **Fonts in a palette** can load just for that page: add `gf: 'Manrope:wght@500'` (the Google Fonts family string) to the font.
+- **Span** (the preventive-health clinic) is white-labelled work from an internship. Keep the real company, product and doctor names out of it.
 - In case-study text, wrap the one phrase that carries a paragraph's point in `<mark>`. It gets a highlighter stroke on paper and turns yellow on the blue theme. Use `<b>` for names of things.
 - The storyboards, field photos, personas and dashboards came from the Figma file. Their full-size copies are in `media-src/` (captions printed on the illustrations were cropped off, because the page sets its own captions).
 - On phones, rows of photos become a swipeable strip, and picture cards with only a title sit two to a row.
@@ -80,7 +84,7 @@ In `site/index.html`, invisible markers decide where the thread goes: `data-anch
 
 **Live:** https://folio-phi-eosin.vercel.app, the Vercel project `folio`, linked to https://github.com/bhoomime/folio. Every push to `main` deploys to production automatically; `vercel.json` tells Vercel to serve the `site/` folder as it is.
 
-It's a static site, so it would also work if you uploaded the **`site/`** folder to Netlify (drag and drop), Cloudflare Pages or GitHub Pages. No build step. When you change CSS/JS, bump the `?v=` number (currently `?v=17`) in the four HTML files (including `404.html`) so visitors get the new files.
+It's a static site, so it would also work if you uploaded the **`site/`** folder to Netlify (drag and drop), Cloudflare Pages or GitHub Pages. No build step. When you change CSS/JS, bump the `?v=` number (currently `?v=18`) in the four HTML files (including `404.html`) so visitors get the new files.
 
 ## Notes
 

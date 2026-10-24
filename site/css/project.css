@@ -298,6 +298,16 @@ details[open] > summary .plus::after { transform: rotate(0deg); }
 
 .blk-link { margin-top: 32px; }
 
+/* placeholders: a dashed, hatched slot for a screen that isn't ready yet */
+.ph { aspect-ratio: var(--ar, 4 / 3); display: grid; place-items: center; padding: 18px; text-align: center; cursor: default; border-radius: 10px; border: 1.5px dashed color-mix(in srgb, var(--ink) 26%, transparent); background: repeating-linear-gradient(-45deg, transparent 0 11px, color-mix(in srgb, var(--ink) 5%, transparent) 11px 12px), var(--paper-deep); }
+.ph::after { display: none; }
+.ph-k { display: block; font-size: var(--fs-ui); color: var(--accent-text); }
+.ph-l { display: block; margin: 6px auto 0; max-width: 30ch; font-size: var(--fs-caption); line-height: var(--lh-caption); color: var(--muted); }
+.soon { display: grid; gap: clamp(12px, 1.4vw, 20px); grid-template-columns: repeat(var(--n, 1), minmax(0, 1fr)); }
+.soon.n-2 { --n: 2; } .soon.n-3 { --n: 3; }
+.fe-pic.ph { padding: 18px; }
+@media (max-width: 860px) { .soon.n-2, .soon.n-3 { --n: 1; } }
+
 /* ------------------------------------------------------------- reflection */
 .cs-reflect { padding-top: 10vh; scroll-margin-top: 90px; }
 .cs-reflect:focus { outline: none; }

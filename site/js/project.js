@@ -47,7 +47,8 @@
   // a framed photo in a row of shots: unmasks and drifts as you scroll
   const shot = (img, sizes) => `<figure class="shot" style="flex:${(img.w / img.h).toFixed(4)} 1 0;aspect-ratio:${img.w}/${img.h}"><button type="button" class="zoom" aria-label="${lbl(img)}">${imgTag(img, sizes)}</button></figure>`;
   // a picture inside a card (features, findings, steps, personas)
-  const pic = (img, sizes = '(min-width: 860px) 30vw, 92vw', cls = '') => `<button type="button" class="zoom pic ${cls}" aria-label="${lbl(img)}" style="--ar:${img.w}/${img.h}">${imgTag(img, sizes)}</button>`;
+  const ph = (img, cls = '') => `<div class="pic ph ${cls}" role="img" aria-label="Placeholder: ${img.ph}" style="--ar:${img.w || 4}/${img.h || 3}"><span class="ph-in"><span class="ph-k hand">${img.k || 'coming soon'}</span><span class="ph-l">${img.ph}</span></span></div>`;
+  const pic = (img, sizes = '(min-width: 860px) 30vw, 92vw', cls = '') => (img.ph ? ph(img, cls) : `<button type="button" class="zoom pic ${cls}" aria-label="${lbl(img)}" style="--ar:${img.w}/${img.h}">${imgTag(img, sizes)}</button>`);
   const SIZES = { wide: '(min-width: 1400px) 1000px, 92vw', phones: '(min-width: 860px) 18vw, 62vw' };
   const list = (items, cls = '') => `<ul class="${cls}">${items.map((t) => `<li>${t}</li>`).join('')}</ul>`;
   const isNum = (n) => typeof n === 'number';
@@ -113,7 +114,7 @@
         <h4>${c.title}</h4>${c.body ? `<p>${c.body}</p>` : ''}${c.items ? list(c.items, 'ticks') : ''}</div>`).join('')}</div></div>`,
 
     palette: (b) => `<div class="blk blk-pal rise">${head(b)}<div class="pal">
-        <div class="pal-type">${b.fonts.map((f) => `<p><span class="pal-aa" style="font-family:${f.css || 'var(--f-body)'}" aria-hidden="true">Aa</span><span class="pal-name">${f.name}</span>${f.note ? `<span class="pal-note">${f.note}</span>` : ''}</p>`).join('')}</div>
+        <div class="pal-type">${b.fonts.map((f) => `<p><span class="pal-aa" style="font-family:${(f.css || 'var(--f-body)').replace(/"/g, "'")}" aria-hidden="true">Aa</span><span class="pal-name">${f.name}</span>${f.note ? `<span class="pal-note">${f.note}</span>` : ''}</p>`).join('')}</div>
         <ul class="pal-colors">${b.colors.map((c) => `<li><span class="sw" style="background:${c}"></span><code>${c}</code></li>`).join('')}</ul>
       </div></div>`,
 
@@ -124,6 +125,8 @@
         <span class="c-arrow" aria-hidden="true">${doodle('arrow', { pre: true })}</span>
         <div class="c-did"><p class="hand">what we changed</p><p>${c.changed}</p></div>
         ${c.img ? pic(c.img, '(min-width: 860px) 40vw, 92vw', 'c-pic') : ''}</li>`).join('')}</ol></div>`,
+
+    soon: (b) => `<div class="blk blk-soon">${head(b)}<div class="soon n-${b.items.length}">${b.items.map((it) => ph(it)).join('')}</div>${b.note ? `<p class="blk-note">${b.note}</p>` : ''}</div>`,
 
     more: (b) => `<details class="blk blk-more"><summary><span>${b.summary}</span><span class="plus" aria-hidden="true"></span></summary><div class="more-in">${b.blocks.map(block).join('')}</div></details>`,
 
@@ -206,6 +209,9 @@
       <div class="foot"><span>©&nbsp;<span class="yr">2026</span> ${SITE.fullName}</span><a href="index.html">Home <span aria-hidden="true">→</span></a></div>
     </footer>
   </div>`;
+
+  const gf = [...new Set(P.chapters.flatMap((c) => c.blocks).filter((b) => b.t === 'palette').flatMap((b) => b.fonts.map((f) => f.gf)).filter(Boolean))];
+  if (gf.length) document.head.insertAdjacentHTML('beforeend', `<link rel="stylesheet" href="https://fonts.googleapis.com/css2?${gf.map((f) => `family=${f}`).join('&')}&display=swap">`);
 
   $$('[data-doodle]').forEach((el) => { el.innerHTML = doodle(el.dataset.doodle, { pre: el.hasAttribute('data-pre') }); });
   bootCommon();

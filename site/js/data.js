@@ -61,6 +61,157 @@ const ABOUT = {
 ------------------------------------------------------------------- */
 const PROJECTS = [
   {
+    slug: 'span', title: 'Span', year: '2026', doodle: 'spark',
+    short: 'Health data that finally means something, to members and to the doctors who read it.',
+    tags: ['Health tech', 'Research', 'Brand identity'],
+    cover: im('span-cover', 1920, 1080, 'The Span Health logo, four corner brackets, over warm amber light'),
+    coverAlt: im('span-flower', 1000, 1250),
+    hero: im('span-cover', 1920, 1080, 'The Span Health logo, four corner brackets, over warm amber light'),
+    lede: 'A preventive-health clinic, and the tool its care team uses, redesigned to show what matters first.',
+    summary: 'Span Health helps healthy people stay healthy for longer, with regular blood tests, body scans and fitness trackers. That creates a lot of data. I designed the brand members see, and the tool the care team uses, so both start with what matters.',
+    meta: [['Role', 'Design intern: research, brand identity and UI, built with AI coding tools'], ['Timeline', '2026 · internship'], ['Field', 'Preventive health'], ['Note', 'From my internship. The brand, names and screens are changed.']],
+    glance: {
+      problem: 'Everyone had data. No one had meaning. <mark>Members got numbers they didn’t understand.</mark> Doctors got a screen full of information, and only a few minutes to read it before the client walked in.',
+      solution: 'Two parts that share one idea. A <b>brand for members</b> that talks about life, not test scores. And a <b>care tool for the staff</b> that puts the most important thing first, shows what changed since last time, and gives each person their own starting view.',
+    },
+    featuresTitle: 'What the redesign does',
+    features: [
+      { title: 'What changed, first', body: 'Every result is marked new, better, the same or worse against the last test, with one switch to show only what changed.', img: { ph: 'Results with change tags', w: 4, h: 3 } },
+      { title: 'Results and plan, side by side', body: 'Results stay open on the left while the doctor writes the plan on the right, so there’s no jumping between screens.', img: { ph: 'The doctor’s split-screen workspace', w: 4, h: 3 } },
+      { title: 'A plan in minutes, not typing', body: 'Type a few letters to add a supplement from the clinic’s list, with dose, timing and link filled in, and reuse saved advice.', img: { ph: 'The supplement picker', w: 4, h: 3 } },
+    ],
+    chapters: [
+      { nav: 'Where it started', title: 'How do you make advanced healthcare feel human?', blocks: [
+        { t: 'p', lead: true, text: ['The clinic offers serious medicine: blood panels, body scans and data from wearables, read by doctors, nutritionists and coaches. But serious medicine can feel cold, and a screen full of numbers can hide the one thing that matters.'] },
+        { t: 'columns', items: [
+          { title: 'For members', body: 'I wanted them to <b>understand their body</b>, not just read numbers about it.' },
+          { title: 'For the care team', body: 'I wanted them to <b>see what matters</b> in the few minutes they get.' }] },
+        { t: 'images', layout: 'row', images: [im('span-hula', 735, 980, 'An older woman laughing as she spins a hula hoop on a lawn'), im('span-flower', 1000, 1250, 'An older woman holding up a red flower in a greenhouse')] },
+      ] },
+      { nav: 'The problem', title: 'Everyone had data. No one had meaning.', blocks: [
+        { t: 'columns', items: [
+          { title: 'Members', body: 'Longevity brands talk in biological age and optimisation. But people don’t want more years for a number. <mark>They want energy, movement and time for what they love.</mark>' },
+          { title: 'The care team', body: 'Blood panels, scans, wearables and questionnaires all land on one record. The tool showed everything at the same size, in nine equal panels, so nothing stood out.' }] },
+        { t: 'images', layout: 'row', images: [im('span-runner', 896, 1207, 'A runner in mid-stride over still water, mirrored below'), im('span-hrv', 1200, 1500, 'A heart-rate chart over a warm, blurred photo: wishing you an HRV that keeps going up')] },
+      ] },
+      { nav: 'Who it’s for', title: 'I was designing for four people, not one', blocks: [
+        { t: 'quotes', items: [
+          { q: 'I’m not waiting to feel unwell to start taking care of myself.', who: 'Members' },
+          { q: 'What’s the one thing I must sort out today?', who: 'Doctors' },
+          { q: 'Who do I call, and what do I say?', who: 'Relationship managers' },
+          { q: 'What does this person need from food?', who: 'Nutritionists' }] },
+        { t: 'p', text: ['Each of them opens the same record looking for something different. That became one of the most important ideas in the redesign.'] },
+      ] },
+      { nav: 'Research', title: 'Before designing anything, I watched', lede: 'I wanted to see how people really work, not how the software expects them to.', blocks: [
+        { t: 'findings', plain: true, cols: 4, items: [
+          { title: 'Sat with doctors as they prepared for check-ups' },
+          { title: 'Watched doctors use the current tool in real consults' },
+          { title: 'Talked to each type of staff' },
+          { title: 'Studied other health brands' }] },
+        { t: 'stats', items: [
+          { n: 5, label: 'real consults shadowed, with consent' },
+          { n: 4, label: 'doctors: three experienced and one newer' },
+          { n: 3, label: 'doctors answered a short survey' },
+          { n: 2, label: 'days in clinic' }] },
+        { t: 'p', text: [
+          'Shadowing was the main method: I sat beside each doctor from the moment they opened a client’s record until the prescription was done, and noted where they got stuck, what they looked at first, and what they did outside the tool. A five-minute survey added numbers, and short questions after each consult added the “why”.',
+          'I kept my own redesign out of every session. <mark>I noted what I saw, not what I thought it meant</mark>, so the patterns that came out were the doctors’, not mine.'] },
+        { t: 'list', title: 'How I made sense of it', items: [
+          'Every moment became a sticky note, coloured by type: stuck, workaround, what they looked at first, a quote, or a surprise.',
+          'I sorted them into before, during and after the consult, and saw where they piled up.',
+          'I scored each finding by how many doctors it affected and how bad it was, from “annoying” to “risks a missed clinical decision”, and fixed the highest scores first.'] },
+        { t: 'soon', items: [{ k: 'being white-labelled', ph: 'My research board from the shadowing sessions', w: 16, h: 9 }] },
+      ] },
+      { nav: 'What I saw', title: 'The information was all there. Doctors still put the story together by hand.', blocks: [
+        { t: 'stats', items: [
+          { n: 45, unit: ' min', label: 'a typical consult, in a 30-minute slot. Some ran to an hour.' },
+          { n: 15, unit: ' min', label: 'spent typing supplements by hand in one consult' },
+          { n: 4, unit: ' of 4', label: 'doctors recorded the consult in a separate app instead' },
+          { n: 0, unit: ' of 5', label: 'consults opened seven of the tool’s sections' }] },
+        { t: 'findings', items: [
+          { title: 'Three screens do all the work', body: 'Every consult ran on the same three screens: the results, the original reports and the consult notes. The rest of the tool served other teams.' },
+          { title: 'Writing the plan takes the longest', body: 'Medicines, supplements, doses, tests and advice were all typed by hand, and doctors kept their own spreadsheets of product links.' },
+          { title: 'Doctors jump between screens', body: 'They switched between the results and the reports three or four times a consult to check numbers, and wanted them side by side.' },
+          { title: 'Seeing what changed is the hardest part', body: 'Every survey answer said it was hard to see how a client had changed since last time. New abnormal results could be missed.' },
+          { title: 'The built-in AI isn’t trusted', body: 'Its suggestions were too general, so doctors checked the reports and redid the work. They wanted to see where each point came from.' },
+          { title: 'Prep doesn’t help repeat clients', body: 'Three of four doctors skipped the prep page. For a returning client it was empty or just pointed to other pages.' }] },
+        { t: 'quotes', items: [
+          { q: 'The problem is not lack of data. It is that these pieces are not sufficiently connected.', who: 'A doctor' },
+          { q: 'All I need to do is write the medicine, choose the frequency.', who: 'A doctor, on typing the plan' },
+          { q: 'Ideally I want to have a conversation here saying what improved, what worsened.', who: 'A doctor, on repeat clients' },
+          { q: '[It] doesn’t have to be so much; pointers would be better.', who: 'A doctor, on the prep page' },
+          { q: 'If I have already documented something once, I should not have to enter it again.', who: 'A doctor, on notes' },
+          { q: 'I never opened Journey till now.', who: 'A doctor, on a section built for another team' }] },
+        { t: 'p', text: ['Quotes are lightly edited for reading, and the doctors aren’t named.'] },
+      ] },
+      { nav: 'The old screen', title: 'Scoring the old screen against ten design rules', blocks: [
+        { t: 'p', text: [
+          'I checked the care tool against <b>Nielsen’s ten usability heuristics</b>, a standard list of common design problems, and scored each issue from 0 (fine) to 4 (very bad). <mark>Six scored 3 or 4.</mark>'] },
+        { t: 'findings', title: 'The three biggest problems', items: [
+          { title: 'Red meant two different things', body: 'On the body map, red meant “the lab results and the answers both flag this”. On every card, red meant critical. A doctor reading red as critical would be misled.' },
+          { title: 'There was no starting point', body: 'Three equal columns competed for attention, so nothing told the doctor where to look first.' },
+          { title: 'Problems were hidden until clicked', body: 'Each flagged area of the body appeared only after clicking its dot, one at a time. One client needed seven clicks to see seven problems.' }] },
+        { t: 'stats', title: 'What changed in my first redesign of the results page', items: [
+          { n: 0, label: 'clicks to see every flagged area, down from seven' },
+          { n: 47, unit: '%', label: 'shorter results page' },
+          { n: 52, unit: '%', label: 'fewer words on screen' },
+          { n: 1, label: 'meaning for each colour, instead of two legends that clashed' }],
+          note: 'Measured on the prototype, before testing with doctors.' },
+        { t: 'soon', items: [{ k: 'being white-labelled', ph: 'The old results screen, marked up', w: 16, h: 10 }, { k: 'being white-labelled', ph: 'The redesigned results screen', w: 16, h: 10 }] },
+      ] },
+      { nav: 'Insights', title: 'Five insights that shaped the design', blocks: [
+        { t: 'changes', items: [
+          { heard: 'Members want meaning, not numbers.', changed: 'The brand talks about life, not test scores.' },
+          { heard: 'The most important issue was always at the bottom.', changed: 'The tool shows it first.' },
+          { heard: 'Doctors had to remember which symptom matched which test result.', changed: 'The tool shows the link for them.' },
+          { heard: 'Planning and reviewing were crammed onto one screen.', changed: 'Planning gets its own space.' },
+          { heard: 'Each staff member starts with different information.', changed: 'Each person gets their own starting view.' }] },
+        { t: 'question', label: 'the question I set out to answer', text: 'How might we help each person on the care team see what matters first, in the few minutes they have?' },
+      ] },
+      { nav: 'The brand', title: 'Science that feels human', lede: 'A brand that balances science and everyday life.', blocks: [
+        { t: 'p', text: [
+          'Science is the foundation. Life is the reason. The brand is built on six words: <b>energetic, human, curious, intelligent, optimistic and timeless</b>.',
+          'It uses warm colours, bright highlights, real people and small touches of data. <mark>Not about fighting age. Not about fear. Not about extreme self-tracking.</mark> Anti-ageing becomes well ageing.'] },
+        { t: 'images', layout: 'row', images: [im('span-wellaging', 1200, 1200, 'A man with his eyes closed, face turned to the sun, over the words “anti aging” crossed out and “well aging”'), im('span-eye', 843, 540, 'The four-cornered Span mark over a close-up of an eye')] },
+        { t: 'p', title: 'The mark', text: ['Four corners frame a space, like a camera finding focus: seeing your health clearly. The corners also stand for the four parts of a long, healthy life: body, mind, habits and time.'] },
+        { t: 'palette', fonts: [{ name: 'Manrope', note: 'Headlines, interface and numbers', css: 'Manrope, var(--f-body)', gf: 'Manrope:wght@500' }, { name: 'DM Serif Display', note: 'Emotional moments', css: '"DM Serif Display", Georgia, serif', gf: 'DM+Serif+Display' }], colors: ['#2A170F', '#326675', '#F3E5CE', '#F5B52F', '#D96B25', '#571416'] },
+        { t: 'images', layout: 'row', images: [im('span-flowers', 400, 540, 'An older woman holding two orange flowers over her eyes'), im('span-note', 1278, 1596, 'A phone note against a sunset sky: we’re not here to prevent aging, we’re here to protect your energy, your curiosity and your momentum'), im('span-billboard', 1024, 828, 'A yellow Span Health sign reading “make more of your years” against a blue sky')],
+          cap: '“We’re not here to prevent ageing. We’re here to protect your energy, your curiosity and your momentum.”' },
+        { t: 'images', layout: 'row', images: [im('span-uniform', 2769, 776, 'A staff member in a brown Span Health polo shirt'), im('span-redglasses', 700, 825, 'An older woman in red sunglasses and a red jacket blowing a kiss')] },
+      ] },
+      { nav: 'The care tool', title: 'One workspace for the consult, with everything else out of the way', blocks: [
+        { t: 'p', text: ['The research pointed to one move: make the three screens doctors already use work together, bring back inside what they were doing in other apps, and push everything else out of the way.'] },
+        { t: 'soon', items: [
+          { ph: 'The doctor’s workspace: results on the left, the plan on the right', w: 16, h: 10 },
+          { ph: 'Prep for a repeat client: last plan, followed?, what changed, needs attention today', w: 16, h: 10 },
+          { ph: 'Writing the plan: the supplement picker and saved advice', w: 16, h: 10 }],
+          note: 'The redesigned screens are being white-labelled and will appear here soon.' },
+        { t: 'columns', title: 'What I changed, in order', intro: 'I ranked every idea by how strong the evidence was, how often the problem happened, and how big the change would be.', items: [
+          { title: 'Now: quick fixes', items: ['A search that understands short names, like “B12” or “A1c”', 'The doctor’s name filled in from their login', 'Separate fields for why the visit is happening and how (in person, video or phone)', 'A “retest in” field on every test, so the front desk books it at the right time', 'Menus that work with the keyboard'] },
+          { title: 'Next: the core redesign', tone: 'key', items: ['A doctor’s workspace: the three core screens and the client’s questionnaire up front, everything else under “More”', 'Results and plan side by side, always open', 'A supplement picker with dose, timing and link filled in', 'Change tags on every result, and a “show only what changed” filter', 'Recording that labels who spoke, survives a refresh and turns into a draft note', 'Saved advice for diet, sleep and exercise', 'A header that always shows who the client is and why they’re here'] },
+          { title: 'Test first', items: ['Prep for repeat clients as four short cards: last plan, followed?, what changed, needs attention today', 'AI suggestions as cards, each with its source and date, that the doctor accepts, edits or dismisses, clearly marked as a draft', 'A banner when the client’s questionnaire is missing, with a button to send a reminder'] },
+          { title: 'Later', items: ['Showing the client’s progress through their programme'] }] },
+      ] },
+      { nav: 'Testing', title: 'Testing it with the doctors who’ll use it', blocks: [
+        { t: 'steps', items: [
+          { title: 'Same task, two versions', body: 'An experienced doctor and a newer doctor each do the same real clinic task on the current tool and then on the redesign, with a different client each time.' },
+          { title: 'Think out loud', body: 'They talk through what they’re looking for while I record the screen and stay quiet, unless they’re stuck for more than two minutes.' },
+          { title: 'Measure what matters', body: 'Time for each task, whether they found the right information, how hard it felt, ease from 1 to 7, and confidence from 1 to 5.' },
+          { title: 'Ask which they’d use tomorrow', body: '“If you could only use one of these in clinic tomorrow, which would you pick, and why?”' }] },
+      ] },
+      { nav: 'What’s next', title: 'What I still want to find out', blocks: [
+        { t: 'list', items: [
+          'Do other newer doctors use the prep page, or was it just one?',
+          'What exactly feels slow when a doctor says “the interface”?',
+          'How many minutes does writing the plan really take, across more consults?',
+          'After the changes, do prep and finishing times drop compared with what I measured before?'] },
+      ] },
+    ],
+    quote: 'Doctors weren’t missing information. They were rebuilding each client’s story by hand, across three screens and two other apps, in a thirty-minute slot.',
+    learning: 'Keep the redesign out of the room. When I only wrote down what I saw, not what I thought it meant, the patterns that came out were the doctors’, not mine.',
+  },
+
+  {
     slug: 'mthd', title: 'MTHD', year: '2026', doodle: 'lipstick',
     short: 'A beauty store that remembers your skin, from the mirror to your phone.',
     tags: ['Beauty', 'AI experience design'],
