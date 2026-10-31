@@ -128,6 +128,14 @@
 
     soon: (b) => `<div class="blk blk-soon">${head(b)}<div class="soon n-${b.items.length}">${b.items.map((it) => ph(it)).join('')}</div>${b.note ? `<p class="blk-note">${b.note}</p>` : ''}</div>`,
 
+    /* a screen recording: plays muted while on screen, with controls, and never by itself when motion is reduced or paused */
+    video: (b) => `<figure class="blk blk-vid rise">${head(b)}<div class="vid" style="--ar:${b.w}/${b.h}"><video src="${b.src}" poster="${fx(b.poster.id, 2048)}" muted loop playsinline preload="none" controls aria-label="${b.alt.replace(/"/g, '&quot;')}"></video></div>${b.cap ? `<figcaption class="cap">${b.cap}</figcaption>` : ''}</figure>`,
+
+    table: (b) => `<div class="blk blk-table rise">${head(b)}<div class="tbl-wrap" tabindex="0" role="region" aria-label="${(b.title || 'Table').replace(/"/g, '&quot;')}"><table class="tbl"><thead><tr>${b.head.map((h) => `<th scope="col">${h}</th>`).join('')}</tr></thead><tbody>${b.rows.map((r) => `<tr>${r.map((c, i) => (i ? `<td>${c}</td>` : `<th scope="row">${c}</th>`)).join('')}</tr>`).join('')}</tbody></table></div>${b.note ? `<p class="blk-note">${b.note}</p>` : ''}</div>`,
+
+    /* a research board, re-set as sticky notes */
+    stickies: (b) => `<div class="blk blk-stick rise">${head(b)}<div class="stick-board">${b.cols.map((c) => `<div class="stick-col" style="--c:${c.c || 1}"><h4 class="hand">${c.title}</h4><ul>${c.items.map((t, i) => `<li class="stick tone-${c.tone}" style="--r:${[-1.4, 1.1, -.5, 1.6, -1, .6][i % 6]}deg">${t}</li>`).join('')}</ul></div>`).join('')}</div>${b.note ? `<p class="blk-note">${b.note}</p>` : ''}</div>`,
+
     more: (b) => `<details class="blk blk-more"><summary><span>${b.summary}</span><span class="plus" aria-hidden="true"></span></summary><div class="more-in">${b.blocks.map(block).join('')}</div></details>`,
 
     link: (b) => `<p class="blk blk-link rise"><a class="sbtn" href="${b.href}" target="_blank" rel="noopener">${b.label} <span class="arr">↗</span></a></p>`,
@@ -240,6 +248,15 @@
   onEnter([$('.cs-quote')], (el) => { $$('.qm .dd', el).forEach((d, i) => drawIn(d, i * .5)); }, { margin: '0px 0px -25% 0px' });
   onEnter([$('.learn')], (el) => drawIn($('.dd', el), .2), { margin: '0px 0px -20% 0px' });
   if (RM) $$('.dd.pre').forEach((d) => d.classList.remove('pre'));
+  // recordings play while they're on screen, unless motion is reduced or paused
+  const vids = $$('.vid video');
+  if (vids.length && !RM) {
+    const vio = new IntersectionObserver((es) => es.forEach((e) => {
+      const v = e.target;
+      if (e.isIntersecting && !root.classList.contains('still')) { v.preload = 'auto'; v.play().catch(() => {}); } else v.pause();
+    }), { threshold: .5 });
+    vids.forEach((v) => vio.observe(v));
+  }
 
   /* ---------------------------------------------------------------- contents: a short red mark slides to where you are */
   const mark = $('.toc-mark');

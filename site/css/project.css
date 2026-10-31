@@ -298,6 +298,30 @@ details[open] > summary .plus::after { transform: rotate(0deg); }
 
 .blk-link { margin-top: 32px; }
 
+/* screen recordings */
+.vid { position: relative; aspect-ratio: var(--ar, 16 / 10); border-radius: 12px; overflow: hidden; background: var(--paper-deep); box-shadow: var(--shadow); }
+.vid video { display: block; width: 100%; height: 100%; object-fit: cover; }
+.vid::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 1px var(--img-edge); pointer-events: none; }
+
+/* tables: results side by side */
+.tbl-wrap { overflow-x: auto; border-radius: 14px; border: 1px solid var(--line); }
+.tbl-wrap:focus-visible { outline-offset: 3px; }
+.tbl { width: 100%; border-collapse: collapse; font-size: var(--fs-small); line-height: var(--lh-small); min-width: 560px; }
+.tbl th, .tbl td { text-align: left; vertical-align: top; padding: 14px 18px; border-bottom: 1px solid var(--line); }
+.tbl thead th { font-family: var(--f-hand); font-weight: 400; font-size: var(--fs-ui); color: var(--accent-text); background: var(--paper-deep); }
+.tbl tbody th { font-weight: 500; color: var(--ink); }
+.tbl td { color: var(--ink-2); }
+.tbl tbody tr:last-child > * { border-bottom: 0; }
+
+/* a research board, re-set as sticky notes on a dotted board */
+.stick-board { display: grid; grid-template-columns: 2.2fr 1fr 2.2fr; gap: clamp(16px, 2vw, 32px); padding: clamp(18px, 2.4vw, 32px); border-radius: 16px; background: radial-gradient(circle, color-mix(in srgb, var(--ink) 16%, transparent) 1px, transparent 1.4px) 0 0 / 18px 18px, var(--paper-deep); }
+.stick-col h4 { font-weight: 400; font-size: var(--fs-ui); color: var(--ink); margin-bottom: 12px; }
+.stick-col ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(var(--c, 1), minmax(0, 1fr)); gap: 10px; align-items: start; }
+.stick { padding: 12px 12px 14px; font-size: .8125rem; line-height: 1.4; color: #2A170F; box-shadow: 0 1px 1px rgba(0, 0, 0, .08), 0 6px 12px -8px rgba(0, 0, 0, .3); transform: rotate(var(--r, 0deg)); }
+.stick.tone-pain { background: #F7B9A8; } .stick.tone-way { background: #FAD08E; } .stick.tone-insight { background: #D7C5F1; } .stick.tone-key { background: #F4A8D4; }
+@media (max-width: 1100px) { .stick-board { grid-template-columns: 1fr; } .stick-col ul { --c: 2 !important; } }
+@media (max-width: 520px) { .stick-col ul { --c: 1 !important; } }
+
 /* placeholders: a dashed, hatched slot for a screen that isn't ready yet */
 .ph { aspect-ratio: var(--ar, 4 / 3); display: grid; place-items: center; padding: 18px; text-align: center; cursor: default; border-radius: 10px; border: 1.5px dashed color-mix(in srgb, var(--ink) 26%, transparent); background: repeating-linear-gradient(-45deg, transparent 0 11px, color-mix(in srgb, var(--ink) 5%, transparent) 11px 12px), var(--paper-deep); }
 .ph::after { display: none; }

@@ -42,6 +42,9 @@ Everything textual lives in **`site/js/data.js`**: projects (order, copy, tags, 
   - `palette`: type and colour swatches.
   - `tree`: the app's structure.
   - `changes`: what testing changed, as "what we heard → what we changed".
+  - `video`: a screen recording with a poster frame, e.g. `{ t: 'video', src: 'assets/media/span-vid-day.mp4', poster: im('span-vid-day-poster', 1440, 900), w: 1440, h: 900, alt, cap }`. It plays muted when half of it is on screen and pauses when it leaves; with reduced motion or paused animations it waits for the play button.
+  - `table`: a results table, with `head` (column names), `rows` (the first cell of each row is its label) and an optional `note`. On phones it scrolls sideways inside its box.
+  - `stickies`: a research board of sticky notes in columns, each column with a `title`, a `tone` (`pain`, `way`, `insight` or `key`), its `items`, and `c: 2` to make it twice as wide.
   - `more`: detail folded away behind a toggle.
   - `link`: a button link.
   - `soon`: dashed "coming soon" slots for screens that aren't ready yet.
@@ -84,7 +87,7 @@ In `site/index.html`, invisible markers decide where the thread goes: `data-anch
 
 **Live:** https://folio-phi-eosin.vercel.app, the Vercel project `folio`, linked to https://github.com/bhoomime/folio. Every push to `main` deploys to production automatically; `vercel.json` tells Vercel to serve the `site/` folder as it is.
 
-It's a static site, so it would also work if you uploaded the **`site/`** folder to Netlify (drag and drop), Cloudflare Pages or GitHub Pages. No build step. When you change CSS/JS, bump the `?v=` number (currently `?v=19`) in the four HTML files (including `404.html`) so visitors get the new files.
+It's a static site, so it would also work if you uploaded the **`site/`** folder to Netlify (drag and drop), Cloudflare Pages or GitHub Pages. No build step. When you change CSS/JS, bump the `?v=` number (currently `?v=20`) in the four HTML files (including `404.html`) so visitors get the new files.
 
 ## Notes
 

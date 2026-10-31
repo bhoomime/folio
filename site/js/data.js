@@ -72,13 +72,13 @@ const PROJECTS = [
     meta: [['Role', 'Design intern: research, brand identity and UI, built with AI coding tools'], ['Timeline', '2026 · internship'], ['Field', 'Preventive health'], ['Note', 'From my internship. The brand, names and screens are changed.']],
     glance: {
       problem: 'Everyone had data. No one had meaning. <mark>Members got numbers they didn’t understand.</mark> Doctors got a screen full of information, and only a few minutes to read it before the client walked in.',
-      solution: 'Two parts that share one idea. A <b>brand for members</b> that talks about life, not test scores. And a <b>care tool for the staff</b> that turns one crowded screen into a guided day, from the hub to the nutritionist handoff, built over five versions with doctors.',
+      solution: 'Two parts that share one idea. A <b>brand for members</b> that talks about life, not test scores. And a <b>care tool for the staff</b> that turns one crowded screen into a guided day, from the hub to the nutritionist handoff, built over five versions with doctors and tested against the current tool.',
     },
     featuresTitle: 'What the redesign does',
     features: [
-      { title: 'The most important thing first', body: 'The overview opens on the clinical priorities, each linked to its results and symptoms, and prep shows what changed since last time.', img: { ph: 'The priority-first overview', w: 4, h: 3 } },
-      { title: 'One plan, everything else built from it', body: 'Doctors write one plan. The prescription, the client’s day and the safety checks all build themselves from it.', img: { ph: 'The care plan and its safety check', w: 4, h: 3 } },
-      { title: 'Record once, write once', body: 'The recording lives on the client’s page and goes straight into one note, written for the record, the nutritionist and the client.', img: { ph: 'Recording and the three-version note', w: 4, h: 3 } },
+      { title: 'The most important thing first', body: 'The overview opens on the clinical priorities, each linked to its results and symptoms, and prep shows what changed since last time.', img: im('span-ui-overview', 2880, 1800, 'The overview: three clinical priorities, each with its linked results and symptoms, beside what the client reported') },
+      { title: 'One plan, everything else built from it', body: 'Doctors write one plan. The prescription, the client’s day and the safety checks all build themselves from it.', img: im('span-ui-plan-check', 2880, 1800, 'The care plan with five supplements, one flagged by the safety check because ashwagandha is usually avoided in a possible pregnancy') },
+      { title: 'Record once, write once', body: 'The recording lives on the client’s page and goes straight into one note, written for the record, the nutritionist and the client.', img: im('span-ui-note', 2880, 1800, 'The doctor’s note, written for the client, beside a live phone preview of what the client will see') },
     ],
     chapters: [
       { nav: 'Where it started', title: 'How do you make advanced healthcare feel human?', blocks: [
@@ -120,7 +120,34 @@ const PROJECTS = [
           'Every moment became a sticky note, coloured by type: stuck, workaround, what they looked at first, a quote, or a surprise.',
           'I sorted them into before, during and after the consult, and saw where they piled up.',
           'I scored each finding by how many doctors it affected and how bad it was, from “annoying” to “risks a missed clinical decision”, and fixed the highest scores first.'] },
-        { t: 'soon', items: [{ k: 'being white-labelled', ph: 'My research board from the shadowing sessions', w: 16, h: 9 }] },
+        { t: 'stickies', title: 'One session, as I mapped it', intro: 'An experienced doctor, 6+ months on the tool, in an online follow-up. Built from 7 audio recordings, my notes and her survey.', cols: [
+          { title: 'Pain points', tone: 'pain', c: 2, items: [
+            'She skips the prep page. For repeat clients it’s empty, so there’s nothing useful there.',
+            'It says “0 of 200 flagged”, but some markers are still orange. New problems aren’t picked up.',
+            'The client filled in the questionnaire, but it doesn’t show on prep or in the AI notes. She has to click around to find it.',
+            'She can’t easily see when the programme started or when the last consult was. A date shows in one place but not another.',
+            'The visit record was wrong: wrong date, and marked “walk-in” although it was online. There’s no online option.',
+            'Her notes don’t reach the client’s app, so she can’t answer the client’s questions later.',
+            'The AI notes only look at the latest test, and the advice is too general.',
+            'Finding the right thing at the right time slows her down the most. Seeing what changed since last visit is often hard.',
+            'The built-in voice note misses too much, so she stopped using it.',
+            'Writing the prescription takes too long, and the AI plan tool makes it slower. A 30-minute slot becomes about 45.'] },
+          { title: 'How she gets around it', tone: 'way', items: [
+            'She checks her calendar to see who’s next.',
+            'She records the consult in a separate app instead of the built-in voice note.',
+            'She finds the AI notes in her email, cleans them up with her own prompt, and pastes them in.',
+            'She writes the prescription with the results open side by side.',
+            'When there’s no questionnaire, she skips the AI plan tool and picks supplements herself.'] },
+          { title: 'Insights', tone: 'insight', c: 2, items: [
+            'For repeat clients she starts from the last prescription, not prep. Prep should show what we advised, whether they followed it, and if not, why.',
+            'All the data is there, but it doesn’t connect, so she pieces it together herself.',
+            'Small mistakes (wrong dates, wrong visit type, “0 flagged”) make her stop trusting it, so she double-checks everything.',
+            'AI only helps when it has context. Without the questionnaire or a good recording, the answers are general.',
+            '<b>Her main job is comparing visits:</b> what got better, what didn’t, and why. The results comparison is her favourite screen.',
+            'She never uses the sections built for other teams. A doctor’s view should hide them.',
+            'The consult slot is too short for the work. The prescription alone takes her past 30 minutes.',
+            'Her idea: make the questionnaire required before every consult, so prep and the AI have what they need.'] }],
+          note: 'Re-set from my research board, with product names removed and nobody named.' },
       ] },
       { nav: 'What I saw', title: 'The information was all there. Doctors still put the story together by hand.', blocks: [
         { t: 'stats', items: [
@@ -157,7 +184,8 @@ const PROJECTS = [
           { n: 52, unit: '%', label: 'fewer words on screen' },
           { n: 1, label: 'meaning for each colour, instead of two legends that clashed' }],
           note: 'Measured on the prototype, before testing with doctors.' },
-        { t: 'soon', items: [{ k: 'being white-labelled', ph: 'The old results screen, marked up', w: 16, h: 10 }, { k: 'being white-labelled', ph: 'The redesigned results screen', w: 16, h: 10 }] },
+        { t: 'images', layout: 'wide', images: [im('span-ui-old', 2880, 1800, 'The original consult screen, white-labelled, with four problems marked: nine panels of equal size, two empty drop zones, made-up numbers and hard-to-read capitals')], cap: 'Before: the original consult screen, with its biggest problems marked.' },
+        { t: 'images', layout: 'wide', images: [im('span-ui-consult', 2880, 1800, 'The redesigned consult screen: an alert strip, results grouped with change tags such as worse and better, and the care plan beside them')], cap: 'After: alerts first, results tagged with what changed since last time, and the plan right beside them.' },
       ] },
       { nav: 'Insights', title: 'Five insights that shaped the design', blocks: [
         { t: 'changes', items: [
@@ -193,13 +221,14 @@ const PROJECTS = [
           { n: 3, label: 'versions of every note: the record, the nutritionist and the client' },
           { n: 0, label: 'made-up numbers left on screen' }] },
         { t: 'steps', ar: '16 / 10', cols: 4, title: 'A doctor’s day, step by step', intro: 'Finished steps get a check mark, so the doctor always knows where they are.', items: [
-          { title: 'Hub', img: { ph: 'The hub: today’s consults and what needs attention', w: 16, h: 10 }, body: 'It greets the doctor and shows today’s consults, their queue, what needs attention and their tasks. Urgent items are pinned to the top.' },
-          { title: 'Prep', img: { ph: 'Prep: the whole client before the consult', w: 16, h: 10 }, body: 'The whole client before they walk in: what changed since last time, whether the last plan was followed, and what to focus on.' },
-          { title: 'Consult', img: { ph: 'The consult: results beside the plan', w: 16, h: 10 }, body: 'The most important findings first, results beside the plan, and the recording running on the same page.' },
-          { title: 'Care plan', img: { ph: 'The care plan, with its safety check', w: 16, h: 10 }, body: 'One plan, in its own tab. The prescription, the client’s day and the safety checks are all built from it.' },
-          { title: 'Doctor’s note', img: { ph: 'The doctor’s note, with a live phone preview', w: 16, h: 10 }, body: 'Written once, in three versions: for the record, for the nutritionist and for the client’s app.' },
-          { title: 'Review and send', img: { ph: 'Review and send: what goes where', w: 16, h: 10 }, body: 'One last look at what goes where, before anything is released.' },
-          { title: 'Finish and hand off', img: { ph: 'Finishing the consult and the nutritionist’s task', w: 16, h: 10 }, body: 'The doctor closes the consult with a short checklist, and the nutritionist picks it up from a task with the context they need.' }] },
+          { title: 'Hub', img: im('span-ui-hub', 2880, 1800, 'The hub: a greeting, today’s six consults as cards, and the doctor’s queue below'), body: 'It greets the doctor and shows today’s consults, their queue, what needs attention and their tasks. Urgent items are pinned to the top.' },
+          { title: 'Prep', img: im('span-ui-prep', 2880, 1800, 'Consult prep: since the last consult, whether the last plan was followed, what changed, and the client’s allergies and medicines'), body: 'The whole client before they walk in: what changed since last time, whether the last plan was followed, and what to focus on.' },
+          { title: 'Consult', img: im('span-ui-consult', 2880, 1800, 'The consult screen: alerts, results with change tags, and the care plan beside them'), body: 'The most important findings first, results beside the plan, and the recording running on the same page.' },
+          { title: 'Care plan', img: im('span-ui-suggestions', 2880, 1800, 'The care plan with Assist’s suggestion tray open: each suggestion shows why it was made and the result behind it'), body: 'One plan, in its own tab. The prescription, the client’s day and the safety checks are all built from it.' },
+          { title: 'Recording', img: im('span-ui-recording', 2880, 1800, 'Recording the consult, with a banner asking whether this is the right client for the booked time'), body: 'The recording runs on the client’s page, and a banner checks it’s the right client before anything is saved.' },
+          { title: 'Doctor’s note', img: im('span-ui-note', 2880, 1800, 'The doctor’s note with sections, drafted text and a live phone preview of what the client will see'), body: 'Written once, in three versions: for the record, for the nutritionist and for the client’s app.' },
+          { title: 'Finish and hand off', img: im('span-ui-finish', 2880, 1800, 'The finish checklist: plan saved, note drafted, final check passed and recording saved, before marking the consult complete'), body: 'The doctor closes the consult with a short checklist, and the nutritionist picks it up from a task with the context they need.' }] },
+        { t: 'video', title: 'Watch: from the hub to the consult', src: 'assets/media/span-vid-day.mp4', poster: im('span-vid-day-poster', 1440, 900), w: 1440, h: 900, alt: 'Screen recording: the doctor opens a client from the hub, scrolls through prep, starts the consult and opens the overview', cap: 'Opening a client from the hub, reading prep, then starting the consult.' },
         { t: 'findings', title: 'Finding the right client', items: [
           { title: 'A client switcher with search', body: 'Today’s clients come first, then the ones opened recently, then A to Z. Every row shows the client’s ID and care team.' },
           { title: 'Prep and the client record stay separate', body: 'Prep is for the next half hour. The record is the whole history, grouped by consultation: what was found, what was recommended and what happened.' }] },
@@ -213,7 +242,8 @@ const PROJECTS = [
           { title: 'Alerts on every tab', body: 'A strip under the client’s name, with buttons to acknowledge an alert or raise a ticket.' },
           { title: 'Results beside the plan', body: 'Three columns on wider screens, the scroll position remembered for each client, and a strip of pinned results with the doctor’s notes.' },
           { title: 'A view for each role', body: 'Doctors and nutritionists each get their own view, and nutritionists can’t prescribe. A second switch shows plain names the client can understand.' }] },
-        { t: 'soon', items: [{ ph: 'The priority-first overview', w: 16, h: 10 }, { ph: 'Results side by side with the plan', w: 16, h: 10 }] },
+        { t: 'images', layout: 'wide', images: [im('span-ui-overview', 2880, 1800, 'The overview: three ranked clinical priorities with their linked results and symptoms, beside what the client reported')], cap: 'The overview opens on the priorities, each one linked to the results and symptoms behind it.' },
+        { t: 'images', layout: 'wide', images: [im('span-ui-split', 2880, 1800, 'Results side by side with the care plan and a library of areas of concern')], cap: 'Side by side: the plan and the library stay open next to the results.' },
       ] },
       { nav: 'Prep', title: 'The whole client, before they walk in', blocks: [
         { t: 'p', text: ['Prep shows the whole client, good and bad, so doctors don’t jump between pages. It answers the question repeat clients raised most: <mark>what changed since last time?</mark>'] },
@@ -223,7 +253,7 @@ const PROJECTS = [
           { title: 'The questionnaire at a glance', body: 'All 13 sections, concerns first and “Going well” last. Each card opens in place, and “May explain” opens the related result beside the plan.' },
           { title: 'Updating an answer', body: 'A doctor can update a questionnaire answer with a reason. The original is kept, and the scores update. Anything new the client mentions in the room can be added too.' },
           { title: 'Journal charts that explain themselves', body: 'Each chart shows which way is better and the days to look at, with a one-line summary like “High on 9 of 30 days, mostly work days”.' }] },
-        { t: 'soon', items: [{ ph: 'Prep: since the last consult, and what to focus on', w: 16, h: 10 }] },
+        { t: 'images', layout: 'wide', images: [im('span-ui-prep-check', 2880, 1800, 'The questionnaire at a glance: concerns first, each with what may explain it, then what to focus on')], cap: 'The questionnaire at a glance, concerns first, and the four things to focus on.' },
       ] },
       { nav: 'Care plan', title: 'Write one plan. The rest builds itself.', blocks: [
         { t: 'p', text: ['Writing the plan was the slowest part of every consult. Now doctors write one plan, and <mark>the prescription, the client’s day and the safety checks all come from it</mark>. It saves automatically, and every change can be undone.'] },
@@ -234,7 +264,9 @@ const PROJECTS = [
           { title: 'No dose, no send', body: 'A supplement without a dose asks for one, or for the health coach to add it, and the plan can’t be sent until it’s done.' },
           { title: 'The right product, in stock', body: 'The right brand and link for the client’s country fill in, a brand swap keeps the dose, and each item shows whether the clinic has it in stock.' },
           { title: 'A safety check before sending', body: 'Dose limits, medicines that clash with supplements, things to avoid with a condition, and pairs to take apart. Sending stays locked until each one is fixed, or kept with a reason.' }] },
-        { t: 'soon', items: [{ ph: 'The plan, the client’s day and the prescription, built from one plan', w: 16, h: 10 }, { ph: 'The safety check before sending', w: 16, h: 10 }] },
+        { t: 'video', title: 'Watch: Assist drafts the plan', src: 'assets/media/span-vid-assist.mp4', poster: im('span-vid-assist-poster', 1440, 900), w: 1440, h: 900, alt: 'Screen recording: Assist suggests templates, the doctor adds them, accepts the advice, sees a safety check, then opens My day and the prescription', cap: 'Templates, then suggestions with reasons, a safety check, and the same plan as the client’s day and as a prescription.' },
+        { t: 'images', layout: 'row', images: [im('span-ui-templates', 2880, 1800, 'Assist’s template picker: two chosen templates and the five supplements they add'), im('span-ui-myday', 2880, 1800, 'My day: the plan laid out from waking up to evening, each item movable')], cap: 'Assist’s templates, and the same plan as the client’s day.' },
+        { t: 'images', layout: 'row', images: [im('span-ui-rx', 2880, 1800, 'The prescription built from the plan: each supplement with dose, timing and duration'), im('span-ui-stock', 2880, 1800, 'The clinic stock panel beside the plan')], cap: 'The prescription builds itself from the plan, with the clinic’s stock one click away.' },
       ] },
       { nav: 'Recording and notes', title: 'Record once, write once, reach everyone', blocks: [
         { t: 'p', text: ['Every doctor was recording in another app and pasting notes back in. The recording now lives on the client’s page and <mark>goes straight into the note</mark>, with checks so it never lands on the wrong client.'] },
@@ -245,13 +277,18 @@ const PROJECTS = [
           { title: 'Symptoms with detail', body: 'Each symptom now has when it started and how severe it is, the two things doctors always asked about.' },
           { title: 'One note, three readers', body: 'The note is written once, in versions for the record, the nutritionist and the client’s app, with a live phone preview of what the client will see.' },
           { title: 'A careful note for urgent alerts', body: 'Words that shouldn’t be used are highlighted as you type, with one clear next step for the client, and the note can be sent for review.' }] },
-        { t: 'soon', items: [{ ph: 'Recording, playback and summary', w: 16, h: 10 }, { ph: 'The doctor’s note, with the client’s phone preview', w: 16, h: 10 }] },
+        { t: 'video', title: 'Watch: from recording to the doctor’s note', src: 'assets/media/span-vid-record.mp4', poster: im('span-vid-record-poster', 1440, 900), w: 1440, h: 900, alt: 'Screen recording: the doctor records the consult, confirms the client, stops, opens the summary, then writes the doctor’s note with a phone preview', cap: 'Record, confirm it’s the right client, stop, then write the note with the client’s phone preview beside it.' },
+        { t: 'images', layout: 'row', images: [im('span-ui-summary', 2880, 1800, 'After recording: playback at 1×, 1.5× or 2× and the summary'), im('span-ui-note-flag', 2880, 1800, 'A red flag note for an urgent alert: one clear call to action and words to avoid highlighted')], cap: 'Playback and summary, and the careful note for an urgent alert.' },
       ] },
       { nav: 'Finish and look', title: 'Calm to look at, and finished where you are', blocks: [
         { t: 'columns', items: [
           { title: 'Finishing the consult', items: ['“Finish consult” with a short checklist, right on the consult page', '“No-show” with a reason, and a button to ask the front desk to rebook', 'The hub updates straight away'] },
           { title: 'The nutritionist handoff', items: ['A task with the context the nutritionist needs', 'Their nutrition plan, then the doctor unlocks the client’s app', 'Today’s visit shows in the record: answer updates, safety alerts kept with a reason, and the handoff’s progress'] },
           { title: 'Look and feel', items: ['The brand’s colours and type, with sentence-case labels instead of hard-to-read capitals', 'Less text, one-line banners, and nothing repeated on screen', 'Dark mode, keyboard shortcuts with a help button, and “/” to search', 'Clear hover and focus states on every control', 'Works from phone to desktop without sideways scrolling'] }] },
+      ] },
+      { nav: 'Around the consult', title: 'The record, tickets and a dark mode', blocks: [
+        { t: 'images', layout: 'row', images: [im('span-ui-record', 2880, 1800, 'The client record: every visit grouped by consultation, with what was found and recommended'), im('span-ui-tickets', 2880, 1800, 'Tickets: open issues by status, waiting for the relationship manager’s call, or past their deadline')], cap: 'The client record, grouped by consultation, and the tickets the care team works through.' },
+        { t: 'images', layout: 'wide', images: [im('span-ui-dark', 2880, 1800, 'The consult screen in dark mode, in Span’s warm espresso tones')], cap: 'Dark mode, in the brand’s espresso and gold.' },
       ] },
       { nav: 'How it evolved', title: 'Five versions, each one built from what doctors said', blocks: [
         { t: 'steps', items: [
@@ -262,9 +299,39 @@ const PROJECTS = [
           { n: 'Oct 23 to 24', title: 'Version 5: from a doctor feedback session', body: 'Recording playback and summary, wrong-client checks, the whole client on prep, answer updates, plan to prescription, products by country, stock, the safety check, consult status and the nutritionist handoff.' }] },
         { t: 'p', text: ['Every version is kept as its own file, so doctors can compare it with the one before. Before each one went back to them, <mark>I clicked through every doctor task and fixed what broke.</mark>'] },
       ] },
+      { nav: 'Testing it', title: 'Testing the redesign against the tool doctors use today', lede: 'An A/B test: the same doctor runs a consult on the current tool (A), then on my redesign (B), thinking out loud while I record the screen.', blocks: [
+        { t: 'stats', items: [
+          { n: 43, unit: '%', label: 'less time writing the plan with AI help: 10:09 on the redesign, 17:48 on the current tool' },
+          { n: 1, unit: ' of 1', label: 'doctors so far would use the redesign for real consults' },
+          { n: 1, unit: ' of 2', label: 'consults she could close, and it was the redesign’s' }] },
+        { t: 'table', title: 'Task by task, for the first doctor', head: ['Task', 'Current tool (A)', 'Redesign (B)', 'Screen switches'], rows: [
+          ['Prep: name the top 3 focus areas', 'Done in 2:44, after 1:51 spent finding the client', 'Done in 2:39. Prep opened first', '5 → 2'],
+          ['What changed since last visit', 'Not done: “I’m not sure how to check her last visit”', 'Skipped: a first consult', '2 → none'],
+          ['Write the plan, with AI help', 'Done in 17:48', 'Done in 10:09, with the final check passed', '18 → 14'],
+          ['Recording to note, close the consult', 'Not done: the voice note “doesn’t transcribe much”', 'Done, with one hint to “mark complete”', '7 → 4']],
+          note: 'Screen switches count page and tab changes, read from the recording one frame every 10 seconds. The two versions used different clients, so treat the gaps as direction, not size.' },
+        { t: 'quotes', items: [
+          { q: 'When I opened I got like a prep directly, so I didn’t have to rush into anything.', who: 'D1, on prep opening first' },
+          { q: 'It’s taking me exactly like how my mind works, like how the doctor thinks.', who: 'D1' },
+          { q: 'Perfect, yeah, this is what I want… this is all I need.', who: 'D1, on side by side' },
+          { q: 'It’s lighter on the head… the number of clicks were very few… and also typing, I didn’t really type much.', who: 'D1, at the end' }] },
+        { t: 'columns', items: [
+          { title: 'What the redesign does better', tone: 'key', items: ['Prep is the first screen, so she had her focus areas in under three minutes', 'Prep and consult share one page, so there’s no hunting for screens', 'Reports sit right after the results they explain', 'She judged 22 AI suggestions one by one, turning down three', 'Stock in view while prescribing', 'My day and side by side, which she called “all I need”'] },
+          { title: 'What the current tool still does better', items: ['Templates the doctor steers, adding ones the AI missed', 'Combination products, with their ingredients', 'A check for clashing food protocols', 'Adding a product the library doesn’t stock', 'Editing dose and timing on every line, wherever the plan appears', 'The original report itself, and the full list of results'] }] },
+        { t: 'changes', title: 'What I changed the next day', items: [
+          { heard: '“I asked you to add D, but it didn’t pick up D.” Accepting a concern looked like accepting the treatment.', changed: 'Every Accept now says what it adds, and a concern shows the treatment drafted for it.' },
+          { heard: '“I want a supplement called [it]. It’s not there.” The library stopped at “Nothing matches”.', changed: '“Nothing matches” now offers to add it as a new supplement, medicine or test.' },
+          { heard: '“For me, where were we left off?” She lost her place after the note.', changed: 'The note has a clear way back to the consult.' },
+          { heard: '“I don’t have a cortisol level, so I don’t know if I can add it.” The result was on file but not on the card.', changed: 'Each suggestion shows the results behind it, or says when there’s none on file.' },
+          { heard: '“It is just picking up the abnormal ones.”', changed: 'Prep can show all results, not only the ones out of range.' }] },
+        { t: 'p', text: [
+          'Her biggest request is still open: changing a dose wherever she sees the plan. My day can now do it, the prescription can’t yet.',
+          'This is one doctor, on two different clients, and one test doesn’t make a verdict. <mark>Three more doctors are next</mark>, on matched clients with an earlier visit each, so “what changed” can be tested in both versions.'] },
+      ] },
       { nav: 'What’s next', title: 'What I still want to find out', blocks: [
         { t: 'list', items: [
-          'A side-by-side test: an experienced and a newer doctor do the same task on the old tool and the new one, timed, and rated for ease and confidence.',
+          'The next three A/B sessions, with ease scored after every task and the same plan handed to each doctor.',
+          'The time between visits: results clients send in and calls with their health coach never reach the doctor before a review. Neither version covers it yet.',
           'After the changes, do prep and finishing times drop compared with what I measured before?',
           'Do other newer doctors use prep the way the one I shadowed did?',
           'How many minutes does writing the plan take now, across more consults?'] },
