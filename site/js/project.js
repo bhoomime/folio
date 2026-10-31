@@ -107,7 +107,7 @@
     images: (b) => {
       const layout = b.layout || 'row';
       const sizes = SIZES[layout] || `(min-width: 860px) ${Math.round(80 / b.images.length)}vw, 92vw`;
-      return `<div class="blk blk-img${b.bleed ? ' bleed' : ''}">${head(b)}<div class="shots shots-${layout} ${b.narrow ? 'shots-narrow' : ''}">${b.images.map((m) => shot(m, sizes)).join('')}</div>${b.cap ? `<p class="cap">${b.cap}</p>` : ''}</div>`;
+      return `<div class="blk blk-img${b.bleed ? ' bleed' : ''}">${head(b)}<div class="shots shots-${layout}${b.ui ? ' shots-ui' : ''} ${b.narrow ? 'shots-narrow' : ''}">${b.images.map((m) => shot(m, sizes)).join('')}</div>${b.cap ? `<p class="cap">${b.cap}</p>` : ''}</div>`;
     },
 
     columns: (b) => `<div class="blk blk-cols">${head(b)}<div class="cols n-${b.items.length}">${b.items.map((c) => `<div class="col rise${c.tone ? ` tone-${c.tone}` : ''}">

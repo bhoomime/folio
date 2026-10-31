@@ -239,6 +239,8 @@ details[open] > summary .plus::after { transform: rotate(0deg); }
 .shot.in img { --sc: 1.05; }
 .has-cursor .shot img { cursor: none; }
 .shots-wide .shot { flex: 1; }
+/* screenshots of an interface (ui: true) show whole, with no zoom or drift */
+.shots-ui .shot img, .shots-ui .shot.in img { transform: none; object-fit: contain; }
 .shots-narrow { max-width: 60%; }
 .shots-phones { padding: 6vh 4vw; background: var(--paper-deep); border-radius: 12px; justify-content: center; gap: 2.4vw; position: relative; }
 .shots-phones .shot { border-radius: 14px; box-shadow: var(--shadow); border: 1px solid transparent; max-width: 280px; }

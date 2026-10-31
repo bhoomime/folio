@@ -37,7 +37,7 @@ Everything textual lives in **`site/js/data.js`**: projects (order, copy, tags, 
   - `persona`: a profile card, or several side by side.
   - `question`: the "how might we", large and centred.
   - `steps`: a numbered line, a storyboard grid, or a zig-zag with pictures (`layout: 'zig'`).
-  - `images`: `'wide'`, `'row'` or `'phones'`.
+  - `images`: `'wide'`, `'row'` or `'phones'`. Photos zoom in slightly and drift as you scroll. Add `ui: true` for screenshots of an interface, so they show whole, with no zoom or crop.
   - `columns`: side-by-side lists.
   - `palette`: type and colour swatches.
   - `tree`: the app's structure.
@@ -87,7 +87,7 @@ In `site/index.html`, invisible markers decide where the thread goes: `data-anch
 
 **Live:** https://folio-phi-eosin.vercel.app, the Vercel project `folio`, linked to https://github.com/bhoomime/folio. Every push to `main` deploys to production automatically; `vercel.json` tells Vercel to serve the `site/` folder as it is.
 
-It's a static site, so it would also work if you uploaded the **`site/`** folder to Netlify (drag and drop), Cloudflare Pages or GitHub Pages. No build step. When you change CSS/JS, bump the `?v=` number (currently `?v=20`) in the four HTML files (including `404.html`) so visitors get the new files.
+It's a static site, so it would also work if you uploaded the **`site/`** folder to Netlify (drag and drop), Cloudflare Pages or GitHub Pages. No build step. When you change CSS/JS, bump the `?v=` number (currently `?v=21`) in the four HTML files (including `404.html`) so visitors get the new files.
 
 ## Notes
 
