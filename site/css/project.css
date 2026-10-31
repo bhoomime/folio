@@ -90,6 +90,32 @@ details[open] > summary .plus::after { transform: rotate(0deg); }
 .gl p { font-size: var(--fs-body-lg); line-height: var(--lh-body-lg); max-width: 40ch; }
 
 .cs-feat { padding-top: 12vh; }
+
+/* ------------------------------------------------------------- overview or the full case study */
+.cs-mode { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px 32px; margin-top: 4vh; padding-top: 3vh; border-top: 1px solid var(--line); }
+.cs-mode-note { font-size: var(--fs-small); line-height: var(--lh-small); color: var(--ink-2); }
+.cs-mode-note .hand { font-size: var(--fs-ui); color: var(--accent-text); margin-right: 6px; }
+.cs-mode-min { font-weight: 400; opacity: .75; }
+.cs-mode-back { font-size: var(--fs-small); color: var(--ink); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+@media (hover: hover) { .cs-mode-back:hover { color: var(--accent-text); } }
+/* beside the overview, the way into the full story stays in view */
+.ov-side-a { display: grid; gap: 4px; font-size: var(--fs-small); line-height: var(--lh-small); color: var(--ink); }
+.ov-side-a > span { color: var(--accent-text); }
+@media (hover: hover) { .ov-side-a:hover { color: var(--accent-text); } }
+.ov-sec { padding-top: 12vh; }
+.ov-sec h2, .ov-cta h2 { font-family: var(--f-display); font-weight: 300; font-size: var(--fs-h2); line-height: var(--lh-h2); letter-spacing: -.03em; max-width: 22ch; text-wrap: balance; }
+.ov-sec > .blk { margin-top: clamp(28px, 4vh, 48px); }
+.ov-sec > .blk + .blk { margin-top: clamp(36px, 6vh, 64px); }
+.cs-body.ov .cs-learning { padding-bottom: 6vh; }
+.ov-cta { margin: 4vh 0 12vh; padding: clamp(28px, 4vw, 56px); border-radius: 16px; background: var(--paper-deep); display: grid; justify-items: start; gap: 16px; }
+.ov-cta > p { font-size: var(--fs-body); line-height: var(--lh-body); color: var(--ink-2); max-width: 52ch; }
+.ov-cta .ov-jump-h { margin-top: 12px; font-size: var(--fs-ui); color: var(--accent-text); }
+.ov-jump { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.ov-jump a { display: inline-block; padding: 7px 14px; border: 1px solid var(--line); border-radius: 999px; font-size: var(--fs-small); color: var(--ink-2); transition: color .2s, border-color .2s; }
+@media (hover: hover) { .ov-jump a:hover { color: var(--ink); border-color: var(--ink); } }
+.ov-cta.ov-cta-back { background: none; padding: 0; margin-top: 2vh; }
+/* a folded chapter: its heading stays, the detail opens on request */
+.chap > .ch-fold { margin-top: clamp(24px, 4vh, 40px); }
 .cs-feat h2, .ch-head h2 { font-family: var(--f-display); font-weight: 300; font-size: var(--fs-h2); line-height: var(--lh-h2); letter-spacing: -.03em; max-width: 22ch; text-wrap: balance; }
 .feat { list-style: none; margin: 5vh 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px clamp(20px, 2.4vw, 40px); }
 .feat h3 { margin-top: 20px; font-family: var(--f-display); font-weight: 400; font-size: var(--fs-h3); line-height: var(--lh-h3); letter-spacing: -.015em; }
@@ -378,7 +404,7 @@ details[open] > summary .plus::after { transform: rotate(0deg); }
 @media (max-width: 860px) {
   .gl-grid, .feat { grid-template-columns: 1fr; }
   .stats.n-3, .stats.n-4, .stats.n-5 { --n: 2; }
-  .cs-feat { padding-top: 9vh; }
+  .cs-feat, .ov-sec { padding-top: 9vh; }
   .chap { padding-top: 10vh; }
   .find, .find.c-3, .find.c-4 { grid-template-columns: 1fr; }
   .find.with-img.terse, .find.with-img.terse.c-3, .find.with-img.terse.c-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }

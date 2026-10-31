@@ -6,7 +6,7 @@ background box, plus a still of the last frame for reduced motion.
     python tools/prepare_girl.py <paper film.mp4> <blue film.mp4>
 
 Writes site/assets/media/girl-{paper,blue}.webp (plays once, stops on the last frame) and
-girl-{paper,blue}-end.webp. Lines are thickened a touch so they match the site's drawings when shown small.
+girl-{paper,blue}-end.webp. Lines are deepened and thickened very slightly (SPREAD) so they match the site's drawings when shown small.
 """
 import shutil
 import subprocess
@@ -19,7 +19,8 @@ from PIL import Image, ImageFilter
 
 OUT = Path(__file__).resolve().parent.parent / "site" / "assets" / "media"
 SIZE = 440      # px; shown at most 220 css px wide, so this is 2x
-BOOST = 1.45    # how much deeper the ink gets
+BOOST = 1.4     # how much deeper the ink gets
+SPREAD = .4     # how much each line grows into its neighbours (0 = as drawn, .8 was too heavy beside the other drawings)
 FPS = 13.78
 
 
@@ -45,7 +46,7 @@ def to_rgba(a, bg, dark_ink):
     """Separate the ink from the film's paper: alpha is how much ink a pixel holds, colour is the ink itself."""
     ink = np.clip(bg - a, 0, None) if dark_ink else np.clip(a - bg, 0, None)
     spread = np.stack([np.asarray(Image.fromarray(ink[..., c].astype(np.uint8)).filter(ImageFilter.MaxFilter(3))) for c in range(3)], axis=-1)
-    ink = np.minimum(np.maximum(ink, spread * .8) * BOOST, 255)
+    ink = np.minimum(np.maximum(ink, spread * SPREAD) * BOOST, 255)
     room = np.maximum(bg if dark_ink else 255 - bg, 1)          # how far each channel can travel from the paper
     # on the blue the blue channel has almost no room to brighten, so it would only add noise: read the ink from red and green
     alpha = np.clip((ink / room).max(axis=2) if dark_ink else (ink / room)[..., :2].max(axis=2), 0, 1)

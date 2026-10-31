@@ -80,6 +80,30 @@ const PROJECTS = [
       { title: 'One plan, everything else built from it', body: 'Doctors write one plan. The prescription, the client’s day and the safety checks all build themselves from it.', img: im('span-ui-plan-check', 2880, 1800, 'The care plan with five supplements, one flagged by the safety check because ashwagandha is usually avoided in a possible pregnancy') },
       { title: 'Record once, write once', body: 'The recording lives on the client’s page and goes straight into one note, written for the record, the nutritionist and the client.', img: im('span-ui-note', 2880, 1800, 'The doctor’s note, written for the client, beside a live phone preview of what the client will see') },
     ],
+    ov: {
+      impactTitle: 'What changed for the doctor',
+      impact: [
+        { n: 43, unit: '%', label: 'less time writing the care plan, in the first test against the tool doctors use today' },
+        { n: 7, unit: ' → 0', label: 'clicks to see every body system that needs attention' },
+        { n: 5, label: 'versions, each one taken back to doctors' }],
+      did: [
+        'Sat in on 5 real consults and surveyed 3 doctors, to see how they actually work',
+        'Scored the old consult screen against ten design rules',
+        'Designed the brand members see: warm, human, about life rather than test scores',
+        'Designed and built the care tool in five versions, using AI coding tools',
+        'Tested it against the tool doctors use today, with a doctor running real tasks'],
+      process: [
+        { title: 'Watch', body: 'I sat beside doctors from opening a client’s record to the last line of the prescription, and noted where they got stuck.' },
+        { title: 'Find the pattern', body: 'The information was all there. Doctors still rebuilt each client’s story by hand, across three screens and two other apps.' },
+        { title: 'Design and build', body: 'One crowded screen became a guided day: prep, the consult, the care plan, recording and the doctor’s note.' },
+        { title: 'Test', body: 'A doctor ran the same consult on the current tool and on my redesign, thinking out loud.' }],
+      shotsTitle: 'From one crowded screen to a guided day',
+      shots: [
+        { t: 'images', ui: true, layout: 'row', images: [im('span-ui-old', 2880, 1800, 'The original consult screen, white-labelled, with four problems marked: nine panels of equal size, two empty drop zones, made-up numbers and hard-to-read capitals'), im('span-ui-consult', 2880, 1800, 'The redesigned consult screen: an alert strip, results grouped with change tags such as worse and better, and the care plan beside them')], cap: 'Before and after. The old screen gave nine panels the same weight; the new one leads with what needs attention.' },
+        { t: 'video', src: 'assets/media/span-vid-assist.mp4', poster: im('span-vid-assist-poster', 1440, 900), w: 1440, h: 900, alt: 'Screen recording: Assist suggests templates, the doctor accepts its advice, a safety check flags one supplement, then the plan shows as the client’s day and as a prescription', cap: 'One plan, written once. The client’s day and the prescription build themselves, with a safety check on the way.' },
+        { t: 'images', ui: true, layout: 'row', images: [im('span-ui-twin-full', 2880, 1800, 'The digital twin in full screen, zoomed in on the thyroid, with a floating card showing TSH and free T3 out of range'), im('span-ui-note', 2880, 1800, 'The doctor’s note, written for the client, beside a live phone preview of what the client will see')], cap: 'The digital twin, zoomed in on the thyroid, and the doctor’s note with a live preview of the client’s phone.' }],
+      outcome: 'In the first test, the doctor wrote the care plan in 10 minutes instead of almost 18, and only closed the consult on the redesign. She said she would use it for real consults. Three more doctors are next.',
+    },
     chapters: [
       { nav: 'Where it started', title: 'How do you make advanced healthcare feel human?', blocks: [
         { t: 'p', lead: true, text: ['The clinic offers serious medicine: blood panels, body scans and data from wearables, read by doctors, nutritionists and coaches. But serious medicine can feel cold, and a screen full of numbers can hide the one thing that matters.'] },
@@ -94,7 +118,7 @@ const PROJECTS = [
           { title: 'The care team', body: 'Blood panels, scans, wearables and questionnaires all land on one record. The tool showed everything at the same size, in nine equal panels, so nothing stood out.' }] },
         { t: 'images', layout: 'row', images: [im('span-runner', 896, 1207, 'A runner in mid-stride over still water, mirrored below'), im('span-hrv', 1200, 1500, 'A heart-rate chart over a warm, blurred photo: wishing you an HRV that keeps going up')] },
       ] },
-      { nav: 'Who it’s for', title: 'I was designing for four people, not one', blocks: [
+      { nav: 'Who it’s for', fold: true, title: 'I was designing for four people, not one', blocks: [
         { t: 'quotes', items: [
           { q: 'I’m not waiting to feel unwell to start taking care of myself.', who: 'Members' },
           { q: 'What’s the one thing I must sort out today?', who: 'Doctors' },
@@ -120,7 +144,7 @@ const PROJECTS = [
           'Every moment became a sticky note, coloured by type: stuck, workaround, what they looked at first, a quote, or a surprise.',
           'I sorted them into before, during and after the consult, and saw where they piled up.',
           'I scored each finding by how many doctors it affected and how bad it was, from “annoying” to “risks a missed clinical decision”, and fixed the highest scores first.'] },
-        { t: 'stickies', title: 'One session, as I mapped it', intro: 'An experienced doctor, 6+ months on the tool, in an online follow-up. Built from 7 audio recordings, my notes and her survey.', cols: [
+        { t: 'stickies', fold: 'See my research board, re-set as sticky notes', title: 'One session, as I mapped it', intro: 'An experienced doctor, 6+ months on the tool, in an online follow-up. Built from 7 audio recordings, my notes and her survey.', cols: [
           { title: 'Pain points', tone: 'pain', c: 2, items: [
             'She skips the prep page. For repeat clients it’s empty, so there’s nothing useful there.',
             'It says “0 of 200 flagged”, but some markers are still orange. New problems aren’t picked up.',
@@ -149,7 +173,7 @@ const PROJECTS = [
             'Her idea: make the questionnaire required before every consult, so prep and the AI have what they need.'] }],
           note: 'Re-set from my research board, with product names removed and nobody named.' },
       ] },
-      { nav: 'What I saw', title: 'The information was all there. Doctors still put the story together by hand.', blocks: [
+      { nav: 'What I saw', fold: true, title: 'The information was all there. Doctors still put the story together by hand.', blocks: [
         { t: 'stats', items: [
           { n: 45, unit: ' min', label: 'a typical consult, in a 30-minute slot. Some ran to an hour.' },
           { n: 15, unit: ' min', label: 'spent typing supplements by hand in one consult' },
@@ -262,7 +286,7 @@ const PROJECTS = [
         { t: 'images', ui: true, layout: 'wide', images: [im('span-ui-twin-full', 2880, 1800, 'The digital twin in full screen, zoomed in on the thyroid, with a floating card showing TSH and free T3 out of range')], cap: 'Full screen, zoomed in on the thyroid, with its two results floating beside the body.' },
         { t: 'video', title: 'Watch: the digital twin', src: 'assets/media/span-vid-twin.mp4', poster: im('span-vid-twin-poster', 1440, 900), w: 1440, h: 900, alt: 'Screen recording: the doctor opens the digital twin, picks the thyroid and metabolic systems, rescans the body, then opens it full screen and picks two more systems', cap: 'Picking systems, a rescan, then full screen with the readings beside the body.' },
       ] },
-      { nav: 'Prep', title: 'The whole client, before they walk in', blocks: [
+      { nav: 'Prep', fold: true, title: 'The whole client, before they walk in', blocks: [
         { t: 'p', text: ['Prep shows the whole client, good and bad, so doctors don’t jump between pages. It answers the question repeat clients raised most: <mark>what changed since last time?</mark>'] },
         { t: 'findings', items: [
           { title: 'Since the last consult', body: 'Alerts, what changed, and whether the last plan was followed, in one short brief. “What to focus on” is open by default.' },
@@ -285,7 +309,7 @@ const PROJECTS = [
         { t: 'images', ui: true, layout: 'row', images: [im('span-ui-templates', 2880, 1800, 'Assist’s template picker: two chosen templates and the five supplements they add'), im('span-ui-myday', 2880, 1800, 'My day: the plan laid out from waking up to evening, each item movable')], cap: 'Assist’s templates, and the same plan as the client’s day.' },
         { t: 'images', ui: true, layout: 'row', images: [im('span-ui-rx', 2880, 1800, 'The prescription built from the plan: each supplement with dose, timing and duration'), im('span-ui-stock', 2880, 1800, 'The clinic stock panel beside the plan')], cap: 'The prescription builds itself from the plan, with the clinic’s stock one click away.' },
       ] },
-      { nav: 'Recording and notes', title: 'Record once, write once, reach everyone', blocks: [
+      { nav: 'Recording and notes', fold: true, title: 'Record once, write once, reach everyone', blocks: [
         { t: 'p', text: ['Every doctor was recording in another app and pasting notes back in. The recording now lives on the client’s page and <mark>goes straight into the note</mark>, with checks so it never lands on the wrong client.'] },
         { t: 'findings', items: [
           { title: 'Recording with a live transcript', body: 'Right on the consult page. It works with consults in mixed languages, like Telugu and English, and can bring in a recording from the app doctors already use.' },
@@ -297,17 +321,17 @@ const PROJECTS = [
         { t: 'video', title: 'Watch: from recording to the doctor’s note', src: 'assets/media/span-vid-record.mp4', poster: im('span-vid-record-poster', 1440, 900), w: 1440, h: 900, alt: 'Screen recording: the doctor records the consult, confirms the client, stops, opens the summary, then writes the doctor’s note with a phone preview', cap: 'Record, confirm it’s the right client, stop, then write the note with the client’s phone preview beside it.' },
         { t: 'images', ui: true, layout: 'row', images: [im('span-ui-summary', 2880, 1800, 'After recording: playback at 1×, 1.5× or 2× and the summary'), im('span-ui-note-flag', 2880, 1800, 'A red flag note for an urgent alert: one clear call to action and words to avoid highlighted')], cap: 'Playback and summary, and the careful note for an urgent alert.' },
       ] },
-      { nav: 'Finish and look', title: 'Calm to look at, and finished where you are', blocks: [
+      { nav: 'Finish and look', fold: true, title: 'Calm to look at, and finished where you are', blocks: [
         { t: 'columns', items: [
           { title: 'Finishing the consult', items: ['“Finish consult” with a short checklist, right on the consult page', '“No-show” with a reason, and a button to ask the front desk to rebook', 'The hub updates straight away'] },
           { title: 'The nutritionist handoff', items: ['A task with the context the nutritionist needs', 'Their nutrition plan, then the doctor unlocks the client’s app', 'Today’s visit shows in the record: answer updates, safety alerts kept with a reason, and the handoff’s progress'] },
           { title: 'Look and feel', items: ['The brand’s colours and type, with sentence-case labels instead of hard-to-read capitals', 'Less text, one-line banners, and nothing repeated on screen', 'Dark mode, keyboard shortcuts with a help button, and “/” to search', 'Clear hover and focus states on every control', 'Works from phone to desktop without sideways scrolling'] }] },
       ] },
-      { nav: 'Around the consult', title: 'The record, tickets and a dark mode', blocks: [
+      { nav: 'Around the consult', fold: true, title: 'The record, tickets and a dark mode', blocks: [
         { t: 'images', ui: true, layout: 'row', images: [im('span-ui-record', 2880, 1800, 'The client record: every visit grouped by consultation, with what was found and recommended'), im('span-ui-tickets', 2880, 1800, 'Tickets: open issues by status, waiting for the relationship manager’s call, or past their deadline')], cap: 'The client record, grouped by consultation, and the tickets the care team works through.' },
         { t: 'images', ui: true, layout: 'wide', images: [im('span-ui-dark', 2880, 1800, 'The consult screen in dark mode, in Span’s warm espresso tones')], cap: 'Dark mode, in the brand’s espresso and gold.' },
       ] },
-      { nav: 'How it evolved', title: 'Five versions, each one built from what doctors said', blocks: [
+      { nav: 'How it evolved', fold: true, title: 'Five versions, each one built from what doctors said', blocks: [
         { t: 'steps', items: [
           { n: 'September', title: 'Version 1: from the review of the old screen', body: 'The step-by-step day, the hub, the priority-first overview, result cards that match the lab, the care plan tab, the AI draft, review and send, and the client record.' },
           { n: 'Sep 30', title: 'Version 2: the simpler results page', body: 'Priorities first, one meaning for each colour, and tabs that look like tabs. This is where the results page got 47% shorter.' },
@@ -345,7 +369,7 @@ const PROJECTS = [
           'Her biggest request is still open: changing a dose wherever she sees the plan. My day can now do it, the prescription can’t yet.',
           'This is one doctor, on two different clients, and one test doesn’t make a verdict. <mark>Three more doctors are next</mark>, on matched clients with an earlier visit each, so “what changed” can be tested in both versions.'] },
       ] },
-      { nav: 'What’s next', title: 'What I still want to find out', blocks: [
+      { nav: 'What’s next', fold: true, title: 'What I still want to find out', blocks: [
         { t: 'list', items: [
           'The next three A/B sessions, with ease scored after every task and the same plan handed to each doctor.',
           'The time between visits: results clients send in and calls with their health coach never reach the doctor before a review. Neither version covers it yet.',
@@ -377,6 +401,27 @@ const PROJECTS = [
       { title: 'It keeps track of what you try', body: 'Tap each product on the scanner and it’s saved to your visit, side by side with the others you tested.', img: im('mthd-kiosk-1', 594, 785, 'MTHD kiosk on a tablet: a live face scan with suggested foundation shades') },
       { title: 'It carries on at home', body: 'Scan a QR code and the whole visit moves to the app, with the advisor’s note and your shade already picked.', img: im('mthd-mobile-3', 1792, 2356, 'MTHD app skin profile with saved good shades and recommended products') },
     ],
+    ov: {
+      impactTitle: 'Research on the shop floor',
+      impact: [
+        { n: 12, label: 'shoppers interviewed' },
+        { n: 7, label: 'stores observed' },
+        { n: 90, unit: '%', label: 'of people who browse in a store leave without buying' }],
+      did: [
+        'Interviewed shoppers, store staff and a beauty influencer, and ran a photo quiz in a store',
+        'Defined the real problem: the store forgets you the moment you walk out',
+        'Designed the service across the store and home, and the screens for the mirror and the app'],
+      process: [
+        { title: 'Go to the store', body: 'I watched shoppers try foundations, and talked to them and to the advisors helping them.' },
+        { title: 'Find the real gap', body: 'Shoppers found a shade in the store and lost it by the time they got home. The store has no memory.' },
+        { title: 'Design one profile', body: 'Skin Story: a smart mirror that scans your skin and records what you try, linked to an app at home.' },
+        { title: 'Check it holds up', body: 'People want it, stores gain from it, and it can be built with technology that exists today.' }],
+      shots: [
+        { t: 'images', layout: 'row', images: [im('mthd-kiosk-1', 594, 785, 'MTHD kiosk on a tablet: a live face scan with suggested foundation shades'), im('mthd-kiosk-3', 587, 785, 'MTHD kiosk result: a matched foundation with a buy-now button'), im('mthd-mobile-3', 1792, 2356, 'MTHD app skin profile with saved good shades and recommended products')], cap: 'The mirror scans and matches in the store. The app keeps the shade at home.' },
+        { t: 'images', layout: 'wide', images: [im('mthd-store', 1840, 966, 'MTHD store render')], cap: 'The mirror, in the store.' }],
+      outcomeTitle: 'What it changes',
+      outcome: 'A shopper’s shade, the products they tried and what suited them now follow them from the store mirror to their phone, so buying online starts from what already worked.',
+    },
     chapters: [
       { nav: 'Where it started', title: 'It started with a shade I couldn’t remember', blocks: [
         { t: 'p', lead: true, text: [
@@ -389,7 +434,7 @@ const PROJECTS = [
           { title: 'It arrives', body: 'It’s wrong. The shade is off and the finish is different. It joins the other wrong products on the shelf.' }] },
         { t: 'p', text: ['This isn’t an occasional accident. It’s the default experience for millions of Indian beauty shoppers, and it’s a <mark>memory problem, not a product problem</mark>.'] },
       ] },
-      { nav: 'The market', title: 'A booming market that keeps selling people the wrong thing', blocks: [
+      { nav: 'The market', fold: true, title: 'A booming market that keeps selling people the wrong thing', blocks: [
         { t: 'stats', items: [{ pre: '$', n: 28, unit: 'B', label: 'projected size of India’s beauty and personal care market by 2030, one of the fastest growing in the world' }] },
         { t: 'p', text: [
           'The growth comes from young, digitally connected shoppers who experiment with products, follow influencers and spend a lot on skincare and makeup.',
@@ -441,7 +486,7 @@ const PROJECTS = [
         { t: 'persona', role: 'who I designed for', name: 'Ananya Sharma', img: im('mthd-persona', 494, 659, 'Portrait of Ananya, smiling with her hands on her face'), facts: ['23 years old', 'Design student', 'Chandigarh'],
           bio: 'Ananya is deeply interested in beauty and skincare but struggles to find products that truly suit her skin. She has a medium-depth complexion with a neutral-warm undertone, an oily T-zone and slightly sensitive eyes, so following trends or popular picks rarely works for her.' },
       ] },
-      { nav: 'The journey', title: 'One shopper, from a reel to the right foundation', blocks: [
+      { nav: 'The journey', fold: true, title: 'One shopper, from a reel to the right foundation', blocks: [
         { t: 'steps', layout: 'zig', items: [
           { title: 'Discovery', img: im('mthd-stage-1', 1024, 559, 'Storyboard: Ananya sees a Skin Story reel on her phone at home'), body: 'Ananya is scrolling Instagram when she sees a creator using the MTHD Skin Story kiosk at Nykaa. It identifies undertones and matches products instantly. She’s bought the wrong foundation before, so she taps through. The message is simple: “Stop guessing your shade. Create your Skin Story in-store.” She heads to the nearest store for a free skin scan.' },
           { title: 'In the store', img: im('mthd-stage-2', 1024, 559, 'Storyboard: an advisor welcomes Ananya at the Skin Story kiosk'), body: 'Near the entrance she finds the Skin Story kiosk. An advisor welcomes her and offers to create her profile. She enters her phone number, scans a QR code, and the kiosk asks about her skin concerns, makeup preferences and skin sensitivity.' },
@@ -460,13 +505,13 @@ const PROJECTS = [
         { t: 'images', layout: 'phones', title: 'The app', images: [im('mthd-mobile-1', 496, 527, 'MTHD app home, “Every skin tells a story”, with routine categories and recommendations'), im('mthd-mobile-2', 598, 785, 'MTHD app home screen on a sculpted stand'), im('mthd-mobile-3', 1792, 2356, 'MTHD app skin profile with saved good shades and recommended products'), im('mthd-mobile-4', 597, 785, 'MTHD app skin profile, second view')],
           cap: '“Every skin tells a story. We just help it glow.” The home screen and the skin profile.' },
       ] },
-      { nav: 'Does it hold up?', title: 'People want it, stores gain from it, and it can be built today', blocks: [
+      { nav: 'Does it hold up?', fold: true, title: 'People want it, stores gain from it, and it can be built today', blocks: [
         { t: 'columns', items: [
           { title: 'People want it', body: 'Shoppers in every interview described the exact problem Skin Story solves, in their own words, without prompting. Sophiya described testing and forgetting; Daisy, standing in a store unsure what to pick; Guneet, wanting a tool that truly understood her skin. Browsing in store and buying online wasn’t a conscious choice in any of the seven stores. The system gave people no alternative.' },
           { title: 'Stores gain from it', body: 'Today stores pay for the whole decision (staff, space, testers, fixtures) without getting the sale. Skin Story makes them part of a guided journey, with three direct benefits: more sales in store, fewer returns because purchases match the shopper’s real profile, and loyalty built over many visits. Brands finally see not just what sold but whether it worked, and advisors’ expertise becomes something the business can see and reward.' },
           { title: 'It can be built today', body: 'Every part already exists. AI skin analysis is mature (Perfect Corp’s YouCam engine reads skin tone in real time), tap-to-scan product tags are standard in retail, QR handovers are everywhere, and foundation brands already keep shade databases. The new part is putting them together around a person, which is a design problem, not an engineering one.' }] },
       ] },
-      { nav: 'What’s next', title: 'From one store to a profile that works everywhere', blocks: [
+      { nav: 'What’s next', fold: true, title: 'From one store to a profile that works everywhere', blocks: [
         { t: 'steps', items: [
           { n: 'Now', title: 'Test it', body: 'Test the kiosk with five to eight shoppers to see whether they trust the undertone reading and feel comfortable with the camera. Try two versions of the app’s recommendation screen to learn how much explanation people need before they buy. Check the shade comparison with testers across Indian skin tones.' },
           { n: 'Soon', title: 'Pilot in one store', body: 'Run a four-week pilot with one retailer, ideally Nykaa or a Sephora franchise, and measure in-store sales before and after the kiosk, returns on Skin Story picks versus unassisted ones, and how many visits turn into purchases in the app.' },
@@ -501,6 +546,22 @@ const PROJECTS = [
       { title: 'Keep the harvest without power', body: 'A brick store with water running through pipes in its walls keeps produce cool, so farmers don’t have to sell the day they harvest.', img: im('kheyt-models-1', 2304, 1336, '3D model of the low-electricity brick storage unit under a sloped roof'), fit: 'cover' },
       { title: 'Track every crate', body: 'Restaurants request contracts, follow each delivery from harvested to packed, shipped and delivered, and raise an issue in one tap.', img: im('kheyt-app-hand', 1024, 1536, 'A hand holding a phone with the Kheyt app in a restaurant kitchen'), fit: 'cover' },
     ],
+    ov: {
+      did: [
+        'Researched on farms with my teammate, using a picture-card sorting game instead of surveys',
+        'Chose three problems to solve: storage, demand and a steady income',
+        'Designed the brand, the village kiosk and the app, and tested them with farmers'],
+      process: [
+        { title: 'Go to the farms', body: 'We watched how farmers grow, store and sell, and saw crops sold straight after harvest at whatever price was offered.' },
+        { title: 'Play, don’t survey', body: 'Instead of filling in forms, farmers sorted picture cards of vegetables.' },
+        { title: 'Pick three problems', body: 'No cold storage, no view of what buyers want, and no steady income.' },
+        { title: 'Build and test', body: 'A village kiosk, a low-power storage unit and an app, tried with farmers in their villages.' }],
+      shots: [
+        { t: 'images', layout: 'row', images: [im('kheyt-research-1', 484, 466, 'Interviewing a farmer in his field with paper prototypes'), im('kheyt-toolkit', 1195, 896, 'The sorting toolkit: a three-section box with picture cards of a person, a cow and a bin, and vegetable cards'), im('kheyt-test-1', 1170, 1543, 'Testing the idea with a farmer outside his house')], cap: 'On the farm, the sorting game, and testing the idea with a farmer.' },
+        { t: 'images', ui: true, layout: 'wide', images: [im('kheyt-kiosk', 2203, 1239, 'Kheyt kiosk screen in Punjabi listing onion, tomato, cucumber and capsicum offers, with buttons to take or turn down an offer')], cap: 'The village kiosk, in Punjabi.' },
+        { t: 'images', layout: 'phones', images: [im('kheyt-mobile-1', 474, 1026, 'Kheyt home: an upcoming beetroot delivery, past deliveries and a contract snapshot'), im('kheyt-mobile-3', 474, 1026, 'Kheyt “Request new contract” screen: a grid of crops with prices per kilo')], cap: 'The app: the next delivery, and asking for a new contract.' }],
+      outcome: 'Delivery updates, contract progress and payments now sit in one app, so farmers and buyers share one picture and can work together directly, without a middleman taking a cut.',
+    },
     chapters: [
       { nav: 'The problem', title: 'Farming is full of risks a farmer can’t control', blocks: [
         { t: 'p', lead: true, text: ['Farmers sign supply agreements with restaurants and buyers, but once the contract is signed, communication collapses. There’s no way to see a delivery, no signal to buyers that a crop is ready, and no shared record when the two sides disagree, just competing paper logs and phone calls.'] },
@@ -542,7 +603,7 @@ const PROJECTS = [
       { nav: 'The idea', title: 'One story, from a city kitchen to a village field', blocks: [
         { t: 'p', text: ['We designed for two people at once: the farmer who grows the crop and the chef who cooks it. Our final sketches explored a brick storage unit, a raised structure with a water tank, and a village kiosk.'] },
         { t: 'images', layout: 'row', images: [im('kheyt-sketch-1', 1436, 1436, 'Pencil sketch of a low brick storage unit'), im('kheyt-sketch-2', 1402, 1402, 'Pencil sketch of a raised brick structure with a water tank on top'), im('kheyt-sketch-3', 1510, 1456, 'Pencil sketch of two farmers at a village kiosk')], cap: 'Final sketches: the brick store, the water-cooled structure and the kiosk.' },
-        { t: 'steps', ar: '4 / 3', title: 'The journey across the system', items: [
+        { t: 'steps', fold: 'See the whole story, scene by scene', ar: '4 / 3', title: 'The journey across the system', items: [
           { title: 'The chef’s problem', img: im('kheyt-scene-1', 911, 840, 'Storyboard: Chef Raju looks at empty crates and changing prices on his phone'), body: 'Chef Raju finds his vegetable supply empty or poor quality, while market prices keep changing.' },
           { title: 'Planning ahead', img: im('kheyt-scene-2', 911, 791, 'Storyboard: Raju plans his order on an app showing weekly demand for beetroot, tomatoes and spinach'), body: 'He plans what to buy using an app that shows weekly demand for each crop.' },
           { title: 'A fair deal with farmers', img: im('kheyt-scene-3', 938, 827, 'Storyboard: Raju agrees a contract with farmers beside a cart of vegetables'), body: 'Through the platform, he agrees a contract with rural farmers for fresh produce at a fair price.' },
@@ -577,7 +638,7 @@ const PROJECTS = [
           { heard: 'Farmers weren’t sure they could rely on a Kheyt card to log in.', changed: 'We replaced the card with a fingerprint login at the village’s digital service centre, to remove the uncertainty.', img: im('kheyt-biometric', 2048, 1144, 'Illustration: a farmer logs in with his fingerprint at a Digital Gramin Seva Kendra kiosk') }] },
         { t: 'images', layout: 'row', images: [im('kheyt-test-1', 1170, 1543, 'Testing the idea with a farmer outside his house'), im('kheyt-test-2', 1170, 1520, 'Talking a farmer through the idea on a village path'), im('kheyt-test-3', 1170, 1523, 'Testing with a farmer and his family indoors')], cap: 'Testing with farmers in Mirzapur, Punjab.' },
       ] },
-      { nav: 'Business model', title: 'Who pays, who gains, and how it grows', blocks: [
+      { nav: 'Business model', fold: true, title: 'Who pays, who gains, and how it grows', blocks: [
         { t: 'columns', title: 'What each side gets', items: [
           { title: 'Restaurants', items: ['Stable, predictable vegetable supply', 'Produce sourced straight from farmers', 'Consistent quality', 'Fewer price swings', 'Every delivery tracked in the app'] },
           { title: 'Farmers', items: ['A buyer before the harvest', 'Less dependence on mandi middlemen', 'Predictable income and crop planning', 'Demand they can see on the village kiosk'] }] },
@@ -619,6 +680,26 @@ const PROJECTS = [
       { title: 'Your cover, at a glance', body: 'The home screen opens with a hello and your plan in plain numbers: the plan, the cover amount and the quick actions you’ll need.', img: im('intact-mobile-1', 543, 1060, 'Intact home: “Hi Sana”, a family floater plan with ₹5,00,000 cover and quick actions') },
       { title: 'Know where your claim is', body: 'See each claim’s amount, hospital and current stage, without chasing updates by phone.', img: im('intact-mobile-3', 602, 1102, 'Intact claim status: a ₹45,000 claim at Apollo Hospital, currently in review') },
     ],
+    ov: {
+      impactTitle: 'The problem in numbers',
+      impact: [
+        { n: 68, unit: '%', label: 'of policyholders surveyed had never read their policy in full' },
+        { n: 14, label: 'calls, on average, to chase one claim' },
+        { n: 50, unit: '%', label: 'of people wait 6–48 hours to leave hospital on a cashless claim' }],
+      did: [
+        'Followed people through a claim, start to finish, and surveyed policyholders',
+        'Mapped the two ways a claim can go, and where each one breaks',
+        'Designed the brand and the app, and built it with AI coding tools'],
+      process: [
+        { title: 'Follow a claim', body: 'From arriving at hospital to the bill being settled, I mapped what people do and where they get stuck.' },
+        { title: 'Find the gaps', body: 'Nobody could say how much was covered, or how much they would pay, until it was too late.' },
+        { title: 'Ask one question', body: 'How might we guide people through a claim, step by step, so they don’t have to work it out at a stressful moment?' },
+        { title: 'Design', body: 'Everything one tap from home: the cover in plain words, an assistant for questions, and a claim you can follow.' }],
+      shots: [
+        { t: 'images', layout: 'phones', images: [im('intact-mobile-1', 543, 1060, 'Intact home: “Hi Sana”, a family floater plan with ₹5,00,000 cover and quick actions'), im('intact-mobile-2', 493, 1053, 'Intact home, lower half: quick actions, Ask Intact AI and an active claim’s progress'), im('intact-mobile-3', 602, 1102, 'Intact claim status: a ₹45,000 claim at Apollo Hospital, currently in review')], cap: 'Your cover at a glance, help on hand, and a claim you can follow.' },
+        { t: 'images', layout: 'wide', images: [im('intact-key-screens', 1156, 718, 'Intact app map: the home dashboard branching into policy, claims, AI assistant, hospitals, profile and documents')], cap: 'Everything one tap from home.' }],
+      outcome: 'By leading with what the cover includes, letting people act straight away and answering questions when they come up, Intact gives people control at every stage, not just at claim time.',
+    },
     chapters: [
       { nav: 'The problem', title: 'People meet their insurance at the worst possible moment', blocks: [
         { t: 'p', lead: true, text: [
@@ -650,7 +731,7 @@ const PROJECTS = [
             ['What she wants', ['A quick, stress-free claim', 'To clearly understand what’s covered', 'As little paperwork and effort as possible']],
             ['What goes wrong', ['She doesn’t know which documents she needs, or what steps to follow', 'She finds out about exclusions (co-pay, room-rent limits) only during a claim', 'She gets vague updates like “under review”', 'She has to keep following up']]] },
       ] },
-      { nav: 'Two journeys', title: 'Two ways a claim can go, and where each one breaks', blocks: [
+      { nav: 'Two journeys', fold: true, title: 'Two ways a claim can go, and where each one breaks', blocks: [
         { t: 'steps', ar: '4 / 3', title: 'A cashless claim', intro: 'The hospital is in the insurer’s network, and the insurer pays the hospital directly.', items: [
           { title: 'Arriving at a network hospital', img: im('intact-cashless-1', 983, 758, 'Illustration: she arrives at City Hospital, a network hospital') }, { title: 'Asking for approval before treatment', img: im('intact-cashless-2', 501, 574, 'Illustration: at the insurance desk, she hands over her details for approval') }, { title: 'The insurer checks cover, waiting periods and conditions', img: im('intact-cashless-3', 1024, 655, 'Illustration: the administrator checks her cover, waiting periods and conditions on screen') },
           { title: 'Care begins after the first approval', img: im('intact-cashless-4', 1024, 696, 'Illustration: doctors begin treatment while the administrator follows updates') }, { title: 'Medical records and bills are prepared', img: im('intact-cashless-5', 1024, 696, 'Illustration: the final bill and medical files are prepared for submission') }, { title: 'The insurer and hospital settle the claim', img: im('intact-cashless-6', 1024, 559, 'Illustration: she receives the settlement summary at the discharge desk') }] },
@@ -658,7 +739,7 @@ const PROJECTS = [
           { title: 'Treated at a hospital outside the network', img: im('intact-reimb-1', 1024, 559, 'Illustration: at a hospital outside the network, she is told the full bill must be paid') }, { title: 'Paying the full hospital bill', img: im('intact-reimb-2', 1024, 559, 'Illustration: she and her father go through a long checklist of documents') }, { title: 'Gathering every document the claim needs', img: im('intact-reimb-3', 481, 390, 'Illustration: at the claim submission office, stacks of papers are ready') },
           { title: 'Submitting them to the claims office or administrator', img: im('intact-reimb-4', 481, 390, 'Illustration: the administrator checks the documents against the policy') }, { title: 'The documents and the cover are checked', img: im('intact-reimb-5', 481, 390, 'Illustration: the administrator asks for more prescriptions and statements') }, { title: 'More documents and clarification are asked for', img: im('intact-reimb-6', 481, 390, 'Illustration: the claim waits on a query for more information') }] },
       ] },
-      { nav: 'The gaps', title: 'Nobody can say how much is covered, or how much they’ll pay', blocks: [
+      { nav: 'The gaps', fold: true, title: 'Nobody can say how much is covered, or how much they’ll pay', blocks: [
         { t: 'findings', cols: 4, items: [
           { title: 'No step-by-step guidance' },
           { title: 'Scattered communication, and nobody owns it' },
@@ -726,6 +807,26 @@ const PROJECTS = [
       { title: 'Every problem has an owner', body: 'Volunteers see the incidents assigned to them and mark each one in progress or resolved, so organisers always know who’s handling what.', img: im('morphea-mobile-2', 390, 845, 'Morphea volunteer view: assigned incidents with in-progress, resolved and accept actions') },
       { title: 'Ready on day one', body: 'An onboarding kit with ID cards, a venue map and walkie-talkies gets volunteers, exhibitors and the core team aligned before the gates open.', img: im('morphea-mockups-2', 274, 438, 'A staff member wearing a Morphea lanyard working at a vendor table during a cultural event'), fit: 'cover' },
     ],
+    ov: {
+      impactTitle: 'What research showed',
+      impact: [
+        { n: 15, label: 'people interviewed: organisers, staff, exhibitors and artists' },
+        { n: 4, label: 'event spaces observed' },
+        { n: 83, unit: '%', label: 'had trouble coordinating during the event' }],
+      did: [
+        'Interviewed organisers, staff, exhibitors and artists, and observed four event spaces',
+        'Designed a dashboard for each role, and the brand',
+        'Designed what people use on the day: ID kits, maps, badges and an AR map'],
+      process: [
+        { title: 'Research', body: 'Every important decision was made too late, through scattered chats, emails and spreadsheets.' },
+        { title: 'Define', body: 'How might we keep everyone in step, from the first plan to the event floor?' },
+        { title: 'Sketch', body: 'An app, a sponsor booklet, an ID kit and an interactive visiting card, then a choice of what to build first.' },
+        { title: 'Design', body: 'A dashboard for every role, and the things people hold and see on the ground.' }],
+      shots: [
+        { t: 'images', layout: 'phones', images: [im('morphea-mobile-1', 390, 845, 'Morphea vendor portal: a live crowd heatmap and attendance trends'), im('morphea-mobile-2', 390, 845, 'Morphea volunteer view: assigned incidents with in-progress, resolved and accept actions'), im('morphea-mobile-3', 390, 844, 'Morphea vendor stall screen: stall location, item requests and the organiser’s contact')], cap: 'A live crowd heatmap for vendors, incidents for volunteers, and requests from a stall.' },
+        { t: 'images', layout: 'row', images: [im('morphea-mockups-3', 445, 453, 'AR view of a 3D monument model rising out of an event map'), im('morphea-badges', 1200, 1888, 'Round “Ask me” volunteer badges with friendly phrases'), im('morphea-stage', 1170, 692, 'The Morphea logo on a stage screen between coloured light pillars')], cap: 'On the ground: an AR map, volunteer badges and the stage.' }],
+      outcome: 'With the crowd heatmap and attendance trend at a glance, vendors could plan staff and restocking before queues formed, not after. One shared platform also cut the back-and-forth between organisers and vendors.',
+    },
     chapters: [
       { nav: 'Research', title: 'Every important decision was made too late', blocks: [
         { t: 'p', lead: true, text: [
@@ -752,7 +853,7 @@ const PROJECTS = [
             { title: 'Marketing', items: ['So many ads it’s hard to stand out', 'Influencer timing is hard to coordinate', 'Budgets split between offline and online'] }] },
           { t: 'p', title: 'A case study: the Kochi-Muziris Biennale', text: ['India’s largest contemporary art festival spans heritage buildings, public spaces, galleries and outdoor sites in Kochi, with exhibitions, performances, talks and workshops. What it does well: a reusable structure, sustainability treated as art, and a living ecosystem. Where it struggles: sustainability, coordination, high costs, the weather, vendors and staff, and conflicts.'] }] },
       ] },
-      { nav: 'What people said', title: 'In their words', blocks: [
+      { nav: 'What people said', fold: true, title: 'In their words', blocks: [
         { t: 'quotes', items: [
           { q: 'Our stall was set up, but barely anyone knew we were here. It felt like we were hidden.' },
           { q: 'Last-minute changes weren’t communicated properly, which confused both staff and exhibitors.' },
@@ -760,7 +861,7 @@ const PROJECTS = [
           { q: 'Whenever I needed to check in with another team, it took too long to figure out who was responsible.' },
           { q: 'Sponsors told us they didn’t see the kind of audience engagement they were promised.' }] },
       ] },
-      { nav: 'Who it’s for', title: 'Three people, three very different event days', blocks: [
+      { nav: 'Who it’s for', fold: true, title: 'Three people, three very different event days', blocks: [
         { t: 'steps', title: 'An event, as organisers live it', items: [
           { title: 'Planning', img: im('morphea-story-1', 1536, 1024, 'Storyboard: an organiser at her laptop juggling proposals, approvals and payments'), body: '“Proposals here, approvals there, payments pending… I need five hands to manage this!”' },
           { title: 'Promotion', img: im('morphea-story-2', 1536, 1024, 'Storyboard: the team planning reels, posters and offline promotion'), body: '“Online, offline, reels, posters: leave no corner untouched!”' },
@@ -786,7 +887,7 @@ const PROJECTS = [
         { t: 'p', text: ['We mapped every person and touchpoint around the organisers across four stages: <b>planning</b> (sponsors, vendors, volunteers), <b>marketing</b> (influencers, exhibitors, audiences), <b>ticketing</b> (online, QR passes, on the ground) and <b>the event itself</b> (venue, logistics, check-ins, workshops).'] },
         { t: 'question', label: 'the question we set out to answer', text: 'How might we simplify communication between everyone involved, so they stay aligned from planning to the event floor?' },
       ] },
-      { nav: 'Ideas', title: 'Deciding what to build first', blocks: [
+      { nav: 'Ideas', fold: true, title: 'Deciding what to build first', blocks: [
         { t: 'columns', intro: 'We sorted every idea into what the event must have, should have, could have, and won’t have yet.', items: [
           { title: 'Must have', tone: 'key', items: ['One web app for every stakeholder, with updates, a progress tracker and interactive maps', 'Walkie-talkies, staff IDs and a venue map marking every stall', 'Interactive visiting cards with AR', 'A mock-up book showing sponsors where their brand will appear'] },
           { title: 'Should have', items: ['Physical IDs and signboards for easy navigation', 'QR-coded wristbands made from sustainable material', '“Ask me” badges, so attendees can find a volunteer', 'Digital tickets with QR codes'] },
@@ -854,8 +955,24 @@ const PROJECTS = [
       { title: 'Learn from the maker', body: 'Hands-on workshops in block printing, pottery and weaving, led by the artisans who keep those crafts alive.', img: im('kalaghar-research-3', 960, 1280, 'A craftsman stitching leather juttis on the floor of his workshop'), fit: 'cover' },
       { title: 'Sell in your own language', body: 'Artisans share photos and voice notes through a WhatsApp assistant that speaks Hindi, Punjabi, Tamil, Bengali, Marathi and more.', img: im('kalaghar-mobile', 1920, 1080, 'Kalaghar low-literacy mobile screens with voice-note uploads, beside an artisan and her child'), fit: 'cover' },
     ],
+    ov: {
+      did: [
+        'Spent three days in Patiala with jutti makers and phulkari artisans',
+        'Mapped the service, in front of the visitor and behind the scenes',
+        'Designed the brand, a website for buyers and a simple mobile app for artisans'],
+      process: [
+        { title: 'Go to the makers', body: 'Three days in Patiala, in the workshops of jutti makers and phulkari embroiderers.' },
+        { title: 'Find who gains', body: 'The skill is passed down through families. The money isn’t: middlemen set the price and keep most of it.' },
+        { title: 'The idea', body: 'A heritage hub on wheels: a van with live workshops and stalls run by the artisans themselves.' },
+        { title: 'Design the service', body: 'A service blueprint, a brand that feels like a movement, and screens for buyers and artisans.' }],
+      shots: [
+        { t: 'images', layout: 'row', images: [im('kalaghar-field-1', 4032, 2268, 'A jutti-making family at their workshop in Patiala'), im('kalaghar-field-2', 698, 927, 'A woman stitching a white phulkari with peacocks')], cap: 'In the field: a jutti-making family, and phulkari being stitched.' },
+        { t: 'images', layout: 'row', images: [im('kalaghar-truck', 1376, 768, 'Illustration: a painted heritage truck on a village road, with a banner reading “Preserving our roots”'), im('kalaghar-stall', 1376, 768, 'Illustration: the heritage truck opened up as a craft stall with visitors')], cap: 'The van on a village road, and opened up as a craft stall.' },
+        { t: 'images', layout: 'wide', images: [im('kalaghar-web', 1920, 1080, 'Kalaghar website on three laptops: artisan stories, van locations and the product shop')], cap: 'The website: artisan stories, where the van is next, and the shop.' }],
+      outcome: 'Kalaghar connects discovering craft online with seeing it made in person. The van’s schedule gives people a reason to come back, and the shop makes browsing purposeful rather than overwhelming.',
+    },
     chapters: [
-      { nav: 'Goals', title: 'What we set out to do', blocks: [
+      { nav: 'Goals', fold: true, title: 'What we set out to do', blocks: [
         { t: 'findings', items: [
           { title: 'Give artisans dignity', body: 'Put artisans first, and honour their craft and identity.' },
           { title: 'Keep traditions alive', body: 'Restore endangered art forms and preserve cultural heritage.' },
@@ -899,7 +1016,7 @@ const PROJECTS = [
           { title: 'The middleman steps in', body: 'Intermediaries help with distribution, but often take a large share of the profit.' },
           { title: 'Shops and export', body: 'Some crafts reach city stores, online shops or global markets through export bodies.' }] },
       ] },
-      { nav: 'Who it’s for', title: 'The maker and the buyer', blocks: [
+      { nav: 'Who it’s for', fold: true, title: 'The maker and the buyer', blocks: [
         { t: 'persona', items: [
           { role: 'artisan', name: 'Baldev Singh', img: im('kalaghar-persona-baldev', 960, 1280, 'Baldev Singh, an elderly artisan in a turban, stitching a jutti'), facts: ['48 years old', 'Patiala, Punjab', 'Jutti artisan', 'Earns ₹8,000–12,000'],
             bio: 'A skilled jutti artisan carrying on a family tradition of handmade footwear. Trained by his father, he has practised the craft for over 30 years. Despite money troubles and little recognition, he remains passionate about jutti-making, and dreams of a better income, passing the art to his children and getting credit for his designs.',
@@ -917,7 +1034,7 @@ const PROJECTS = [
           { title: 'How it works', items: ['Interactive workshops in cities and towns', 'Partnering directly with artisans for fair wages and representation', 'The Kalaghar van as a mobile creative space', 'Craft kits and products sold online and at events', 'Social media and storytelling to raise awareness of India’s living heritage'] },
           { title: 'Where it runs', items: ['Offline: workshops, schools, cultural festivals and community centres across India', 'Online: a website and social media', 'On the move: the van, reaching places that are underserved or curious about craft'] }] },
       ] },
-      { nav: 'Service design', title: 'Every step, in front of the visitor and behind the scenes', blocks: [
+      { nav: 'Service design', fold: true, title: 'Every step, in front of the visitor and behind the scenes', blocks: [
         { t: 'images', layout: 'wide', images: [im('kalaghar-blueprint', 1920, 1080, 'Service blueprint')], cap: 'The service blueprint: what a visitor sees and does at each step, what artisans and staff do in front of them and behind the scenes, and the systems that support it.' },
         { t: 'columns', title: 'The four Ps of the service', items: [
           { title: 'Product', items: ['Hands-on learning sessions', 'Live craft demonstrations', 'Stories told by the artisans themselves', 'Authentic handmade products, on site and online', 'Voice translation by the driver or a translator', 'Collaborations with design schools', 'An online store that keeps artisans visible after the van leaves'] },

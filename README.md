@@ -17,7 +17,7 @@ Then open http://localhost:5173. Opening the HTML files directly also mostly wor
 | Page | What it does |
 |---|---|
 | `site/index.html` | Horizontal journey on screens at least 3:2 and tall enough for its text (vertical scroll and trackpad swipes both move it; ← → keys too). Phones, tablets, squarer monitors and short or zoomed windows get a normal vertical page instead, set in columns on wide screens. |
-| `site/project.html?p=<slug>` | Vertical case study, rendered from `js/data.js`. It reads top to bottom: title and facts, the cover, a one-line summary, an overview (the problem and the solution side by side), three "what it does" cards, then numbered chapters, the reflection and the next project. On wide screens (1200px and up) a short contents list sits beside the story, with a small red mark beside the chapter you are reading; on smaller screens the contents fold into an "on this page" list. Every picture opens larger on click or Enter. |
+| `site/project.html?p=<slug>` | A short overview of the case study for someone with three minutes (problem and solution, numbers, what I did, the process, what it does, the work, the outcome and the learning), with "Read the full case study" at the top, beside it on wide screens, and at the bottom. `&view=full` is the whole case study. It reads top to bottom: title and facts, the cover, a one-line summary, an overview (the problem and the solution side by side), three "what it does" cards, then numbered chapters, the reflection and the next project. On wide screens (1200px and up) a short contents list sits beside the story, with a small red mark beside the chapter you are reading; on smaller screens the contents fold into an "on this page" list. Every picture opens larger on click or Enter. |
 | `site/playground.html` | "The Archive": a grid-paper pinboard you drag around (with inertia), shuffle, and click to enlarge. On touch screens it is a scrolling pile. |
 
 ## Editing content
@@ -28,6 +28,8 @@ Everything textual lives in **`site/js/data.js`**: projects (order, copy, tags, 
 - To add or swap an image: save it as `media-src/<name>.png` (or `.jpg`), run `python tools/prepare_media.py`, and refer to it in `data.js` by name with its original size, e.g. `im('kheyt-cover', 2859, 1482, 'alt text')`. The site picks the right size for each screen. A path or full URL also works in place of a name.
 - **The girl in the hero** ("Before I knew what design was…") is your two-second film, one drawn on paper and one on the blue. `python tools/prepare_girl.py <paper film.mp4> <blue film.mp4>` turns them into transparent animated WebPs (`site/assets/media/girl-*.webp`), so her lines sit straight on the page with no background box, thickened a touch to match the other drawings. It plays once when the page opens, stops on her holding up the drawing, and replays when you point at her. With reduced motion or paused animations she shows that last frame. Only the current theme's file downloads.
 - The polaroids in *Meet the lady behind the pixels* swing when you grab them but don't open a preview.
+- **Overview first.** Each project has an `ov` object for its overview: `impact` (real numbers only, as `stats` items, with `impactTitle`), `did` (what I did), `process` (four steps), `shots` (picture or video blocks) and `outcome`. Leave out anything a project has no real data for. Reading times are counted from the text.
+- **Folding.** In the full case study, `fold: true` on a chapter keeps its heading and folds the rest behind "Read this part"; `fold: 'label'` on a block folds just that block. Fold detail a recruiter can skip, never the problem, the main research finding or the result. A folded chapter opens when someone jumps to it from the contents or the overview.
 - **Case studies** are written in plain words, with the facts taken from the Figma file "Portfolio" (one page per project). Each project has `glance` (problem and solution), `features` (three cards) and `chapters`. A chapter has a short `nav` name for the contents list, a `title` that states the takeaway, and a list of `blocks`. The block types are listed at the top of `PROJECTS`:
   - `p`: paragraphs.
   - `list`: ticked or numbered.
@@ -87,7 +89,7 @@ In `site/index.html`, invisible markers decide where the thread goes: `data-anch
 
 **Live:** https://folio-phi-eosin.vercel.app, the Vercel project `folio`, linked to https://github.com/bhoomime/folio. Every push to `main` deploys to production automatically; `vercel.json` tells Vercel to serve the `site/` folder as it is.
 
-It's a static site, so it would also work if you uploaded the **`site/`** folder to Netlify (drag and drop), Cloudflare Pages or GitHub Pages. No build step. When you change CSS/JS, bump the `?v=` number (currently `?v=21`) in the four HTML files (including `404.html`) so visitors get the new files.
+It's a static site, so it would also work if you uploaded the **`site/`** folder to Netlify (drag and drop), Cloudflare Pages or GitHub Pages. No build step. When you change CSS/JS, bump the `?v=` number (currently `?v=22`) in the four HTML files (including `404.html`) so visitors get the new files.
 
 ## Notes
 

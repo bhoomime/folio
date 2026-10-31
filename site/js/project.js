@@ -1,9 +1,12 @@
 /* ------------------------------------------------------------------
-   Case study page, rendered from PROJECTS in data.js (?p=slug).
-   Order of the page: title and facts, cover, a one-line summary, then an
-   overview (problem / what I designed / what it does), the chapters, the
-   reflection and the next project. A contents list with the red thread
-   sits beside the chapters on wide screens.
+   Case study page, rendered from PROJECTS in data.js.
+   ?p=slug is the short overview, for someone with three minutes: title and
+   facts, cover, a one-line summary, the problem and solution, numbers, what
+   I did, the process, what it does, the work, the outcome and the learning,
+   with "Read the full case study" at the top and the bottom.
+   ?p=slug&view=full is the whole story: the same opening, every chapter
+   (detail a reader can skip folds behind a toggle), the reflection and the
+   next project, with a contents list beside the chapters on wide screens.
 ------------------------------------------------------------------- */
 (() => {
   const root = document.documentElement;
@@ -140,21 +143,99 @@
 
     link: (b) => `<p class="blk blk-link rise"><a class="sbtn" href="${b.href}" target="_blank" rel="noopener">${b.label} <span class="arr">↗</span></a></p>`,
   };
-  function block(b) { return (BLOCK[b.t] || BLOCK.p)(b); }
+  // detail a skimming reader can skip folds behind a toggle: a whole chapter (`fold: true`) or one block (`fold: 'label'`)
+  const fold = (label, inner, cls = '') => `<details class="blk blk-more${cls}"><summary><span>${label}</span><span class="plus" aria-hidden="true"></span></summary><div class="more-in">${inner}</div></details>`;
+  function block(b) {
+    const html = (BLOCK[b.t] || BLOCK.p)(b);
+    return b.fold ? fold(b.fold, html) : html;
+  }
 
-  const chapter = (c, i) => `<section class="chap" id="ch-${i + 1}" data-ch="${c.nav}" aria-labelledby="ch-h-${i + 1}">
+  /* reading time, from the words a reader actually reads (not image names or settings) */
+  const SKIP = new Set(['t', 'id', 'src', 'alt', 'w', 'h', 'layout', 'tone', 'ar', 'cols', 'k', 'ph', 'poster', 'gf', 'css', 'colors', 'c', 'fold', 'ui']);
+  const textOf = (x) => (typeof x === 'string' ? x : Array.isArray(x) ? x.map(textOf).join(' ') : x && typeof x === 'object' ? Object.keys(x).filter((k) => !SKIP.has(k)).map((k) => textOf(x[k])).join(' ') : '');
+  const mins = (x) => Math.max(1, Math.round(textOf(x).replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length / 220));
+
+  const chapter = (c, i) => `<section class="chap${c.fold ? ' folded' : ''}" id="ch-${i + 1}" data-ch="${c.nav}" aria-labelledby="ch-h-${i + 1}">
       <header class="ch-head rise">
         <p class="ch-kick"><span class="ch-num">${pad(i + 1)}</span><span class="hand">${c.nav}</span></p>
         <h2 id="ch-h-${i + 1}">${c.title}</h2>
         ${c.lede ? `<p class="ch-lede">${c.lede}</p>` : ''}
       </header>
-      ${c.blocks.map(block).join('')}
+      ${c.fold ? fold(`Read this part · ${mins(c.blocks)} min`, c.blocks.map(block).join(''), ' ch-fold') : c.blocks.map(block).join('')}
     </section>`;
 
-  /* contents: the overview, every chapter, the reflection */
-  const toc = [{ id: 'overview', nav: 'Overview' }, ...P.chapters.map((c, i) => ({ id: `ch-${i + 1}`, nav: c.nav })), { id: 'reflection', nav: 'Reflection' }];
+  /* two ways to read: a short overview first (?p=slug), the whole story one click away (&view=full) */
+  const FULL = qs.get('view') === 'full';
+  const O = P.ov || {};
+  const urlOv = `project.html?p=${P.slug}`, urlFull = `${urlOv}&view=full`;
+  const fullMin = mins([P.glance, P.features, P.chapters, P.quote, P.learning]);
+  const ovMin = Math.max(2, mins([P.summary, P.glance, P.features, O, P.learning]));
+
+  /* contents (full case study only): the overview, every chapter, the reflection */
+  const toc = FULL ? [{ id: 'overview', nav: 'Overview' }, ...P.chapters.map((c, i) => ({ id: `ch-${i + 1}`, nav: c.nav })), { id: 'reflection', nav: 'Reflection' }] : [];
   const tocList = (cls) => `<ol class="${cls}">${toc.map((t, i) => `<li><a href="#${t.id}" data-i="${i}">${t.nav}</a></li>`).join('')}</ol>`;
   const G = P.glance;
+
+  const glanceHTML = `<section class="cs-glance" id="overview" aria-labelledby="ov-h">
+          <h2 class="vh" id="ov-h">Overview</h2>
+          <div class="gl-grid">
+            <div class="gl rise"><h3 class="hand">the problem</h3><p>${G.problem}</p></div>
+            <div class="gl rise"><h3 class="hand">${G.solutionLabel || 'the solution'}</h3><p>${G.solution}</p></div>
+          </div>
+        </section>`;
+  const featuresHTML = P.features ? `<section class="cs-feat" aria-labelledby="ft-h">
+          <p class="ch-kick"><span class="hand">what it does</span></p>
+          <h2 id="ft-h">${P.featuresTitle || `What ${P.title} does`}</h2>
+          <ul class="feat">${P.features.map((f) => `<li class="rise">${pic(f.img, '(min-width: 860px) 26vw, 92vw', `fe-pic${f.fit === 'cover' ? ' cover' : ''}`)}<h3>${f.title}</h3><p>${f.body}</p></li>`).join('')}</ul>
+        </section>` : '';
+  const learningHTML = `<div class="cs-learning"><div class="learn"><span class="tape"></span>${doodle('bulb', { pre: true })}<h3>key design learning</h3><p>${P.learning}</p></div></div>`;
+
+  const modeBar = FULL
+    ? `<div class="cs-mode"><a class="cs-mode-back" href="${urlOv}"><span aria-hidden="true">←</span> Back to the ${ovMin}-minute overview</a><p class="cs-mode-note">The full case study · about ${fullMin} min</p></div>`
+    : `<div class="cs-mode"><p class="cs-mode-note"><span class="hand">short on time?</span> This is the ${ovMin}-minute overview.</p><a class="sbtn primary" href="${urlFull}">Read the full case study <span class="cs-mode-min">${fullMin} min</span> <span class="arr">→</span></a></div>`;
+
+  const ovSec = (id, kick, h, inner) => `<section class="ov-sec" aria-labelledby="ov-${id}"><p class="ch-kick"><span class="hand">${kick}</span></p><h2 id="ov-${id}">${h}</h2>${inner}</section>`;
+  const overviewBody = `<div class="cs-body ov">
+      <aside class="toc ov-side" aria-label="Full case study">
+        <p class="toc-h hand">the overview</p>
+        <a class="ov-side-a" href="${urlFull}">Read the full case study <span>about ${fullMin} min <span aria-hidden="true">→</span></span></a>
+      </aside>
+      <div class="cs-main">
+        ${glanceHTML}
+        ${O.impact ? ovSec('nums', 'in numbers', O.impactTitle || 'What it came to', BLOCK.stats({ items: O.impact })) : ''}
+        ${O.did ? ovSec('did', 'my part', 'What I did', BLOCK.list({ items: O.did })) : ''}
+        ${O.process ? ovSec('how', 'the process', 'How I got there', BLOCK.steps({ items: O.process })) : ''}
+        ${featuresHTML}
+        ${O.shots ? ovSec('see', 'the work', O.shotsTitle || 'What it looks like', O.shots.map(block).join('')) : ''}
+        ${O.outcome ? ovSec('out', 'the outcome', O.outcomeTitle || 'What came of it', `<div class="blk blk-p"><p class="rise lead">${O.outcome}</p></div>`) : ''}
+        <section class="cs-reflect" aria-label="Key design learning">${learningHTML}</section>
+        <section class="ov-cta" aria-labelledby="ov-cta-h">
+          <h2 id="ov-cta-h">Want the whole story?</h2>
+          <p>The full case study walks through every step: the research, the decisions and what testing changed. About ${fullMin} minutes.</p>
+          <a class="sbtn primary" href="${urlFull}">Read the full case study <span class="arr">→</span></a>
+          <p class="ov-jump-h hand">or go straight to one part</p>
+          <ul class="ov-jump">${P.chapters.map((c, i) => `<li><a href="${urlFull}#ch-${i + 1}">${c.nav}</a></li>`).join('')}</ul>
+        </section>
+      </div>
+    </div>`;
+  const fullBody = `<div class="cs-body">
+      <nav class="toc" aria-label="On this page">
+        <p class="toc-h hand">on this page</p>
+        <div class="toc-in"><span class="toc-mark" aria-hidden="true"></span>${tocList('toc-list')}</div>
+      </nav>
+      <div class="cs-main">
+        ${glanceHTML}
+        ${featuresHTML}
+        <details class="toc-m"><summary><span class="hand">on this page</span><span class="plus" aria-hidden="true"></span></summary>${tocList('toc-m-list')}</details>
+        ${P.chapters.map(chapter).join('')}
+        <section class="cs-reflect" id="reflection" aria-labelledby="rf-h">
+          <h2 class="vh" id="rf-h">Reflection</h2>
+          <div class="cs-quote"><blockquote><span class="qm l" aria-hidden="true">${doodle('quote', { pre: true })}</span><p class="lit-words">${words(P.quote)}</p><span class="qm r" aria-hidden="true">${doodle('quote', { pre: true })}</span></blockquote><p class="cite hand">reflecting on ${P.title}</p></div>
+          ${learningHTML}
+        </section>
+        <div class="ov-cta ov-cta-back"><a class="sbtn" href="${urlOv}"><span aria-hidden="true">←</span> Back to the ${ovMin}-minute overview</a></div>
+      </div>
+    </div>`;
 
   $('#case').innerHTML = `<div class="wrap">
     <header class="cs-hero">
@@ -163,6 +244,7 @@
       <h1 class="cs-title serif" aria-label="${P.title}"><span class="ln" aria-hidden="true">${chars(P.title)}</span></h1>
       <p class="cs-lede">${P.lede}</p>
       <dl class="cs-meta">${P.meta.map(([k, v]) => `<div><dt>${k.toLowerCase()}</dt><dd>${v}</dd></div>`).join('')}</dl>
+      ${modeBar}
     </header>
     <figure class="cs-cover">
       <div class="cs-cover-frame"><span class="tape"></span><svg class="frame-edge dd pre" aria-hidden="true"><path pathLength="1" style="--dur:1.4s"/></svg>
@@ -171,33 +253,7 @@
     </figure>
     <section class="cs-summary" aria-label="Summary"><p class="lit-words">${words(P.summary)}</p></section>
 
-    <div class="cs-body">
-      <nav class="toc" aria-label="On this page">
-        <p class="toc-h hand">on this page</p>
-        <div class="toc-in"><span class="toc-mark" aria-hidden="true"></span>${tocList('toc-list')}</div>
-      </nav>
-      <div class="cs-main">
-        <section class="cs-glance" id="overview" aria-labelledby="ov-h">
-          <h2 class="vh" id="ov-h">Overview</h2>
-          <div class="gl-grid">
-            <div class="gl rise"><h3 class="hand">the problem</h3><p>${G.problem}</p></div>
-            <div class="gl rise"><h3 class="hand">${G.solutionLabel || 'the solution'}</h3><p>${G.solution}</p></div>
-          </div>
-        </section>
-        ${P.features ? `<section class="cs-feat" aria-labelledby="ft-h">
-          <p class="ch-kick"><span class="hand">what it does</span></p>
-          <h2 id="ft-h">${P.featuresTitle || `What ${P.title} does`}</h2>
-          <ul class="feat">${P.features.map((f) => `<li class="rise">${pic(f.img, '(min-width: 860px) 26vw, 92vw', `fe-pic${f.fit === 'cover' ? ' cover' : ''}`)}<h3>${f.title}</h3><p>${f.body}</p></li>`).join('')}</ul>
-        </section>` : ''}
-        <details class="toc-m"><summary><span class="hand">on this page</span><span class="plus" aria-hidden="true"></span></summary>${tocList('toc-m-list')}</details>
-        ${P.chapters.map(chapter).join('')}
-        <section class="cs-reflect" id="reflection" aria-labelledby="rf-h">
-          <h2 class="vh" id="rf-h">Reflection</h2>
-          <div class="cs-quote"><blockquote><span class="qm l" aria-hidden="true">${doodle('quote', { pre: true })}</span><p class="lit-words">${words(P.quote)}</p><span class="qm r" aria-hidden="true">${doodle('quote', { pre: true })}</span></blockquote><p class="cite hand">reflecting on ${P.title}</p></div>
-          <div class="cs-learning"><div class="learn"><span class="tape"></span>${doodle('bulb', { pre: true })}<h3>key design learning</h3><p>${P.learning}</p></div></div>
-        </section>
-      </div>
-    </div>
+    ${FULL ? fullBody : overviewBody}
 
     <a class="cs-next" href="project.html?p=${next.slug}" data-cursor="view" data-cursor-label="Next">
       <span class="hand">next up · ${pad((idx + 1) % N + 1)}</span>
@@ -245,8 +301,8 @@
     $$('.num', el).forEach(count);
     $$('.c-arrow .dd', el).forEach((d) => drawIn(d, .25));
   }, { margin: '0px 0px -8% 0px' });
-  onEnter([$('.cs-quote')], (el) => { $$('.qm .dd', el).forEach((d, i) => drawIn(d, i * .5)); }, { margin: '0px 0px -25% 0px' });
-  onEnter([$('.learn')], (el) => drawIn($('.dd', el), .2), { margin: '0px 0px -20% 0px' });
+  onEnter([$('.cs-quote')].filter(Boolean), (el) => { $$('.qm .dd', el).forEach((d, i) => drawIn(d, i * .5)); }, { margin: '0px 0px -25% 0px' });
+  onEnter([$('.learn')].filter(Boolean), (el) => drawIn($('.dd', el), .2), { margin: '0px 0px -20% 0px' });
   if (RM) $$('.dd.pre').forEach((d) => d.classList.remove('pre'));
   // recordings play while they're on screen, unless motion is reduced or paused
   const vids = $$('.vid video');
@@ -264,6 +320,7 @@
   const secs = toc.map((t) => document.getElementById(t.id));
   let docH = 1, vh = innerHeight, cur = -1;
   const placeMark = () => {
+    if (!mark) return;
     const a = links[cur];
     mark.classList.toggle('on', !!a);
     if (a) { mark.style.transform = `translateY(${a.offsetTop + 6}px)`; mark.style.height = `${a.offsetHeight - 12}px`; }
@@ -277,6 +334,7 @@
     if (!el) return;
     e.preventDefault();
     a.closest('details')?.removeAttribute('open');
+    $('details.ch-fold', el)?.setAttribute('open', '');
     scrollToY(el.getBoundingClientRect().top + scrollY - 96, { duration: 1.2 });
     el.setAttribute('tabindex', '-1'); el.focus({ preventScroll: true });
     Sound.tick(+a.dataset.i);
@@ -348,12 +406,18 @@
     let rt; const relayout = () => { clearTimeout(rt); rt = setTimeout(layoutToc, 150); };
     addEventListener('resize', relayout);
     new ResizeObserver(relayout).observe($('#case'));
+    // arriving from the overview's "go straight to one part": open that chapter if it's folded, then go to it
+    const target = FULL && location.hash && document.getElementById(location.hash.slice(1));
+    if (target) {
+      $('details.ch-fold', target)?.setAttribute('open', '');
+      requestAnimationFrame(() => scrollToY(target.getBoundingClientRect().top + scrollY - 96, { immediate: true }));
+    }
     if (RM) { $('.cs-cover').classList.add('in'); return; }
     const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
     tl.fromTo('.cs-title .ch', { yPercent: 112, y: 0 }, { yPercent: 0, duration: 1.15, stagger: .05 })
       .fromTo('.cs-back, .cs-index', { opacity: 0, y: 12, filter: 'blur(4px)' }, { opacity: 1, y: 0, filter: 'blur(0px)', duration: .3, ease: 'power1.out', clearProps: 'filter' }, .1)
       .fromTo('.cs-lede', { opacity: 0, y: 12, filter: 'blur(4px)' }, { opacity: 1, y: 0, filter: 'blur(0px)', duration: .3, ease: 'power1.out', clearProps: 'filter' }, .2)
-      .fromTo('.cs-meta', { opacity: 0, y: 12, filter: 'blur(4px)' }, { opacity: 1, y: 0, filter: 'blur(0px)', duration: .3, ease: 'power1.out', clearProps: 'filter' }, .3)
+      .fromTo('.cs-meta, .cs-mode', { opacity: 0, y: 12, filter: 'blur(4px)' }, { opacity: 1, y: 0, filter: 'blur(0px)', duration: .3, ease: 'power1.out', clearProps: 'filter' }, .3)
       .add(() => { drawIn(edge); $('.cs-cover').classList.add('in'); }, viaVT ? 0 : .35);
   });
 })();
