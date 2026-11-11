@@ -95,6 +95,8 @@ In `site/index.html`, invisible markers decide where the thread goes: `data-anch
 
 **Live:** https://folio-phi-eosin.vercel.app, the Vercel project `folio`, linked to https://github.com/bhoomime/folio. Every push to `main` deploys to production automatically; `vercel.json` tells Vercel to serve the `site/` folder as it is.
 
+**Without Span:** a second Vercel project builds from the same repository with the environment variable `HIDE_PROJECTS=span`. Its build step, `tools/variant.mjs`, takes the project out of `data.js`, deletes its media, and rewrites the project counts and the two lines that mention it (listed under `COPY` in the script; if one of those lines changes, that build fails on purpose so it gets updated). On the main project the variable isn't set, so the build step does nothing. Both update on every push.
+
 It's a static site, so it would also work if you uploaded the **`site/`** folder to Netlify (drag and drop), Cloudflare Pages or GitHub Pages. No build step. When you change CSS/JS, bump the `?v=` number (currently `?v=25`) in the four HTML files (including `404.html`) so visitors get the new files.
 
 ## Notes
