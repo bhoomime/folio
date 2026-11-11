@@ -210,7 +210,20 @@
 
   /* contents (full case study only): the overview, every chapter, the reflection */
   const toc = FULL ? [{ id: 'overview', nav: 'Overview' }, ...P.chapters.map((c, i) => ({ id: `ch-${i + 1}`, nav: c.nav })), { id: 'reflection', nav: 'Reflection' }] : [];
-  const tocList = (cls) => `<ol class="${cls}">${toc.map((t, i) => `<li><a href="#${t.id}" data-i="${i}">${t.nav}</a></li>`).join('')}</ol>`;
+  // chapters club into a few parts (`part` on each chapter): the contents list shows the parts, and opens the one you're in
+  const parts = [];
+  P.chapters.forEach((c, i) => { const g = parts[parts.length - 1]; if (g && c.part && g.name === c.part) g.ch.push(i); else parts.push({ name: c.part || c.nav, ch: [i] }); });
+  const tocList = (cls) => `<ol class="${cls}">
+      <li><a href="#overview" data-i="0">Overview</a></li>
+      ${parts.map((g) => {
+        const first = g.ch[0] + 1;
+        if (g.ch.length === 1) return `<li><a href="#ch-${first}" data-i="${first}">${P.chapters[g.ch[0]].nav}</a></li>`;
+        // a chapter named like its part is the part's own link, so it isn't listed twice
+        const sub = g.ch.filter((i) => P.chapters[i].nav !== g.name);
+        return `<li class="toc-g" data-g="${g.ch.map((i) => i + 1).join(' ')}"><a class="toc-gl" href="#ch-${first}" data-i="${first}">${g.name}</a><ol class="toc-sub">${sub.map((i) => `<li><a href="#ch-${i + 1}" data-i="${i + 1}">${P.chapters[i].nav}</a></li>`).join('')}</ol></li>`;
+      }).join('')}
+      <li><a href="#reflection" data-i="${P.chapters.length + 1}">Reflection</a></li>
+    </ol>`;
   const G = P.glance;
 
   const glanceHTML = `<section class="cs-glance" id="overview" aria-labelledby="ov-h">
@@ -243,7 +256,7 @@
           <p>The full case study walks through every step: the research, the decisions and what testing changed. About ${fullMin} minutes.</p>
           <a class="sbtn primary" href="${urlFull}">Read the full case study <span class="arr">→</span></a>
           <p class="ov-jump-h hand">or go straight to one part</p>
-          <ul class="ov-jump">${P.chapters.map((c, i) => `<li><a href="${urlFull}#ch-${i + 1}">${c.nav}</a></li>`).join('')}</ul>
+          <ul class="ov-jump">${parts.map((g) => `<li><a href="${urlFull}#ch-${g.ch[0] + 1}">${g.ch.length === 1 ? P.chapters[g.ch[0]].nav : g.name}</a></li>`).join('')}</ul>
         </section>
       </div>
     </div>`;
@@ -367,11 +380,14 @@
   /* ---------------------------------------------------------------- contents: a short red mark slides to where you are */
   const mark = $('.toc-mark');
   const links = $$('.toc-list a');
+  const groups = $$('.toc-list .toc-g');
   const secs = toc.map((t) => document.getElementById(t.id));
   let docH = 1, vh = innerHeight, cur = -1;
+  // the link for a section: its own line inside an open part, otherwise the part's link
+  const linkFor = (i) => links.find((a) => +a.dataset.i === i && a.closest('.toc-sub')) || links.find((a) => +a.dataset.i === i);
   const placeMark = () => {
     if (!mark) return;
-    const a = links[cur];
+    const a = linkFor(cur);
     mark.classList.toggle('on', !!a);
     if (a) { mark.style.transform = `translateY(${a.offsetTop + 6}px)`; mark.style.height = `${a.offsetHeight - 12}px`; }
   };
@@ -434,7 +450,9 @@
     secs.forEach((s, k) => { if (s && s.getBoundingClientRect().top <= line) i = k; });
     if (i !== cur) {
       cur = i;
-      links.forEach((a, k) => { a.classList.toggle('cur', k === i); if (k === i) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current'); });
+      groups.forEach((g) => g.classList.toggle('open', g.dataset.g.split(' ').includes(String(i))));
+      const now = linkFor(i);
+      links.forEach((a) => { a.classList.toggle('cur', a === now); if (a === now) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current'); });
       placeMark();
     }
     lit.forEach((l) => {

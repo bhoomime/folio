@@ -30,6 +30,7 @@ Everything textual lives in **`site/js/data.js`**: projects (order, copy, tags, 
 - The polaroids in *Meet the lady behind the pixels* swing when you grab them but don't open a preview.
 - **Overview first.** Each project has an `ov` object for its overview: `impact` (real numbers only, as `stats` items, with `impactTitle`), `part` (one sentence on what I did), `walk` and `outcome`. `walk` is the walkthrough, one line beside one big picture per step, about six steps from the research to the final design: `{ img: im(...), line: '…' }`, or `{ video: { src, poster, w, h, alt }, line }` for a recording that loops in a browser frame with one play/pause button and no control bar. Mark the words that carry each line with `<mark>`. Leave out anything a project has no real data for. Reading times are counted from the text.
 - **Skip to the final design.** Put `design: true` on the chapter where the final design starts; the full case study links straight to it from the top.
+- **Parts.** Give every chapter a `part` (Background, Research, Design, Outcome and so on); chapters in a row with the same part club together. The contents list shows only the parts and opens the one you're reading, and the overview's "go straight to one part" links go to each part. A chapter named like its part (Research in Research) is the part's own link.
 - **Folding.** In the full case study, `fold: true` on a chapter keeps its heading and folds the rest behind "Read this part"; `fold: 'label'` on a block folds just that block. Fold detail a recruiter can skip, never the problem, the main research finding or the result. A folded chapter opens when someone jumps to it from the contents or the overview.
 - **Case studies** are written in plain words, with the facts taken from the Figma file "Portfolio" (one page per project). Each project has `glance` (problem and solution), `ov` (the overview) and `chapters`. (`features`, three short cards per project, is kept as source notes; the pages now show features through `feature` blocks.) A chapter has a short `nav` name for the contents list, a `title` that states the takeaway, and a list of `blocks`. The block types are listed at the top of `PROJECTS`:
   - `p`: paragraphs.
@@ -92,7 +93,7 @@ In `site/index.html`, invisible markers decide where the thread goes: `data-anch
 
 **Live:** https://folio-phi-eosin.vercel.app, the Vercel project `folio`, linked to https://github.com/bhoomime/folio. Every push to `main` deploys to production automatically; `vercel.json` tells Vercel to serve the `site/` folder as it is.
 
-It's a static site, so it would also work if you uploaded the **`site/`** folder to Netlify (drag and drop), Cloudflare Pages or GitHub Pages. No build step. When you change CSS/JS, bump the `?v=` number (currently `?v=23`) in the four HTML files (including `404.html`) so visitors get the new files.
+It's a static site, so it would also work if you uploaded the **`site/`** folder to Netlify (drag and drop), Cloudflare Pages or GitHub Pages. No build step. When you change CSS/JS, bump the `?v=` number (currently `?v=24`) in the four HTML files (including `404.html`) so visitors get the new files.
 
 ## Notes
 

@@ -66,6 +66,11 @@
 .toc-list { list-style: none; margin: 0; padding: 0; }
 .toc-list a { display: block; padding: 6px 0 6px 14px; font-size: var(--fs-caption); line-height: 1.35; color: var(--muted); transition: color .2s; }
 .toc-list a.cur { color: var(--ink); }
+/* chapters club into parts: only the part you're in opens, the rest stay one line each */
+.toc-sub { display: none; list-style: none; margin: -2px 0 6px; padding: 0 0 0 12px; }
+.toc-g.open > .toc-sub { display: block; }
+.toc-sub a { padding-top: 4px; padding-bottom: 4px; font-size: var(--fs-micro); }
+.toc-g.open > .toc-gl { color: var(--ink); }
 @media (hover: hover) { .toc-list a:hover { color: var(--ink); } }
 @media (prefers-reduced-motion: reduce) { .toc-mark { transition: opacity .2s; } }
 
@@ -81,6 +86,9 @@
 details[open] > summary .plus::after { transform: rotate(0deg); }
 .toc-m-list { list-style: none; margin: 0 0 18px; padding: 0; columns: 2 220px; column-gap: 32px; }
 .toc-m-list a { display: block; padding: 8px 0; font-size: var(--fs-small); color: var(--ink-2); break-inside: avoid; }
+.toc-m-list > li { break-inside: avoid; }
+.toc-m-list .toc-sub { display: block; list-style: none; margin: -4px 0 4px; padding: 0 0 0 14px; }
+.toc-m-list .toc-sub a { padding: 5px 0; font-size: var(--fs-caption); color: var(--muted); }
 
 /* ------------------------------------------------------------- overview */
 .cs-glance { padding-top: 2vh; }
