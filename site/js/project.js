@@ -58,6 +58,7 @@
   const isNum = (n) => typeof n === 'number';
   const head = (b, lvl = 3) => (b.title ? `<h${lvl} class="blk-h">${b.title}</h${lvl}>` : '') + (b.intro ? `<p class="blk-intro">${b.intro}</p>` : '');
   const tall = (img) => img && img.h > img.w;
+  let tabN = 0;
   // a screen recording that loops quietly inside a browser frame: no control bar, one play/pause button
   const loop = (v) => `<figure class="loop"><div class="dev"><span class="dev-bar" aria-hidden="true"><i></i><i></i><i></i></span><div class="dev-screen" style="--ar:${v.w}/${v.h}"><video src="${v.src}" poster="${fx(v.poster.id, 2048)}" muted loop playsinline preload="none" aria-label="${v.alt.replace(/"/g, '&quot;')}"></video></div></div><button type="button" class="loop-btn" aria-label="Play the recording"><span aria-hidden="true"></span></button></figure>`;
   // a screen with numbered pins on it; the numbered list beside it says what each pin points to
@@ -173,6 +174,27 @@
         <h4 class="fx-dh hand rise">the decisions</h4>
         <ol class="fx-dec">${b.decisions.map((d, i) => `<li class="rise"><span class="fx-n" aria-hidden="true">${i + 1}</span><p class="fx-d">${d.d}</p><p class="fx-why"><b>Why:</b> ${d.why}</p></li>`).join('')}</ol>
       </article>`,
+
+    /* parallel features as tabs: one at a time, the bar stays in view while you read */
+    tabs: (b) => {
+      const id = `tb${++tabN}`;
+      return `<div class="blk blk-tabs" id="${id}">${head(b)}
+        <div class="tabs-bar" role="tablist" aria-label="${(b.label || 'Features').replace(/"/g, '&quot;')}">${b.items.map((t, i) => `<button type="button" role="tab" id="${id}-t${i}" aria-controls="${id}-p${i}" aria-selected="${!i}" tabindex="${i ? -1 : 0}"><span class="tab-n" aria-hidden="true">${pad(i + 1)}</span>${t.label}</button>`).join('')}</div>
+        ${b.items.map((t, i) => `<div class="tab-panel" role="tabpanel" id="${id}-p${i}" aria-labelledby="${id}-t${i}" tabindex="0"${i ? ' hidden' : ''}>${t.blocks.map(block).join('')}</div>`).join('')}</div>`;
+    },
+
+    /* before and after in one picture: drag (or use the arrow keys) to move the line between them */
+    compare: (b) => `<figure class="blk blk-cmp rise">${head(b)}
+        <div class="cmp" style="--ar:${b.after.w}/${b.after.h};--pos:50%">
+          <img class="cmp-after" src="${fx(b.after.id, 2048)}" alt="${(b.after.alt || '').replace(/"/g, '&quot;')}" loading="lazy" decoding="async" width="${b.after.w}" height="${b.after.h}">
+          <span class="cmp-before"><img src="${fx(b.before.id, 2048)}" alt="${(b.before.alt || '').replace(/"/g, '&quot;')}" loading="lazy" decoding="async" width="${b.before.w}" height="${b.before.h}"></span>
+          <span class="cmp-line" aria-hidden="true"><span class="cmp-knob"></span></span>
+          <span class="cmp-tag l" aria-hidden="true">before</span><span class="cmp-tag r" aria-hidden="true">after</span>
+          <input class="cmp-range" type="range" min="0" max="100" value="50" aria-label="${(b.label || 'Move the line: left shows more of the old screen, right more of the new one').replace(/"/g, '&quot;')}">
+        </div>
+        ${b.cap ? `<figcaption class="cap">${b.cap}</figcaption>` : ''}
+        <p class="cmp-open"><button type="button" class="zoom">Open the old screen${imgTag(b.before, '10px', ' hidden')}</button><span aria-hidden="true"> · </span><button type="button" class="zoom">Open the new screen${imgTag(b.after, '10px', ' hidden')}</button></p>
+      </figure>`,
 
     more: (b) => `<details class="blk blk-more"><summary><span>${b.summary}</span><span class="plus" aria-hidden="true"></span></summary><div class="more-in">${b.blocks.map(block).join('')}</div></details>`,
 
@@ -367,6 +389,29 @@
       if (chosen === 'play' || (!chosen && !RM && !root.classList.contains('still'))) play();
     }, { threshold: .5 }).observe(v);
   });
+  // tabs: click or arrow keys pick one; if the bar has scrolled away, bring the panel's start back into view
+  $$('.blk-tabs').forEach((box) => {
+    const tabs = $$('[role="tab"]', box), panels = $$('[role="tabpanel"]', box), bar = $('.tabs-bar', box);
+    const pick = (k, focus) => {
+      tabs.forEach((t, i) => { t.setAttribute('aria-selected', String(i === k)); t.tabIndex = i === k ? 0 : -1; });
+      panels.forEach((p, i) => { p.hidden = i !== k; });
+      if (focus) tabs[k].focus();
+      tabs[k].scrollIntoView({ block: 'nearest', inline: 'nearest' });
+      const navH = parseFloat(getComputedStyle(root).getPropertyValue('--nav-h')) || 76;
+      if (box.getBoundingClientRect().top < navH) scrollToY(box.getBoundingClientRect().top + scrollY - navH - 12, { duration: .8 });
+      Sound.tick(k);
+    };
+    tabs.forEach((t, i) => t.addEventListener('click', () => pick(i)));
+    bar.addEventListener('keydown', (e) => {
+      const i = tabs.indexOf(document.activeElement);
+      if (i < 0) return;
+      const k = { ArrowRight: (i + 1) % tabs.length, ArrowLeft: (i - 1 + tabs.length) % tabs.length, Home: 0, End: tabs.length - 1 }[e.key];
+      if (k === undefined) return;
+      e.preventDefault(); pick(k, true);
+    });
+  });
+  // before and after: the slider moves the line
+  $$('.cmp').forEach((c) => $('.cmp-range', c).addEventListener('input', (e) => c.style.setProperty('--pos', `${e.target.value}%`)));
   // a pin on a screen lights up with its line in the list
   $$('.annot').forEach((a) => {
     const pins = $$('.pin', a);

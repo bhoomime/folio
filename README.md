@@ -51,6 +51,8 @@ Everything textual lives in **`site/js/data.js`**: projects (order, copy, tags, 
   - `stickies`: a research board of sticky notes in columns, each column with a `title`, a `tone` (`pain`, `way`, `insight` or `key`), its `items`, and `c: 2` to make it twice as wide.
   - `papers`: research artifacts (photos, boards, sketches) as papers in folders, `items: [{ label, img }]`. Each peeks out, rises when you point at it or tab to it, and opens full size on click, tap or Enter.
   - `feature`: one feature in a fixed order, `{ n, title, pain, solve, img, decisions: [{ d, why }] }`: the problem, what it does, the screen, then two or three decisions, each with the reason behind it. Take every "why" from the project's own research or testing. Add `notes: [{ x, y, text }]` to pin numbered callouts on the screen (x and y are percentages of the picture); the numbered list under it says what each pin points to.
+  - `tabs`: parallel parts shown one at a time, `{ label, title, items: [{ label, blocks }] }`. The tab bar stays under the nav while you read, scrolls sideways on phones, and works with the arrow keys. Span uses it for the care tool's five features.
+  - `compare`: before and after in one picture, `{ before: im(...), after: im(...), cap }`, with a line you drag or move with the arrow keys, and links to open either screen full size.
   - `more`: detail folded away behind a toggle.
   - `link`: a button link.
   - `soon`: dashed "coming soon" slots for screens that aren't ready yet.
@@ -93,7 +95,7 @@ In `site/index.html`, invisible markers decide where the thread goes: `data-anch
 
 **Live:** https://folio-phi-eosin.vercel.app, the Vercel project `folio`, linked to https://github.com/bhoomime/folio. Every push to `main` deploys to production automatically; `vercel.json` tells Vercel to serve the `site/` folder as it is.
 
-It's a static site, so it would also work if you uploaded the **`site/`** folder to Netlify (drag and drop), Cloudflare Pages or GitHub Pages. No build step. When you change CSS/JS, bump the `?v=` number (currently `?v=24`) in the four HTML files (including `404.html`) so visitors get the new files.
+It's a static site, so it would also work if you uploaded the **`site/`** folder to Netlify (drag and drop), Cloudflare Pages or GitHub Pages. No build step. When you change CSS/JS, bump the `?v=` number (currently `?v=25`) in the four HTML files (including `404.html`) so visitors get the new files.
 
 ## Notes
 
