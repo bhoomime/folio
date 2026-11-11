@@ -28,9 +28,10 @@ Everything textual lives in **`site/js/data.js`**: projects (order, copy, tags, 
 - To add or swap an image: save it as `media-src/<name>.png` (or `.jpg`), run `python tools/prepare_media.py`, and refer to it in `data.js` by name with its original size, e.g. `im('kheyt-cover', 2859, 1482, 'alt text')`. The site picks the right size for each screen. A path or full URL also works in place of a name.
 - **The girl in the hero** ("Before I knew what design was…") is your two-second film, one drawn on paper and one on the blue. `python tools/prepare_girl.py <paper film.mp4> <blue film.mp4>` turns them into transparent animated WebPs (`site/assets/media/girl-*.webp`), so her lines sit straight on the page with no background box, thickened a touch to match the other drawings. It plays once when the page opens, stops on her holding up the drawing, and replays when you point at her. With reduced motion or paused animations she shows that last frame. Only the current theme's file downloads.
 - The polaroids in *Meet the lady behind the pixels* swing when you grab them but don't open a preview.
-- **Overview first.** Each project has an `ov` object for its overview: `impact` (real numbers only, as `stats` items, with `impactTitle`), `did` (what I did), `process` (four steps), `shots` (picture or video blocks) and `outcome`. Leave out anything a project has no real data for. Reading times are counted from the text.
+- **Overview first.** Each project has an `ov` object for its overview: `impact` (real numbers only, as `stats` items, with `impactTitle`), `part` (one sentence on what I did), `walk` and `outcome`. `walk` is the walkthrough, one line beside one big picture per step, about six steps from the research to the final design: `{ img: im(...), line: '…' }`, or `{ video: { src, poster, w, h, alt }, line }` for a recording that loops in a browser frame with one play/pause button and no control bar. Mark the words that carry each line with `<mark>`. Leave out anything a project has no real data for. Reading times are counted from the text.
+- **Skip to the final design.** Put `design: true` on the chapter where the final design starts; the full case study links straight to it from the top.
 - **Folding.** In the full case study, `fold: true` on a chapter keeps its heading and folds the rest behind "Read this part"; `fold: 'label'` on a block folds just that block. Fold detail a recruiter can skip, never the problem, the main research finding or the result. A folded chapter opens when someone jumps to it from the contents or the overview.
-- **Case studies** are written in plain words, with the facts taken from the Figma file "Portfolio" (one page per project). Each project has `glance` (problem and solution), `features` (three cards) and `chapters`. A chapter has a short `nav` name for the contents list, a `title` that states the takeaway, and a list of `blocks`. The block types are listed at the top of `PROJECTS`:
+- **Case studies** are written in plain words, with the facts taken from the Figma file "Portfolio" (one page per project). Each project has `glance` (problem and solution), `ov` (the overview) and `chapters`. (`features`, three short cards per project, is kept as source notes; the pages now show features through `feature` blocks.) A chapter has a short `nav` name for the contents list, a `title` that states the takeaway, and a list of `blocks`. The block types are listed at the top of `PROJECTS`:
   - `p`: paragraphs.
   - `list`: ticked or numbered.
   - `stats`: big numbers that count up.
@@ -47,6 +48,8 @@ Everything textual lives in **`site/js/data.js`**: projects (order, copy, tags, 
   - `video`: a screen recording with a poster frame, e.g. `{ t: 'video', src: 'assets/media/span-vid-day.mp4', poster: im('span-vid-day-poster', 1440, 900), w: 1440, h: 900, alt, cap }`. It plays muted when half of it is on screen and pauses when it leaves; with reduced motion or paused animations it waits for the play button.
   - `table`: a results table, with `head` (column names), `rows` (the first cell of each row is its label) and an optional `note`. On phones it scrolls sideways inside its box.
   - `stickies`: a research board of sticky notes in columns, each column with a `title`, a `tone` (`pain`, `way`, `insight` or `key`), its `items`, and `c: 2` to make it twice as wide.
+  - `papers`: research artifacts (photos, boards, sketches) as papers in folders, `items: [{ label, img }]`. Each peeks out, rises when you point at it or tab to it, and opens full size on click, tap or Enter.
+  - `feature`: one feature in a fixed order, `{ n, title, pain, solve, img, decisions: [{ d, why }] }`: the problem, what it does, the screen, then two or three decisions, each with the reason behind it. Take every "why" from the project's own research or testing. Add `notes: [{ x, y, text }]` to pin numbered callouts on the screen (x and y are percentages of the picture); the numbered list under it says what each pin points to.
   - `more`: detail folded away behind a toggle.
   - `link`: a button link.
   - `soon`: dashed "coming soon" slots for screens that aren't ready yet.
@@ -89,7 +92,7 @@ In `site/index.html`, invisible markers decide where the thread goes: `data-anch
 
 **Live:** https://folio-phi-eosin.vercel.app, the Vercel project `folio`, linked to https://github.com/bhoomime/folio. Every push to `main` deploys to production automatically; `vercel.json` tells Vercel to serve the `site/` folder as it is.
 
-It's a static site, so it would also work if you uploaded the **`site/`** folder to Netlify (drag and drop), Cloudflare Pages or GitHub Pages. No build step. When you change CSS/JS, bump the `?v=` number (currently `?v=22`) in the four HTML files (including `404.html`) so visitors get the new files.
+It's a static site, so it would also work if you uploaded the **`site/`** folder to Netlify (drag and drop), Cloudflare Pages or GitHub Pages. No build step. When you change CSS/JS, bump the `?v=` number (currently `?v=23`) in the four HTML files (including `404.html`) so visitors get the new files.
 
 ## Notes
 

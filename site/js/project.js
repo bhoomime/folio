@@ -1,12 +1,13 @@
 /* ------------------------------------------------------------------
    Case study page, rendered from PROJECTS in data.js.
    ?p=slug is the short overview, for someone with three minutes: title and
-   facts, cover, a one-line summary, the problem and solution, numbers, what
-   I did, the process, what it does, the work, the outcome and the learning,
-   with "Read the full case study" at the top and the bottom.
+   facts, cover, a one-line summary, the problem and solution, numbers, a
+   walkthrough (one line beside one big picture, step by step), the outcome
+   and the learning, with "Read the full case study" at the top and bottom.
    ?p=slug&view=full is the whole story: the same opening, every chapter
-   (detail a reader can skip folds behind a toggle), the reflection and the
-   next project, with a contents list beside the chapters on wide screens.
+   (detail a reader can skip folds behind a toggle; each feature follows one
+   template), the reflection and the next project, with a contents list
+   beside the chapters on wide screens and a "Skip to the final design" link.
 ------------------------------------------------------------------- */
 (() => {
   const root = document.documentElement;
@@ -56,6 +57,14 @@
   const list = (items, cls = '') => `<ul class="${cls}">${items.map((t) => `<li>${t}</li>`).join('')}</ul>`;
   const isNum = (n) => typeof n === 'number';
   const head = (b, lvl = 3) => (b.title ? `<h${lvl} class="blk-h">${b.title}</h${lvl}>` : '') + (b.intro ? `<p class="blk-intro">${b.intro}</p>` : '');
+  const tall = (img) => img && img.h > img.w;
+  // a screen recording that loops quietly inside a browser frame: no control bar, one play/pause button
+  const loop = (v) => `<figure class="loop"><div class="dev"><span class="dev-bar" aria-hidden="true"><i></i><i></i><i></i></span><div class="dev-screen" style="--ar:${v.w}/${v.h}"><video src="${v.src}" poster="${fx(v.poster.id, 2048)}" muted loop playsinline preload="none" aria-label="${v.alt.replace(/"/g, '&quot;')}"></video></div></div><button type="button" class="loop-btn" aria-label="Play the recording"><span aria-hidden="true"></span></button></figure>`;
+  // a screen with numbered pins on it; the numbered list beside it says what each pin points to
+  const annotated = (img, notes, sizes) => `<div class="annot">
+      <div class="annot-pic">${pic(img, sizes)}${notes.map((n, i) => `<span class="pin" style="left:${n.x}%;top:${n.y}%" data-pin="${i}" aria-hidden="true">${i + 1}</span>`).join('')}</div>
+      <ol class="annot-list">${notes.map((n, i) => `<li data-pin="${i}"><span class="pin-n" aria-hidden="true">${i + 1}</span><span>${n.text}</span></li>`).join('')}</ol>
+    </div>`;
 
   /* ---------------------------------------------------------------- blocks
      Each chapter is a list of blocks; `t` picks the kind. Text can carry
@@ -139,6 +148,32 @@
     /* a research board, re-set as sticky notes */
     stickies: (b) => `<div class="blk blk-stick rise">${head(b)}<div class="stick-board">${b.cols.map((c) => `<div class="stick-col" style="--c:${c.c || 1}"><h4 class="hand">${c.title}</h4><ul>${c.items.map((t, i) => `<li class="stick tone-${c.tone}" style="--r:${[-1.4, 1.1, -.5, 1.6, -1, .6][i % 6]}deg">${t}</li>`).join('')}</ul></div>`).join('')}</div>${b.note ? `<p class="blk-note">${b.note}</p>` : ''}</div>`,
 
+    /* the overview's walkthrough: one line beside one big picture, step by step */
+    walk: (b) => `<ol class="walk">${b.items.map((w, i) => `<li class="walk-row rise${tall(w.img) ? ' tall' : ''}">
+        <p class="walk-line"><span class="walk-n hand" aria-hidden="true">${pad(i + 1)}</span>${w.line}</p>
+        <div class="walk-pic">${w.video ? loop(w.video) : pic(w.img, tall(w.img) ? '(min-width: 860px) 340px, 80vw' : '(min-width: 1200px) 640px, (min-width: 860px) 55vw, 92vw')}</div></li>`).join('')}</ol>`,
+
+    /* research artifacts as papers in a folder: they peek out, rise on hover or focus, and open full size */
+    papers: (b) => `<div class="blk blk-papers">${head(b)}<ul class="papers">${b.items.map((p, i) => `<li class="rise" style="--tilt:${[-2, 1.6, -1.2, 2.2, -1.6][i % 5]}deg">
+        <button type="button" class="zoom paper" aria-label="Open ${p.label.replace(/"/g, '&quot;')}${p.img.alt ? `: ${p.img.alt.replace(/"/g, '&quot;')}` : ''}">
+          <span class="paper-tab" aria-hidden="true"></span><span class="paper-back" aria-hidden="true"></span>
+          <span class="paper-sheet">${imgTag(p.img, '(min-width: 860px) 240px, 45vw')}</span>
+          <span class="paper-pocket" aria-hidden="true"></span>
+        </button>
+        <p class="paper-label hand">${p.label}</p></li>`).join('')}</ul>${b.note ? `<p class="blk-note">${b.note}</p>` : ''}</div>`,
+
+    /* one feature, always in the same order: the problem, what it does, the screen, the decisions and why */
+    feature: (b) => `<article class="blk fx">
+        <header class="fx-head rise"><p class="fx-kick hand">feature ${pad(b.n)}</p><h3>${b.title}</h3></header>
+        <div class="fx-ps rise">
+          <div><h4 class="hand">the problem</h4><p>${b.pain}</p></div>
+          <div><h4 class="hand">what it does</h4><p>${b.solve}</p></div>
+        </div>
+        <div class="fx-pic rise${tall(b.img) ? ' tall' : ''}">${b.notes ? annotated(b.img, b.notes, SIZES.wide) : b.video ? loop(b.video) : pic(b.img, tall(b.img) ? '(min-width: 860px) 380px, 80vw' : SIZES.wide)}</div>
+        <h4 class="fx-dh hand rise">the decisions</h4>
+        <ol class="fx-dec">${b.decisions.map((d, i) => `<li class="rise"><span class="fx-n" aria-hidden="true">${i + 1}</span><p class="fx-d">${d.d}</p><p class="fx-why"><b>Why:</b> ${d.why}</p></li>`).join('')}</ol>
+      </article>`,
+
     more: (b) => `<details class="blk blk-more"><summary><span>${b.summary}</span><span class="plus" aria-hidden="true"></span></summary><div class="more-in">${b.blocks.map(block).join('')}</div></details>`,
 
     link: (b) => `<p class="blk blk-link rise"><a class="sbtn" href="${b.href}" target="_blank" rel="noopener">${b.label} <span class="arr">↗</span></a></p>`,
@@ -168,8 +203,10 @@
   const FULL = qs.get('view') === 'full';
   const O = P.ov || {};
   const urlOv = `project.html?p=${P.slug}`, urlFull = `${urlOv}&view=full`;
-  const fullMin = mins([P.glance, P.features, P.chapters, P.quote, P.learning]);
-  const ovMin = Math.max(2, mins([P.summary, P.glance, P.features, O, P.learning]));
+  const fullMin = mins([P.glance, P.chapters, P.quote, P.learning]);
+  const ovMin = Math.max(2, mins([P.summary, P.glance, O, P.learning]));
+  // the chapter where the final design starts, for "Skip to the final design"
+  const designAt = P.chapters.findIndex((c) => c.design);
 
   /* contents (full case study only): the overview, every chapter, the reflection */
   const toc = FULL ? [{ id: 'overview', nav: 'Overview' }, ...P.chapters.map((c, i) => ({ id: `ch-${i + 1}`, nav: c.nav })), { id: 'reflection', nav: 'Reflection' }] : [];
@@ -183,15 +220,10 @@
             <div class="gl rise"><h3 class="hand">${G.solutionLabel || 'the solution'}</h3><p>${G.solution}</p></div>
           </div>
         </section>`;
-  const featuresHTML = P.features ? `<section class="cs-feat" aria-labelledby="ft-h">
-          <p class="ch-kick"><span class="hand">what it does</span></p>
-          <h2 id="ft-h">${P.featuresTitle || `What ${P.title} does`}</h2>
-          <ul class="feat">${P.features.map((f) => `<li class="rise">${pic(f.img, '(min-width: 860px) 26vw, 92vw', `fe-pic${f.fit === 'cover' ? ' cover' : ''}`)}<h3>${f.title}</h3><p>${f.body}</p></li>`).join('')}</ul>
-        </section>` : '';
   const learningHTML = `<div class="cs-learning"><div class="learn"><span class="tape"></span>${doodle('bulb', { pre: true })}<h3>key design learning</h3><p>${P.learning}</p></div></div>`;
 
   const modeBar = FULL
-    ? `<div class="cs-mode"><a class="cs-mode-back" href="${urlOv}"><span aria-hidden="true">←</span> Back to the ${ovMin}-minute overview</a><p class="cs-mode-note">The full case study · about ${fullMin} min</p></div>`
+    ? `<div class="cs-mode"><a class="cs-mode-back" href="${urlOv}"><span aria-hidden="true">←</span> Back to the ${ovMin}-minute overview</a>${designAt >= 0 ? `<a class="cs-skip" href="#ch-${designAt + 1}">Skip to the final design <span aria-hidden="true">↓</span></a>` : ''}<p class="cs-mode-note">The full case study · about ${fullMin} min</p></div>`
     : `<div class="cs-mode"><p class="cs-mode-note"><span class="hand">short on time?</span> This is the ${ovMin}-minute overview.</p><a class="sbtn primary" href="${urlFull}">Read the full case study <span class="cs-mode-min">${fullMin} min</span> <span class="arr">→</span></a></div>`;
 
   const ovSec = (id, kick, h, inner) => `<section class="ov-sec" aria-labelledby="ov-${id}"><p class="ch-kick"><span class="hand">${kick}</span></p><h2 id="ov-${id}">${h}</h2>${inner}</section>`;
@@ -203,10 +235,7 @@
       <div class="cs-main">
         ${glanceHTML}
         ${O.impact ? ovSec('nums', 'in numbers', O.impactTitle || 'What it came to', BLOCK.stats({ items: O.impact })) : ''}
-        ${O.did ? ovSec('did', 'my part', 'What I did', BLOCK.list({ items: O.did })) : ''}
-        ${O.process ? ovSec('how', 'the process', 'How I got there', BLOCK.steps({ items: O.process })) : ''}
-        ${featuresHTML}
-        ${O.shots ? ovSec('see', 'the work', O.shotsTitle || 'What it looks like', O.shots.map(block).join('')) : ''}
+        ${O.walk ? ovSec('walk', 'the work', O.walkTitle || 'From the research to the final design', `${O.part ? `<p class="ov-part rise"><span class="hand">my part</span> ${O.part}</p>` : ''}${BLOCK.walk({ items: O.walk })}`) : ''}
         ${O.outcome ? ovSec('out', 'the outcome', O.outcomeTitle || 'What came of it', `<div class="blk blk-p"><p class="rise lead">${O.outcome}</p></div>`) : ''}
         <section class="cs-reflect" aria-label="Key design learning">${learningHTML}</section>
         <section class="ov-cta" aria-labelledby="ov-cta-h">
@@ -225,7 +254,6 @@
       </nav>
       <div class="cs-main">
         ${glanceHTML}
-        ${featuresHTML}
         <details class="toc-m"><summary><span class="hand">on this page</span><span class="plus" aria-hidden="true"></span></summary>${tocList('toc-m-list')}</details>
         ${P.chapters.map(chapter).join('')}
         <section class="cs-reflect" id="reflection" aria-labelledby="rf-h">
@@ -313,6 +341,28 @@
     }), { threshold: .5 });
     vids.forEach((v) => vio.observe(v));
   }
+  // loops in a browser frame play while on screen, unless motion is reduced or paused; the button always works, and the visitor's choice wins
+  $$('.loop').forEach((f) => {
+    const v = $('video', f), btn = $('.loop-btn', f);
+    let chosen = '';
+    const set = (on) => { f.classList.toggle('playing', on); btn.setAttribute('aria-label', on ? 'Pause the recording' : 'Play the recording'); };
+    const play = () => { v.preload = 'auto'; v.play().then(() => set(true)).catch(() => set(false)); };
+    const stop = () => { v.pause(); set(false); };
+    btn.addEventListener('click', () => { if (v.paused) { chosen = 'play'; play(); } else { chosen = 'pause'; stop(); } });
+    new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) { if (!v.paused) stop(); return; }
+      if (chosen === 'play' || (!chosen && !RM && !root.classList.contains('still'))) play();
+    }, { threshold: .5 }).observe(v);
+  });
+  // a pin on a screen lights up with its line in the list
+  $$('.annot').forEach((a) => {
+    const pins = $$('.pin', a);
+    $$('.annot-list li', a).forEach((li) => {
+      const p = pins[+li.dataset.pin];
+      li.addEventListener('pointerenter', () => p.classList.add('hot'));
+      li.addEventListener('pointerleave', () => p.classList.remove('hot'));
+    });
+  });
 
   /* ---------------------------------------------------------------- contents: a short red mark slides to where you are */
   const mark = $('.toc-mark');
@@ -339,6 +389,16 @@
     el.setAttribute('tabindex', '-1'); el.focus({ preventScroll: true });
     Sound.tick(+a.dataset.i);
   }));
+
+  // "Skip to the final design": open that chapter if it's folded, then go to it
+  $('.cs-skip')?.addEventListener('click', (e) => {
+    const el = document.getElementById(e.currentTarget.getAttribute('href').slice(1));
+    if (!el) return;
+    e.preventDefault();
+    $('details.ch-fold', el)?.setAttribute('open', '');
+    scrollToY(el.getBoundingClientRect().top + scrollY - 96, { duration: 1.2 });
+    el.setAttribute('tabindex', '-1'); el.focus({ preventScroll: true });
+  });
 
   /* ---------------------------------------------------------------- next project: the cover follows you */
   const nx = $('.cs-next'), nimg = $('.cs-next-img');
