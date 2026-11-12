@@ -76,7 +76,7 @@
     list: (b) => `<div class="blk blk-list rise">${head(b)}${list(b.items, `ticks${b.numbered ? ' numbered' : ''}`)}</div>`,
 
     stats: (b) => `<div class="blk blk-stats">${head(b)}<ul class="stats n-${b.items.length}">${b.items.map((s) => `<li class="rise">
-        <span class="st-n">${s.pre || ''}${isNum(s.n) ? `<span class="num" data-n="${s.n}">${s.n}</span>` : s.n}<span class="st-u">${s.unit || ''}</span></span>
+        <span class="st-n">${s.pre || ''}${isNum(s.n) ? `<span class="num" data-n="${s.n}">${s.n}</span>` : s.n}<span class="st-u">${s.unit || ''}</span></span>${doodle('underline', { cls: 'st-ul' })}
         <span class="st-l">${s.label}</span></li>`).join('')}</ul>${b.note ? `<p class="blk-note">${b.note}</p>` : ''}</div>`,
 
     findings: (b) => {
@@ -179,7 +179,7 @@
     tabs: (b) => {
       const id = `tb${++tabN}`;
       return `<div class="blk blk-tabs" id="${id}">${head(b)}
-        <div class="tabs-bar" role="tablist" aria-label="${(b.label || 'Features').replace(/"/g, '&quot;')}">${b.items.map((t, i) => `<button type="button" role="tab" id="${id}-t${i}" aria-controls="${id}-p${i}" aria-selected="${!i}" tabindex="${i ? -1 : 0}"><span class="tab-n" aria-hidden="true">${pad(i + 1)}</span>${t.label}</button>`).join('')}</div>
+        <div class="tabs-bar" role="tablist" aria-label="${(b.label || 'Features').replace(/"/g, '&quot;')}">${b.items.map((t, i) => `<button type="button" class="sbtn" role="tab" id="${id}-t${i}" aria-controls="${id}-p${i}" aria-selected="${!i}" tabindex="${i ? -1 : 0}"><span class="tab-n" aria-hidden="true">${pad(i + 1)}</span>${t.label}</button>`).join('')}</div>
         ${b.items.map((t, i) => `<div class="tab-panel" role="tabpanel" id="${id}-p${i}" aria-labelledby="${id}-t${i}" tabindex="0"${i ? ' hidden' : ''}>${t.blocks.map(block).join('')}</div>`).join('')}</div>`;
     },
 
@@ -278,7 +278,7 @@
           <p>The full case study walks through every step: the research, the decisions and what testing changed. About ${fullMin} minutes.</p>
           <a class="sbtn primary" href="${urlFull}">Read the full case study <span class="arr">→</span></a>
           <p class="ov-jump-h hand">or go straight to one part</p>
-          <ul class="ov-jump">${parts.map((g) => `<li><a href="${urlFull}#ch-${g.ch[0] + 1}">${g.ch.length === 1 ? P.chapters[g.ch[0]].nav : g.name}</a></li>`).join('')}</ul>
+          <ul class="ov-jump">${parts.map((g) => `<li><a class="sbtn" href="${urlFull}#ch-${g.ch[0] + 1}">${g.ch.length === 1 ? P.chapters[g.ch[0]].nav : g.name}</a></li>`).join('')}</ul>
         </section>
       </div>
     </div>`;
@@ -341,9 +341,19 @@
   if (gf.length) document.head.insertAdjacentHTML('beforeend', `<link rel="stylesheet" href="https://fonts.googleapis.com/css2?${gf.map((f) => `family=${f}`).join('&')}&display=swap">`);
 
   $$('[data-doodle]').forEach((el) => { el.innerHTML = doodle(el.dataset.doodle, { pre: el.hasAttribute('data-pre') }); });
+  /* the home page's drawn language, carried into the story: every picture and note gets a wobbly ink edge */
+  $$('.shot, .cs-main .pic:not(.ph), .vid, .dev, .cmp, .find > li, .col, .fx-ps > div, .gl, .ov-cta:not(.ov-cta-back), .paper-back, .paper-pocket').forEach((el, i) => {
+    el.insertAdjacentHTML('beforeend', '<svg class="sk-edge" aria-hidden="true" focusable="false"><path/></svg>');
+    const svg = el.lastElementChild, path = svg.firstElementChild;
+    new ResizeObserver(() => {
+      const w = el.offsetWidth, h = el.offsetHeight;
+      if (!w) return;
+      svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+      path.setAttribute('d', sketchRect(w, h, 31 + i * 5, { inset: 3, wob: Math.min(5, w / 60) }));
+    }).observe(el);
+  });
   bootCommon();
   setActiveNav('works');
-
   // sketchy frame around the cover, sized to the real box
   const edge = $('.cs-cover .frame-edge');
   new ResizeObserver(() => {
