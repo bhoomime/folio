@@ -342,7 +342,7 @@
 
   $$('[data-doodle]').forEach((el) => { el.innerHTML = doodle(el.dataset.doodle, { pre: el.hasAttribute('data-pre') }); });
   /* the home page's drawn language, carried into the story: every picture and note gets a wobbly ink edge */
-  $$('.shot, .cs-main .pic:not(.ph), .vid, .dev, .cmp, .find > li, .col, .fx-ps > div, .gl, .ov-cta:not(.ov-cta-back), .paper-back, .paper-pocket').forEach((el, i) => {
+  $$('.shot, .cs-main .pic:not(.ph), .vid, .dev, .cmp, .find > li, .col, .fx-ps > div, .gl, .ov-cta:not(.ov-cta-back), .paper-back, .paper-pocket, .c-heard, .c-did, .pal').forEach((el, i) => {
     el.insertAdjacentHTML('beforeend', '<svg class="sk-edge" aria-hidden="true" focusable="false"><path/></svg>');
     const svg = el.lastElementChild, path = svg.firstElementChild;
     new ResizeObserver(() => {

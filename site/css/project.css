@@ -622,3 +622,22 @@ details[open] > summary .plus::after { transform: rotate(0deg); }
 .tabs-bar .sbtn { flex: none; padding: 10px 18px; box-shadow: none; }
 .tabs-bar .sbtn[aria-selected="true"] { background: var(--ink); color: var(--paper); }
 .ov-jump .sbtn { padding: 9px 16px; border: 0; }
+
+/* research folders: warm paper with drawn edges, not grey boxes */
+:root { --kraft: #e6d7bd; --kraft-front: #f1e6d1; }
+[data-theme="blue"] { --kraft: #c9cff7; --kraft-front: #e3e6fb; }
+.paper-tab, .paper-back { background: var(--kraft); box-shadow: none; }
+.paper-pocket { background: var(--kraft-front); box-shadow: 0 -6px 14px -10px rgba(0, 0, 0, .3); }
+.paper-pocket .sk-edge path, .paper-back .sk-edge path { stroke: var(--card-ink); }
+.paper-sheet { border-radius: 2px; }
+
+/* what we heard and what we changed: two notes, the change outlined in red ink; the type and colour sheet on paper too */
+.c-heard, .c-did, .pal {
+  --ink: var(--card-ink); --ink-2: var(--card-ink-2); --accent: var(--card-accent); --accent-text: var(--card-accent-text);
+  position: relative; border: 0; border-radius: 3px; background: var(--card); color: var(--card-ink);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .05), 0 10px 20px -14px rgba(0, 0, 0, .35);
+}
+.c-heard { rotate: -.6deg; }
+.c-did { rotate: .5deg; }
+.c-did .sk-edge path { stroke: var(--card-accent); stroke-width: 2; }
+.pal { rotate: -.3deg; }
