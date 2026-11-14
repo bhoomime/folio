@@ -641,3 +641,11 @@ details[open] > summary .plus::after { transform: rotate(0deg); }
 .c-did { rotate: .5deg; }
 .c-did .sk-edge path { stroke: var(--card-accent); stroke-width: 2; }
 .pal { rotate: -.3deg; }
+
+/* the flower as a stitch: before each chapter's label, before "case study 01 / 06", and as list bullets */
+.ch-kick::before, .cs-index::before { content: ""; flex: none; align-self: center; width: 14px; height: 14px; background: var(--accent);
+  -webkit-mask: url("../assets/art/flower-mark.png") center / contain no-repeat; mask: url("../assets/art/flower-mark.png") center / contain no-repeat; }
+.cs-index::before { display: inline-block; margin-right: 8px; vertical-align: -2px; }
+.ticks:not(.numbered) li::before { left: 0; top: .42em; width: .7em; height: .7em; border: 0; transform: none; background: var(--accent);
+  -webkit-mask: url("../assets/art/flower-mark.png") center / contain no-repeat; mask: url("../assets/art/flower-mark.png") center / contain no-repeat; }
+.pe-lists .ticks:not(.numbered) li::before { background: var(--card-accent); }

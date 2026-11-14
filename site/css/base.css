@@ -430,3 +430,12 @@ p { text-wrap: pretty; }
   .menu-sheet a { transform: none; filter: none; }
   .cs-cover-img, .work-img, .cs-next-img { view-transition-name: none !important; }
 }
+
+/* ---------------------------------------------------------- the flower: her mark
+   The hand-drawn flower (the favicon) is the logo, and comes back as a small stitch
+   across the site. It's a mask, so it takes the accent: red on paper, yellow on the blue. */
+.mark { display: inline-block; width: 1em; height: 1em; vertical-align: -.12em; background: var(--accent);
+  -webkit-mask: url("../assets/art/flower-mark.png") center / contain no-repeat; mask: url("../assets/art/flower-mark.png") center / contain no-repeat; }
+.mark-sm { width: .9em; height: .9em; margin-right: 2px; }
+.nav-logo .mark { width: 34px; height: 34px; vertical-align: middle; transition: transform .6s var(--ease-spring); }
+@media (hover: hover) { .nav-logo:hover .mark { transform: rotate(72deg); } }

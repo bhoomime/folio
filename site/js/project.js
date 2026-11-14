@@ -333,7 +333,7 @@
           <a class="sbtn" href="index.html#works">All projects <span class="arr">→</span></a>
         </div>
       </div>
-      <div class="foot"><span>©&nbsp;<span class="yr">2026</span> ${SITE.fullName}</span><a href="index.html">Home <span aria-hidden="true">→</span></a></div>
+      <div class="foot"><span><span class="mark mark-sm" aria-hidden="true"></span> ©&nbsp;<span class="yr">2026</span> ${SITE.fullName}</span><a href="index.html">Home <span aria-hidden="true">→</span></a></div>
     </footer>
   </div>`;
 
