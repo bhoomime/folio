@@ -40,7 +40,7 @@ const ABOUT = {
   polaroids: [
     { img: im('polaroid-sketch', 1111, 1600, 'Pencil sketch of a person playing guitar'), cap: 'Sketching feels nice', date: '12 Jul 2024' },
     { img: im('polaroid-butterfly', 1280, 889, 'Digital illustration of a butterfly'), cap: 'My first digital illustration', date: '1 Jul 2024' },
-    { img: im('polaroid-talk', 842, 1100, 'Bhoomie smiling as she presents her talk, Letters That Talk'), cap: 'Nice to meet you ♡', date: '16 Feb 2026' },
+    { img: im('polaroid-talk', 842, 1100, 'Bhoomie smiling as she presents her talk, Letters That Talk'), cap: 'Nice to meet you ♡', date: '23 Nov 2026' },
     { img: im('polaroid-tents', 1450, 846, 'Tents under a starry night sky'), cap: 'I like to capture things.', date: '3 Oct 2025' },
     { img: im('polaroid-cat', 953, 1280, 'A cat sitting by a wall'), cap: 'I like cats a lot :)', date: '12 Jul 2024' },
     { img: im('polaroid-selfie', 443, 575, 'Selfie of Bhoomie'), cap: 'It’s me, hi ♡', date: '12 Mar 2026' },
